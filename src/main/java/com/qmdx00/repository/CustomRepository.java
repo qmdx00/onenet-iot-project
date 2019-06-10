@@ -1,6 +1,6 @@
 package com.qmdx00.repository;
 
-import com.qmdx00.entity.Custom;
+import com.qmdx00.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  * @description 客户持久化
  */
 @Repository
-public interface CustomRepository extends JpaRepository<Custom, String> {
+public interface CustomRepository extends JpaRepository<Customer, String> {
 }
