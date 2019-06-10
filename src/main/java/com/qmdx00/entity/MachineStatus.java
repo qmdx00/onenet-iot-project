@@ -11,24 +11,18 @@ import javax.persistence.Table;
 
 /**
  * @author yuanweimin
- * @date 19/06/10 11:11
- * @description 工人实体类
+ * @date 19/06/10 16:26
+ * @description 机器设备状态实体
  */
 @Entity
-@Table(name = "t_worker")
+@Table(name = "t_machine_status")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Worker {
+public class MachineStatus {
     @Id
-    private String worker_id;
-    // 姓名
-    private String name;
-    // 手机号
-    private String phone;
-    // 所属部门
-    private String department;
-    // 职位
-    private String post;
+    private String machine_id;
+    private Double temperature;
+    private Double speed;
 }

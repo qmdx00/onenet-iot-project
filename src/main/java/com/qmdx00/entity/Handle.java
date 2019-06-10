@@ -8,27 +8,24 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * @author yuanweimin
- * @date 19/06/10 11:11
- * @description 工人实体类
+ * @date 19/06/10 16:28
+ * @description 订单处理记录实体
  */
 @Entity
-@Table(name = "t_worker")
+@Table(name = "t_order_handle")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Worker {
+public class Handle {
     @Id
-    private String worker_id;
-    // 姓名
-    private String name;
-    // 手机号
-    private String phone;
-    // 所属部门
-    private String department;
-    // 职位
-    private String post;
+    private String handle_id;
+    private String admin_id;
+    private String record_id;
+    private Date handle_time;
+    private String handle_result;
 }

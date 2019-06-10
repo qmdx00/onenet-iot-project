@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * @author yuanweimin
@@ -21,6 +22,15 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Customer {
+    // 编号
     @Id
     private String customer_id;
+    // 姓名
+    private String name;
+    // 手机号
+    private String phone;
+    // 邮箱
+    private String email;
+    // 注册时间
+    private Date create_time;
 }
