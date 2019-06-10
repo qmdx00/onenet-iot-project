@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -20,5 +21,6 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Worker {
+    @Id
     private String worker_id;
 }
