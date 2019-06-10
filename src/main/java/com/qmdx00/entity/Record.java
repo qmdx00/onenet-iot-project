@@ -22,10 +22,15 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Record {
+    // 操作记录编号
     @Id
     private String record_id;
+    // 操作的机器编号
     private String machine_id;
+    // 操作员工的编号
     private String worker_id;
+    // 开始时间
     private Date start_time;
+    // 结束时间
     private Date end_time;
 }

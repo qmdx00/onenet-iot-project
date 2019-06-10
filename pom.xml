@@ -19,6 +19,7 @@
     <properties>
         <lombok.version>1.18.6</lombok.version>
         <java-jwt.version>3.8.0</java-jwt.version>
+        <mysql-connector.version>8.0.15</mysql-connector.version>
     </properties>
 
     <dependencies>
@@ -53,6 +54,11 @@
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
             <version>${java-jwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector.version}</version>
         </dependency>
     </dependencies>
 

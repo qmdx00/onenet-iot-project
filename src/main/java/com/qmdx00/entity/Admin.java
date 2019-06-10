@@ -21,9 +21,13 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Admin {
+    // 管理员编号
     @Id
     private String admin_id;
+    // 姓名
     private String name;
+    // 手机号
     private String phone;
+    // 邮箱
     private String email;
 }

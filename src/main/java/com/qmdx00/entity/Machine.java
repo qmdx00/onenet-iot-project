@@ -22,10 +22,15 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Machine {
+    // 机器编号
     @Id
     private String machine_id;
+    // 机器名称
     private String name;
-    private String describe;
+    // 描述
+    private String machine_desc;
+    // 类型
     private String type;
-    private Date buy_date;
+    // 购买日期
+    private Date buy_time;
 }

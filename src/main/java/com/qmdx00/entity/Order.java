@@ -30,12 +30,12 @@ public class Order {
     // 采购数量
     private Integer number;
     // 产品直径 (mm)
-    @Column(name = "diameter", columnDefinition = "double(10,1) default '0.0'")
-    private Float diameter;
+    @Column(name = "diameter", columnDefinition = "double(10,1) default 0.0")
+    private Double diameter;
     // 产品长度 (m)
-    @Column(name = "length", columnDefinition = "double(10,1) default '0.0'")
-    private Float length;
+    @Column(name = "length", columnDefinition = "double(10,1) default 0.0")
+    private Double length;
     // 产品重量 (kg)
-    @Column(name = "weight", columnDefinition = "double(10,1) default '0.0'")
-    private Float weight;
+    @Column(name = "weight", columnDefinition = "double(10,1) default 0.0")
+    private Double weight;
 }

@@ -21,6 +21,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Worker {
+    // 工人编号
     @Id
     private String worker_id;
     // 姓名

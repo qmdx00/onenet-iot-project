@@ -22,10 +22,15 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Handle {
+    // 处理记录编号
     @Id
     private String handle_id;
+    // 处理的管理员的编号
     private String admin_id;
-    private String record_id;
+    // 处理的订单编号
+    private String order_id;
+    // 处理时间
     private Date handle_time;
+    // 处理结果
     private String handle_result;
 }

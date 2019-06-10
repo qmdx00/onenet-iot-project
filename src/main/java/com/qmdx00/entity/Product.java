@@ -22,9 +22,13 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
+    // 产品编号
     @Id
     private String product_id;
+    // 产品类型
     private String type;
+    // 出产日期
     private Date create_time;
+    // 生产工人编号
     private String worker_id;
 }

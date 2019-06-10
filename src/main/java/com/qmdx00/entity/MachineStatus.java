@@ -21,8 +21,11 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MachineStatus {
+    // 机器编号
     @Id
     private String machine_id;
+    // 温度
     private Double temperature;
+    // 转速
     private Double speed;
 }
