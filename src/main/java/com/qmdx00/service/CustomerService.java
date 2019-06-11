@@ -10,6 +10,7 @@ import com.qmdx00.entity.Customer;
 public interface CustomerService {
     /**
      * 通过 id 查找客户信息
+     *
      * @param id 客户id
      * @return Customer
      */
@@ -17,6 +18,7 @@ public interface CustomerService {
 
     /**
      * 新增客户信息
+     *
      * @param customer 客户
      * @return Customer
      */

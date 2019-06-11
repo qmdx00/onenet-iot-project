@@ -13,6 +13,7 @@ import java.util.Optional;
  */
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, String> {
+
     /**
      * 通过顾客 ID 查找顾客
      *

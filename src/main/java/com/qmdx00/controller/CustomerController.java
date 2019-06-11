@@ -2,9 +2,14 @@ package com.qmdx00.controller;
 
 import com.qmdx00.entity.Customer;
 import com.qmdx00.service.CustomerService;
+import com.qmdx00.util.ResultUtil;
+import com.qmdx00.util.enums.ResponseStatus;
+import com.qmdx00.util.model.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 /**
  * @author yuanweimin
@@ -24,12 +29,24 @@ public class CustomerController extends BaseController {
     }
 
     @PostMapping
-    public void createCustomer() {
-        customerService.saveCustomer(Customer.builder().build());
+    public Response createCustomer(@RequestParam("id") String id,
+                                   @RequestParam("name") String name,
+                                   @RequestParam("email") String email,
+                                   @RequestParam("phone") String phone) {
+
+        Customer saved = customerService.saveCustomer(Customer.builder()
+                .customerId(id)
+                .name(name)
+                .email(email)
+                .phone(phone)
+                .createTime(new Date())
+                .build());
+        log.info("saved customer: {}", saved);
+        return ResultUtil.returnStatus(ResponseStatus.UPDATE_SUCCESS);
     }
 
     @GetMapping("/{id}")
-    public void getCustomerById(@PathVariable Integer id) {
+    public void getCustomerById(@PathVariable String id) {
         log.info("{}", id);
     }
 
