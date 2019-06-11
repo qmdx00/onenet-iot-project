@@ -25,7 +25,7 @@ import java.io.Serializable;
 public class ProductData implements Serializable {
     // 产品编号
     @Id
-    private String product_id;
+    private String productId;
     // 产品直径 (mm)
     @Column(name = "diameter", columnDefinition = "double(10,1) default 0.0")
     private Double diameter;

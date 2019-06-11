@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/api/customer")
-public class CustomController extends BaseController {
+public class CustomerController extends BaseController {
 
     private final CustomerService customerService;
 
     @Autowired
-    public CustomController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
@@ -29,7 +29,7 @@ public class CustomController extends BaseController {
     }
 
     @GetMapping("/{id}")
-    public void getCustomerById(@PathVariable String id) {
+    public void getCustomerById(@PathVariable Integer id) {
         log.info("{}", id);
     }
 

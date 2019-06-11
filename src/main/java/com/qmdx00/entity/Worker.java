@@ -24,7 +24,7 @@ import java.io.Serializable;
 public class Worker implements Serializable {
     // 工人编号
     @Id
-    private String worker_id;
+    private String workerId;
     // 姓名
     private String name;
     // 手机号

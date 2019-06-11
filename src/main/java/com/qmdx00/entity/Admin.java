@@ -24,7 +24,7 @@ import java.io.Serializable;
 public class Admin implements Serializable {
     // 管理员编号
     @Id
-    private String admin_id;
+    private String adminId;
     // 姓名
     private String name;
     // 手机号

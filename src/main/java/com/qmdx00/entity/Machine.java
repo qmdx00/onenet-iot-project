@@ -25,13 +25,13 @@ import java.util.Date;
 public class Machine implements Serializable {
     // 机器编号
     @Id
-    private String machine_id;
+    private String machineId;
     // 机器名称
     private String name;
     // 描述
-    private String machine_desc;
+    private String machineDesc;
     // 类型
     private String type;
     // 购买日期
-    private Date buy_time;
+    private Date buyTime;
 }

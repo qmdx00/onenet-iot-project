@@ -25,9 +25,9 @@ import java.io.Serializable;
 public class Order implements Serializable {
     // 订单编号
     @Id
-    private String order_id;
+    private String orderId;
     // 产品编号
-    private String product_id;
+    private String productId;
     // 采购数量
     private Integer number;
     // 产品直径 (mm)

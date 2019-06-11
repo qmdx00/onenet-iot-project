@@ -25,13 +25,13 @@ import java.util.Date;
 public class Handle implements Serializable {
     // 处理记录编号
     @Id
-    private String handle_id;
+    private String handleId;
     // 处理的管理员的编号
-    private String admin_id;
+    private String adminId;
     // 处理的订单编号
-    private String order_id;
+    private String orderId;
     // 处理时间
-    private Date handle_time;
+    private Date handleTime;
     // 处理结果
-    private String handle_result;
+    private String handleResult;
 }

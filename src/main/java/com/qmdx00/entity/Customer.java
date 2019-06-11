@@ -25,7 +25,7 @@ import java.util.Date;
 public class Customer implements Serializable {
     // 编号
     @Id
-    private String customer_id;
+    private String customerId;
     // 姓名
     private String name;
     // 手机号
@@ -33,5 +33,5 @@ public class Customer implements Serializable {
     // 邮箱
     private String email;
     // 注册时间
-    private Date create_time;
+    private Date createTime;
 }

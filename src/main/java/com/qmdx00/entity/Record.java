@@ -25,13 +25,13 @@ import java.util.Date;
 public class Record implements Serializable {
     // 操作记录编号
     @Id
-    private String record_id;
+    private String recordId;
     // 操作的机器编号
-    private String machine_id;
+    private String machineId;
     // 操作员工的编号
-    private String worker_id;
+    private String workerId;
     // 开始时间
-    private Date start_time;
+    private Date startTime;
     // 结束时间
-    private Date end_time;
+    private Date endTime;
 }

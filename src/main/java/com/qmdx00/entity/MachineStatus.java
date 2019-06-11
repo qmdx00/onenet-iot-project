@@ -24,7 +24,7 @@ import java.io.Serializable;
 public class MachineStatus implements Serializable {
     // 机器编号
     @Id
-    private String machine_id;
+    private String machineId;
     // 温度
     private Double temperature;
     // 转速

@@ -25,11 +25,11 @@ import java.util.Date;
 public class Product implements Serializable {
     // 产品编号
     @Id
-    private String product_id;
+    private String productId;
     // 产品类型
     private String type;
     // 出产日期
-    private Date create_time;
+    private Date createTime;
     // 生产工人编号
-    private String worker_id;
+    private String workerId;
 }

@@ -13,5 +13,11 @@ import java.util.Optional;
  */
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, String> {
-    Optional<Customer> findCustomerByCustomer_id(String id);
+    /**
+     * 通过顾客 ID 查找顾客
+     *
+     * @param customer_id 顾客 ID
+     * @return Optional<Customer>
+     */
+    Optional<Customer> findByCustomerId(String customer_id);
 }

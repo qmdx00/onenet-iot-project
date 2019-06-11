@@ -5,6 +5,7 @@ import com.qmdx00.repository.CustomerRepository;
 import com.qmdx00.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -18,11 +19,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer findCustomerById(String id) {
-        return repository.findCustomerByCustomer_id(id)
+        return repository.findByCustomerId(id)
                 .orElse(null);
     }
 
     @Override
+    @Transactional
     public Customer saveCustomer(Customer customer) {
         return repository.save(customer);
     }
