@@ -1,13 +1,12 @@
 package com.qmdx00.entity;
 
+import com.qmdx00.util.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author yuanweimin
@@ -29,5 +28,6 @@ public class Account {
     // 密码
     private String password;
     // 角色
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

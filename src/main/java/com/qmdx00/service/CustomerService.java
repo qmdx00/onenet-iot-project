@@ -1,6 +1,8 @@
 package com.qmdx00.service;
 
+import com.qmdx00.entity.Account;
 import com.qmdx00.entity.Customer;
+import com.qmdx00.util.enums.ResponseStatus;
 
 /**
  * @author yuanweimin
@@ -18,9 +20,9 @@ public interface CustomerService {
 
     /**
      * 新增客户信息
-     *
      * @param customer 客户
-     * @return Customer
+     * @param account 账号
+     * @return ResponseStatus
      */
-    Customer saveCustomer(Customer customer);
+    ResponseStatus saveCustomer(Customer customer, Account account);
 }

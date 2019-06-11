@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseData<T> implements Response<T> {
+public class ResponseData<T> implements Response {
     private Integer code;
     private String msg;
     private T data;

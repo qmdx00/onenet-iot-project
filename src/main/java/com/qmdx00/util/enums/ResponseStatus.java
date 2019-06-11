@@ -7,6 +7,7 @@ public enum ResponseStatus {
      */
     SUCCESS(200, "请求成功"),
     UPDATE_SUCCESS(201, "创建，修改成功"),
+    UPDATE_FAILED(301, "创建，修改失败"),
     DELETE_SUCCESS(204, "删除成功"),
     PARAMS_ERROR(400, "参数错误"),
     NOT_LOGIN(401, "未登录"),
