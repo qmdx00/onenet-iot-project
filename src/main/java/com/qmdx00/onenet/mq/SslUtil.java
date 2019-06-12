@@ -18,7 +18,7 @@ import java.security.cert.X509Certificate;
  * @date 19/06/12 17:07
  * @description 证书加载类
  */
-@SuppressWarnings("unused")
+@SuppressWarnings("ALL")
 public class SslUtil {
 
     public static SSLSocketFactory getSocketFactory(final InputStream caCrtFile) throws NoSuchAlgorithmException,

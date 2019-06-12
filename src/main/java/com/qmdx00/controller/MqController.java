@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/mq")
 public class MqController extends BaseController {
+
     private final MqClient client;
 
     @Autowired
@@ -18,6 +19,8 @@ public class MqController extends BaseController {
 
     @GetMapping("/sub")
     public void subscribe() {
+        client.setTopic("test-topic");
+        client.setSub("demo");
         client.connect();
     }
 }

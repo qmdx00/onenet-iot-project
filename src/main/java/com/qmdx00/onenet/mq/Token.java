@@ -13,8 +13,9 @@ import java.util.Base64;
  * @date 19/06/12 17:06
  * @description Token生成工具类
  */
+@SuppressWarnings("ALL")
 public class Token {
-    public static String assembleToken(String version,
+    static String assembleToken(String version,
                                        String resourceName,
                                        String expirationTime,
                                        String signatureMethod,
@@ -40,7 +41,7 @@ public class Token {
         return sb.toString();
     }
 
-    public static String generatorSignature(String version,
+    static String generatorSignature(String version,
                                             String resourceName,
                                             String expirationTime,
                                             String accessKey,
@@ -53,7 +54,7 @@ public class Token {
         return signature;
     }
 
-    public static byte[] HmacEncrypt(String data, String key, String signatureMethod)
+    static byte[] HmacEncrypt(String data, String key, String signatureMethod)
             throws NoSuchAlgorithmException, InvalidKeyException {
         SecretKeySpec signinKey = null;
         signinKey = new SecretKeySpec(Base64.getDecoder().decode(key),
