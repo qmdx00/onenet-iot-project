@@ -7,6 +7,7 @@ import com.qmdx00.repository.CustomerRepository;
 import com.qmdx00.service.CustomerService;
 import com.qmdx00.util.enums.ResponseStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,11 +46,15 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public Integer updateCustomer(String id, String name, String phone, String email) {
-        return customerRepository.updateCustomerById(id, name, email, phone, new Date());
+        return customerRepository.updateCustomerById(id, name, phone, email, new Date());
     }
 
     @Override
+    @Modifying
+    @Transactional
     public Integer deleteCustomer(String id) {
-        return customerRepository.deleteCustomerByCustomerId(id);
+        Integer acc = accountRepository.deleteAccountById(id);
+        Integer cus = customerRepository.deleteCustomerByCustomerId(id);
+        return acc + cus;
     }
 }

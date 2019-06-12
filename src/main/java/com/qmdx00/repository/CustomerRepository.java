@@ -36,7 +36,7 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
      * @return Integer
      */
     @Modifying
-    @Query(value = "update t_customer as c set c.name = ?2, c.phone = ?3, c.email = ?4, c.update_time = ?5", nativeQuery = true)
+    @Query(value = "update t_customer as c set c.name = ?2, c.phone = ?3, c.email = ?4, c.update_time = ?5 where c.customer_id = ?1", nativeQuery = true)
     Integer updateCustomerById(String id, String name, String phone, String email, Date updateTime);
 
     /**

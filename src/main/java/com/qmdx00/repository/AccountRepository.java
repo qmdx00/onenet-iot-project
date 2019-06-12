@@ -30,4 +30,12 @@ public interface AccountRepository extends JpaRepository<Account, String> {
      * @return Optional<Account>
      */
     Optional<Account> findByNameAndPassword(String name, String password);
+
+    /**
+     * 通过账号 ID 删除账号
+     *
+     * @param id 账号 ID
+     * @return Integer
+     */
+    Integer deleteAccountById(String id);
 }

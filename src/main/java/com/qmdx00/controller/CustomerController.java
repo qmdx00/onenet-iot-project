@@ -3,10 +3,7 @@ package com.qmdx00.controller;
 import com.qmdx00.entity.Account;
 import com.qmdx00.entity.Customer;
 import com.qmdx00.service.CustomerService;
-import com.qmdx00.util.EncryptionUtil;
-import com.qmdx00.util.ResultUtil;
-import com.qmdx00.util.UUIDUtil;
-import com.qmdx00.util.VerifyUtil;
+import com.qmdx00.util.*;
 import com.qmdx00.util.enums.ResponseStatus;
 import com.qmdx00.util.enums.Role;
 import com.qmdx00.util.model.Response;
@@ -69,7 +66,7 @@ public class CustomerController extends BaseController {
                     .role(Role.USER)
                     .build();
             log.info("saved customer: {}, saved account: {}", customer, account);
-            return ResultUtil.returnStatus(customerService.saveCustomer(customer, account));
+            return ResultUtil.returnStatusAndData(customerService.saveCustomer(customer, account), id);
         }
     }
 
@@ -113,7 +110,7 @@ public class CustomerController extends BaseController {
                 return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
             } else {
                 return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
-                        customerService.updateCustomer(id, name, phone, email));
+                        MapUtil.create("row", customerService.updateCustomer(id, name, phone, email) + ""));
             }
         }
 
@@ -129,6 +126,6 @@ public class CustomerController extends BaseController {
     public Response deleteCustomerById(@PathVariable String id) {
         Integer row = customerService.deleteCustomer(id);
         log.info("delete customer: {}", row);
-        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, row);
+        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, MapUtil.create("row", row + ""));
     }
 }
