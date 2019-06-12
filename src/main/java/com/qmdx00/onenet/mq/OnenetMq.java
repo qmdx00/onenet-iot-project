@@ -3,593 +3,644 @@
 
 package com.qmdx00.onenet.mq;
 
+/**
+ * @author yuanweimin
+ * @date 19/06/12 13:56
+ * @description protobuf 生成的代码，不要动！！！
+ */
 public final class OnenetMq {
-  private OnenetMq() {}
-  public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistryLite registry) {
-  }
-
-  public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
-    registerAllExtensions(
-        (com.google.protobuf.ExtensionRegistryLite) registry);
-  }
-  public interface MsgOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.qmdx00.onenet.mq.Msg)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>uint64 msgid = 1;</code>
-     */
-    long getMsgid();
-
-    /**
-     * <code>bytes data = 2;</code>
-     */
-    com.google.protobuf.ByteString getData();
-  }
-  /**
-   * Protobuf type {@code com.qmdx00.onenet.mq.Msg}
-   */
-  public  static final class Msg extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.qmdx00.onenet.mq.Msg)
-      MsgOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use Msg.newBuilder() to construct.
-    private Msg(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private Msg() {
-      data_ = com.google.protobuf.ByteString.EMPTY;
+    private OnenetMq() {
     }
 
-    @Override
-    @SuppressWarnings({"unused"})
-    protected Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new Msg();
+    public static void registerAllExtensions(
+            com.google.protobuf.ExtensionRegistryLite registry) {
     }
 
-    @Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private Msg(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 8: {
-
-              msgid_ = input.readUInt64();
-              break;
-            }
-            case 18: {
-
-              data_ = input.readBytes();
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return OnenetMq.internal_static_com_qmdx00_onenet_mq_Msg_descriptor;
+    public static void registerAllExtensions(
+            com.google.protobuf.ExtensionRegistry registry) {
+        registerAllExtensions(
+                (com.google.protobuf.ExtensionRegistryLite) registry);
     }
 
-    @Override
-    protected FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return OnenetMq.internal_static_com_qmdx00_onenet_mq_Msg_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              Msg.class, Builder.class);
+    public interface MsgOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:com.qmdx00.onenet.mq.Msg)
+            com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <code>uint64 msgid = 1;</code>
+         */
+        long getMsgid();
+
+        /**
+         * <code>bytes data = 2;</code>
+         */
+        com.google.protobuf.ByteString getData();
     }
 
-    public static final int MSGID_FIELD_NUMBER = 1;
-    private long msgid_;
-    /**
-     * <code>uint64 msgid = 1;</code>
-     */
-    public long getMsgid() {
-      return msgid_;
-    }
-
-    public static final int DATA_FIELD_NUMBER = 2;
-    private com.google.protobuf.ByteString data_;
-    /**
-     * <code>bytes data = 2;</code>
-     */
-    public com.google.protobuf.ByteString getData() {
-      return data_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (msgid_ != 0L) {
-        output.writeUInt64(1, msgid_);
-      }
-      if (!data_.isEmpty()) {
-        output.writeBytes(2, data_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (msgid_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(1, msgid_);
-      }
-      if (!data_.isEmpty()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, data_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof Msg)) {
-        return super.equals(obj);
-      }
-      Msg other = (Msg) obj;
-
-      if (getMsgid()
-          != other.getMsgid()) return false;
-      if (!getData()
-          .equals(other.getData())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + MSGID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getMsgid());
-      hash = (37 * hash) + DATA_FIELD_NUMBER;
-      hash = (53 * hash) + getData().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static Msg parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static Msg parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static Msg parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static Msg parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static Msg parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static Msg parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static Msg parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static Msg parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static Msg parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static Msg parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static Msg parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static Msg parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(Msg prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @Override
-    protected Builder newBuilderForType(
-        BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     /**
      * Protobuf type {@code com.qmdx00.onenet.mq.Msg}
      */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.qmdx00.onenet.mq.Msg)
-        MsgOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return OnenetMq.internal_static_com_qmdx00_onenet_mq_Msg_descriptor;
-      }
+    public static final class Msg extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:com.qmdx00.onenet.mq.Msg)
+            MsgOrBuilder {
+        private static final long serialVersionUID = 0L;
 
-      @Override
-      protected FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return OnenetMq.internal_static_com_qmdx00_onenet_mq_Msg_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                Msg.class, Builder.class);
-      }
-
-      // Construct using com.qmdx00.onenet.mq.OnenetMq.Msg.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        // Use Msg.newBuilder() to construct.
+        private Msg(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
         }
-      }
-      @Override
-      public Builder clear() {
-        super.clear();
-        msgid_ = 0L;
 
-        data_ = com.google.protobuf.ByteString.EMPTY;
-
-        return this;
-      }
-
-      @Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return OnenetMq.internal_static_com_qmdx00_onenet_mq_Msg_descriptor;
-      }
-
-      @Override
-      public Msg getDefaultInstanceForType() {
-        return Msg.getDefaultInstance();
-      }
-
-      @Override
-      public Msg build() {
-        Msg result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+        private Msg() {
+            data_ = com.google.protobuf.ByteString.EMPTY;
         }
-        return result;
-      }
 
-      @Override
-      public Msg buildPartial() {
-        Msg result = new Msg(this);
-        result.msgid_ = msgid_;
-        result.data_ = data_;
-        onBuilt();
-        return result;
-      }
-
-      @Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return super.setField(field, value);
-      }
-      @Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof Msg) {
-          return mergeFrom((Msg)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
+        @Override
+        @SuppressWarnings({"unused"})
+        protected Object newInstance(
+                UnusedPrivateParameter unused) {
+            return new Msg();
         }
-      }
 
-      public Builder mergeFrom(Msg other) {
-        if (other == Msg.getDefaultInstance()) return this;
-        if (other.getMsgid() != 0L) {
-          setMsgid(other.getMsgid());
+        @Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
         }
-        if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
-          setData(other.getData());
+
+        private Msg(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new NullPointerException();
+            }
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        case 8: {
+
+                            msgid_ = input.readUInt64();
+                            break;
+                        }
+                        case 18: {
+
+                            data_ = input.readBytes();
+                            break;
+                        }
+                        default: {
+                            if (!parseUnknownField(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
         }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
 
-      @Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Msg parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (Msg) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return OnenetMq.internal_static_com_qmdx00_onenet_mq_Msg_descriptor;
         }
-        return this;
-      }
 
-      private long msgid_ ;
-      /**
-       * <code>uint64 msgid = 1;</code>
-       */
-      public long getMsgid() {
-        return msgid_;
-      }
-      /**
-       * <code>uint64 msgid = 1;</code>
-       */
-      public Builder setMsgid(long value) {
-        
-        msgid_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint64 msgid = 1;</code>
-       */
-      public Builder clearMsgid() {
-        
-        msgid_ = 0L;
-        onChanged();
-        return this;
-      }
+        @Override
+        protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return OnenetMq.internal_static_com_qmdx00_onenet_mq_Msg_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            Msg.class, Builder.class);
+        }
 
-      private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>bytes data = 2;</code>
-       */
-      public com.google.protobuf.ByteString getData() {
-        return data_;
-      }
-      /**
-       * <code>bytes data = 2;</code>
-       */
-      public Builder setData(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        data_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bytes data = 2;</code>
-       */
-      public Builder clearData() {
-        
-        data_ = getDefaultInstance().getData();
-        onChanged();
-        return this;
-      }
-      @Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
+        public static final int MSGID_FIELD_NUMBER = 1;
+        private long msgid_;
 
-      @Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
+        /**
+         * <code>uint64 msgid = 1;</code>
+         */
+        public long getMsgid() {
+            return msgid_;
+        }
+
+        public static final int DATA_FIELD_NUMBER = 2;
+        private com.google.protobuf.ByteString data_;
+
+        /**
+         * <code>bytes data = 2;</code>
+         */
+        public com.google.protobuf.ByteString getData() {
+            return data_;
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        @Override
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        @Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (msgid_ != 0L) {
+                output.writeUInt64(1, msgid_);
+            }
+            if (!data_.isEmpty()) {
+                output.writeBytes(2, data_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        @Override
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (msgid_ != 0L) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeUInt64Size(1, msgid_);
+            }
+            if (!data_.isEmpty()) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeBytesSize(2, data_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof Msg)) {
+                return super.equals(obj);
+            }
+            Msg other = (Msg) obj;
+
+            if (getMsgid()
+                    != other.getMsgid()) return false;
+            if (!getData()
+                    .equals(other.getData())) return false;
+            if (!unknownFields.equals(other.unknownFields)) return false;
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + MSGID_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                    getMsgid());
+            hash = (37 * hash) + DATA_FIELD_NUMBER;
+            hash = (53 * hash) + getData().hashCode();
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static Msg parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static Msg parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static Msg parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static Msg parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static Msg parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static Msg parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static Msg parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static Msg parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static Msg parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static Msg parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static Msg parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static Msg parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        @Override
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(Msg prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        @Override
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @Override
+        protected Builder newBuilderForType(
+                BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * Protobuf type {@code com.qmdx00.onenet.mq.Msg}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:com.qmdx00.onenet.mq.Msg)
+                MsgOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return OnenetMq.internal_static_com_qmdx00_onenet_mq_Msg_descriptor;
+            }
+
+            @Override
+            protected FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return OnenetMq.internal_static_com_qmdx00_onenet_mq_Msg_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                Msg.class, Builder.class);
+            }
+
+            // Construct using com.qmdx00.onenet.mq.OnenetMq.Msg.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            @Override
+            public Builder clear() {
+                super.clear();
+                msgid_ = 0L;
+
+                data_ = com.google.protobuf.ByteString.EMPTY;
+
+                return this;
+            }
+
+            @Override
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return OnenetMq.internal_static_com_qmdx00_onenet_mq_Msg_descriptor;
+            }
+
+            @Override
+            public Msg getDefaultInstanceForType() {
+                return Msg.getDefaultInstance();
+            }
+
+            @Override
+            public Msg build() {
+                Msg result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            @Override
+            public Msg buildPartial() {
+                Msg result = new Msg(this);
+                result.msgid_ = msgid_;
+                result.data_ = data_;
+                onBuilt();
+                return result;
+            }
+
+            @Override
+            public Builder clone() {
+                return super.clone();
+            }
+
+            @Override
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    Object value) {
+                return super.setField(field, value);
+            }
+
+            @Override
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return super.clearField(field);
+            }
+
+            @Override
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return super.clearOneof(oneof);
+            }
+
+            @Override
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, Object value) {
+                return super.setRepeatedField(field, index, value);
+            }
+
+            @Override
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    Object value) {
+                return super.addRepeatedField(field, value);
+            }
+
+            @Override
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof Msg) {
+                    return mergeFrom((Msg) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(Msg other) {
+                if (other == Msg.getDefaultInstance()) return this;
+                if (other.getMsgid() != 0L) {
+                    setMsgid(other.getMsgid());
+                }
+                if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
+                    setData(other.getData());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            @Override
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            @Override
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                Msg parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (Msg) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private long msgid_;
+
+            /**
+             * <code>uint64 msgid = 1;</code>
+             */
+            public long getMsgid() {
+                return msgid_;
+            }
+
+            /**
+             * <code>uint64 msgid = 1;</code>
+             */
+            public Builder setMsgid(long value) {
+
+                msgid_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>uint64 msgid = 1;</code>
+             */
+            public Builder clearMsgid() {
+
+                msgid_ = 0L;
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
+
+            /**
+             * <code>bytes data = 2;</code>
+             */
+            public com.google.protobuf.ByteString getData() {
+                return data_;
+            }
+
+            /**
+             * <code>bytes data = 2;</code>
+             */
+            public Builder setData(com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                data_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>bytes data = 2;</code>
+             */
+            public Builder clearData() {
+
+                data_ = getDefaultInstance().getData();
+                onChanged();
+                return this;
+            }
+
+            @Override
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFields(unknownFields);
+            }
+
+            @Override
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
 
 
-      // @@protoc_insertion_point(builder_scope:com.qmdx00.onenet.mq.Msg)
+            // @@protoc_insertion_point(builder_scope:com.qmdx00.onenet.mq.Msg)
+        }
+
+        // @@protoc_insertion_point(class_scope:com.qmdx00.onenet.mq.Msg)
+        private static final Msg DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new Msg();
+        }
+
+        public static Msg getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<Msg>
+                PARSER = new com.google.protobuf.AbstractParser<Msg>() {
+            @Override
+            public Msg parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new Msg(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<Msg> parser() {
+            return PARSER;
+        }
+
+        @Override
+        public com.google.protobuf.Parser<Msg> getParserForType() {
+            return PARSER;
+        }
+
+        @Override
+        public Msg getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
     }
 
-    // @@protoc_insertion_point(class_scope:com.qmdx00.onenet.mq.Msg)
-    private static final Msg DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new Msg();
-    }
-
-    public static Msg getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<Msg>
-        PARSER = new com.google.protobuf.AbstractParser<Msg>() {
-      @Override
-      public Msg parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Msg(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<Msg> parser() {
-      return PARSER;
-    }
-
-    @Override
-    public com.google.protobuf.Parser<Msg> getParserForType() {
-      return PARSER;
-    }
-
-    @Override
-    public Msg getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_qmdx00_onenet_mq_Msg_descriptor;
-  private static final 
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_com_qmdx00_onenet_mq_Msg_descriptor;
+    private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_qmdx00_onenet_mq_Msg_fieldAccessorTable;
+            internal_static_com_qmdx00_onenet_mq_Msg_fieldAccessorTable;
 
-  public static com.google.protobuf.Descriptors.FileDescriptor
-      getDescriptor() {
-    return descriptor;
-  }
-  private static  com.google.protobuf.Descriptors.FileDescriptor
-      descriptor;
-  static {
-    String[] descriptorData = {
-      "\n\017onenet-mq.proto\022\024com.qmdx00.onenet.mq\"" +
-      "\"\n\003Msg\022\r\n\005msgid\030\001 \001(\004\022\014\n\004data\030\002 \001(\014b\006pro" +
-      "to3"
-    };
-    descriptor = com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
-        new com.google.protobuf.Descriptors.FileDescriptor[] {
-        });
-    internal_static_com_qmdx00_onenet_mq_Msg_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_com_qmdx00_onenet_mq_Msg_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_qmdx00_onenet_mq_Msg_descriptor,
-        new String[] { "Msgid", "Data", });
-  }
+    public static com.google.protobuf.Descriptors.FileDescriptor
+    getDescriptor() {
+        return descriptor;
+    }
 
-  // @@protoc_insertion_point(outer_class_scope)
+    private static com.google.protobuf.Descriptors.FileDescriptor
+            descriptor;
+
+    static {
+        String[] descriptorData = {
+                "\n\017onenet-mq.proto\022\024com.qmdx00.onenet.mq\"" +
+                        "\"\n\003Msg\022\r\n\005msgid\030\001 \001(\004\022\014\n\004data\030\002 \001(\014b\006pro" +
+                        "to3"
+        };
+        descriptor = com.google.protobuf.Descriptors.FileDescriptor
+                .internalBuildGeneratedFileFrom(descriptorData,
+                        new com.google.protobuf.Descriptors.FileDescriptor[]{
+                        });
+        internal_static_com_qmdx00_onenet_mq_Msg_descriptor =
+                getDescriptor().getMessageTypes().get(0);
+        internal_static_com_qmdx00_onenet_mq_Msg_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_com_qmdx00_onenet_mq_Msg_descriptor,
+                new String[]{"Msgid", "Data",});
+    }
+
+    // @@protoc_insertion_point(outer_class_scope)
 }
