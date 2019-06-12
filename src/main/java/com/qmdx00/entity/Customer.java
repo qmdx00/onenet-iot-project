@@ -34,4 +34,6 @@ public class Customer implements Serializable {
     private String email;
     // 注册时间
     private Date createTime;
+    // 修改时间
+    private Date updateTime;
 }

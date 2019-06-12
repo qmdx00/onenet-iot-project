@@ -33,6 +33,15 @@ public class CustomerController extends BaseController {
         this.customerService = customerService;
     }
 
+    /**
+     * 客户注册
+     *
+     * @param name     用户名
+     * @param password 密码
+     * @param email    邮箱
+     * @param phone    电话
+     * @return Response
+     */
     @PostMapping
     public Response createCustomer(@RequestParam("name") String name,
                                    @RequestParam("password") String password,
@@ -50,6 +59,7 @@ public class CustomerController extends BaseController {
                     .phone(phone)
                     .email(email)
                     .createTime(new Date())
+                    .updateTime(new Date())
                     .build();
             // 构建账户实体
             Account account = Account.builder()
@@ -63,18 +73,62 @@ public class CustomerController extends BaseController {
         }
     }
 
+    /**
+     * 通过 Id 获取客户信息
+     *
+     * @param id 客户 ID
+     * @return Response
+     */
     @GetMapping("/{id}")
-    public void getCustomerById(@PathVariable String id) {
-        log.info("{}", id);
+    public Response getCustomerById(@PathVariable String id) {
+        Customer customer = customerService.findCustomerById(id);
+        if (customer == null) {
+            return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
+        } else {
+            log.info("find customer: {}", customer);
+            return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, customer);
+        }
     }
 
+    /**
+     * 通过客户 ID 修改客户信息
+     *
+     * @param id    客户 ID
+     * @param name  姓名
+     * @param email 邮箱
+     * @param phone 电话
+     * @return Response
+     */
     @PutMapping("/{id}")
-    public void updateCustomerById(@PathVariable String id) {
+    public Response updateCustomerById(@PathVariable String id,
+                                       @RequestParam("name") String name,
+                                       @RequestParam("phone") String phone,
+                                       @RequestParam("email") String email) {
+
+        if (!VerifyUtil.checkString(name, phone, email)) {
+            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
+        } else {
+            Customer customer = customerService.findCustomerById(id);
+            if (customer == null) {
+                return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
+            } else {
+                return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
+                        customerService.updateCustomer(id, name, phone, email));
+            }
+        }
 
     }
 
+    /**
+     * 通过客户 ID 删除客户信息
+     *
+     * @param id 客户 ID
+     * @return Response
+     */
     @DeleteMapping("/{id}")
-    public void deleteCustomerById(@PathVariable String id) {
-
+    public Response deleteCustomerById(@PathVariable String id) {
+        Integer row = customerService.deleteCustomer(id);
+        log.info("delete customer: {}", row);
+        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, row);
     }
 }

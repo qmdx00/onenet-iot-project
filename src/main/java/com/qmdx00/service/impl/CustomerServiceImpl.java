@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -38,5 +40,16 @@ public class CustomerServiceImpl implements CustomerService {
         } else {
             return ResponseStatus.UPDATE_FAILED;
         }
+    }
+
+    @Override
+    @Transactional
+    public Integer updateCustomer(String id, String name, String phone, String email) {
+        return customerRepository.updateCustomerById(id, name, email, phone, new Date());
+    }
+
+    @Override
+    public Integer deleteCustomer(String id) {
+        return customerRepository.deleteCustomerByCustomerId(id);
     }
 }
