@@ -1,6 +1,7 @@
 package com.qmdx00.onenet.mq;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.qmdx00.handler.MessageHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.IMqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -16,11 +17,13 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 @Slf4j
 public class PushCallback implements MqttCallback {
     private IMqttAsyncClient Client;
+    private MessageHandler handler;
     private MqClient mqClient;
     private int reConnTimes = 0;
 
-    PushCallback(MqClient client) {
-        mqClient = client;
+    PushCallback(MqClient mqClient, MessageHandler handler) {
+        this.mqClient = mqClient;
+        this.handler = handler;
     }
 
     @Override
@@ -44,7 +47,7 @@ public class PushCallback implements MqttCallback {
         byte[] payload = message.getPayload();
         OnenetMq.Msg obj = OnenetMq.Msg.parseFrom(payload);
         log.info("msg id: {}, body: {}", obj.getMsgid(), new String(obj.getData().toByteArray()));
-
+        handler.handle();
     }
 
     @Override

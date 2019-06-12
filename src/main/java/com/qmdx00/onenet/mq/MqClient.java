@@ -1,5 +1,6 @@
 package com.qmdx00.onenet.mq;
 
+import com.qmdx00.handler.MessageHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
@@ -31,6 +32,7 @@ import java.util.Objects;
 @PropertySource("classpath:config/mqClient-config.properties")
 public class MqClient {
     private MqttConnectOptions options = new MqttConnectOptions();
+    private MessageHandler handler;
     private MqttClient client;
     private String subTopic;
     private String topic = "test-topic";
@@ -52,7 +54,6 @@ public class MqClient {
                     client = new MqttClient(serverURI, clientID, new MemoryPersistence());
                 }
             }
-            //获取连接配置
             resetOptions();
             try {
                 client.connect(options);
@@ -60,7 +61,8 @@ public class MqClient {
                 e.printStackTrace();
             }
             subTopic = String.format("$sys/pb/consume/%s/%s/%s", userName, this.topic, this.sub);
-            client.setCallback(new PushCallback(this));
+            client.setCallback(new PushCallback(this, handler));
+
             try {
                 //订阅 topic $sys/pb/consume/$MQ_ID/$TOPIC/$SUB ，QoS必须大于0，否则订阅失败
                 client.subscribe(subTopic, 1);
@@ -93,7 +95,7 @@ public class MqClient {
             e.printStackTrace();
         }
 
-        options.setCleanSession(true); //clean session 必须设置 true
+        options.setCleanSession(true);
         options.setUserName(userName);
         options.setPassword(Objects.requireNonNull(password).toCharArray());
         options.setConnectionTimeout(20);
@@ -118,13 +120,13 @@ public class MqClient {
     boolean reConnect() {
         if (null != client) {
             try {
-                if (!client.isConnected()) { //订阅失败而导致重连是不需要重新连接
+                if (!client.isConnected()) {
                     client.connect(options);
                 }
-                client.subscribe(subTopic, 1);//订阅失败会抛异常
+                client.subscribe(subTopic, 1);
                 log.info("reconnect and sub ok");
                 return true;
-            } catch (Exception e) {//订阅和连接失败都会进到此异常中
+            } catch (Exception e) {
                 log.error("reconnect failed");
                 return false;
             }
@@ -139,5 +141,9 @@ public class MqClient {
 
     public void setSub(String sub) {
         this.sub = sub;
+    }
+
+    public void setHandler(MessageHandler handler) {
+        this.handler = handler;
     }
 }
