@@ -66,7 +66,7 @@ public class CustomerController extends BaseController {
                     .role(Role.USER)
                     .build();
             log.info("saved customer: {}, saved account: {}", customer, account);
-            return ResultUtil.returnStatusAndData(customerService.saveCustomer(customer, account), id);
+            return ResultUtil.returnStatusAndData(customerService.saveCustomer(customer, account), MapUtil.create("id", id));
         }
     }
 
