@@ -1,5 +1,10 @@
 package com.qmdx00.util.enums;
 
+/**
+ * @author yuanweimin
+ * @date 19/06/11 10:56
+ * @description 返回状态
+ */
 @SuppressWarnings("ALL")
 public enum ResponseStatus {
     /**

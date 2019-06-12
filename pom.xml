@@ -22,6 +22,8 @@
         <mysql-connector.version>8.0.15</mysql-connector.version>
 
         <protobuf-java.version>3.8.0</protobuf-java.version>
+        <mqttv3.version>1.2.0</mqttv3.version>
+        <bcprov-jdk15.version>140</bcprov-jdk15.version>
     </properties>
 
     <dependencies>
@@ -67,6 +69,16 @@
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
             <version>${protobuf-java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.paho</groupId>
+            <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+            <version>${mqttv3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>bouncycastle</groupId>
+            <artifactId>bcprov-jdk15</artifactId>
+            <version>${bcprov-jdk15.version}</version>
         </dependency>
     </dependencies>
 

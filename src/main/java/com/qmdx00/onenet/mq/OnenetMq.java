@@ -8,6 +8,7 @@ package com.qmdx00.onenet.mq;
  * @date 19/06/12 13:56
  * @description protobuf 生成的代码，不要动！！！
  */
+@SuppressWarnings("ALL")
 public final class OnenetMq {
     private OnenetMq() {
     }
