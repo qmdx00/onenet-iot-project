@@ -1,4 +1,4 @@
-package com.qmdx00.handler;
+package com.qmdx00.onenet.mq.handler;
 
 import org.springframework.stereotype.Component;
 
@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 public interface MessageHandler {
     /**
      * 处理消息方法
+     *
+     * @param msgId   消息 ID
+     * @param msgBody 消息内容
      */
-    void handle();
+    void handle(long msgId, String msgBody);
 }

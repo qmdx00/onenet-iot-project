@@ -1,6 +1,6 @@
 package com.qmdx00.controller;
 
-import com.qmdx00.handler.ReceiveHandler;
+import com.qmdx00.onenet.mq.handler.ReceiveHandler;
 import com.qmdx00.onenet.mq.MqClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

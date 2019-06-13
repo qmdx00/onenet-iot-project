@@ -1,6 +1,6 @@
 package com.qmdx00.onenet.mq;
 
-import com.qmdx00.handler.MessageHandler;
+import com.qmdx00.onenet.mq.handler.MessageHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
