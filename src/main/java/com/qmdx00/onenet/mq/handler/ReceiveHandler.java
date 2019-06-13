@@ -21,8 +21,7 @@ public class ReceiveHandler implements MessageHandler {
         SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         JSONObject msg = JSON.parseObject(msgBody);
         JSONObject prop = msg.getJSONObject("appProperty");
-        System.out.println(msg.getString("body"));
-        System.out.println(format.format(prop.getString("dataTimestamp")));
+
         log.info("body: {}, time: {}", msg.getString("body"), format.format(prop.getString("dataTimestamp")));
     }
 }

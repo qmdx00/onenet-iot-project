@@ -65,7 +65,7 @@ public class MqClient {
 
             try {
                 //订阅 topic $sys/pb/consume/$MQ_ID/$TOPIC/$SUB ，QoS必须大于0，否则订阅失败
-                client.subscribe(subTopic, 1);
+                client.subscribe(subTopic, 2);
                 log.info("sub success");
                 return true;
             } catch (MqttException e) {
