@@ -8,6 +8,9 @@ import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * @author yuanweimin
  * @date 19/06/12 18:07
@@ -16,6 +19,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 @SuppressWarnings("unused")
 @Slf4j
 public class PushCallback implements MqttCallback {
+    private ExecutorService executor = Executors.newCachedThreadPool();
     private IMqttAsyncClient Client;
     private MessageHandler handler;
     private MqClient mqClient;
@@ -46,7 +50,8 @@ public class PushCallback implements MqttCallback {
     public void messageArrived(String topic, MqttMessage message) throws InvalidProtocolBufferException {
         byte[] payload = message.getPayload();
         OnenetMq.Msg obj = OnenetMq.Msg.parseFrom(payload);
-        handler.handle(obj.getMsgid(), new String(obj.getData().toByteArray()));
+        executor.execute(() -> handler.handle(obj.getMsgid(), new String(obj.getData().toByteArray())));
+
     }
 
     @Override

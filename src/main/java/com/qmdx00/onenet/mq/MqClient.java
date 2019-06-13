@@ -128,6 +128,7 @@ public class MqClient {
                 return true;
             } catch (Exception e) {
                 log.error("reconnect failed");
+                e.printStackTrace();
                 return false;
             }
         } else {
