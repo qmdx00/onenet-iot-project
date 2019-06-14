@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Component;
 
 /**
  * @author yuanweimin
@@ -12,17 +13,25 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
  * @description 消息处理类
  */
 @Slf4j
+@Component
 public class ReceiveHandler implements MessageHandler {
 
+    private final SimpMessagingTemplate template;
+
     @Autowired
-    private SimpMessagingTemplate template;
+    public ReceiveHandler(SimpMessagingTemplate template) {
+        this.template = template;
+    }
 
     @Override
     public synchronized void handle(long msgId, String msgBody) {
-        log.info("msgId: {}, msgBody: {}", msgId, msgBody);
+//        log.info("msgId: {}, msgBody: {}", msgId, msgBody);
         JSONObject msg = JSON.parseObject(msgBody);
         JSONObject prop = msg.getJSONObject("appProperty");
-        log.info("body: {}, timestamp: {}", msg.getString("body"), prop.getString("dataTimestamp"));
-        template.convertAndSend("/topic/msg", msg.getString("body"));
+        String body = msg.getString("body");
+        String time = prop.getString("dataTimestamp");
+        String id = prop.getString("datastream");
+//        log.info("body: {}, timestamp: {}", msg.getString("body"), prop.getString("dataTimestamp"));
+        template.convertAndSend("/topic/msg", "body: " + body + " time: " + time + " id: " + id);
     }
 }

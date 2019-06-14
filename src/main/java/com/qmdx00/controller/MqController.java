@@ -11,18 +11,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/mq")
 public class MqController extends BaseController {
 
+    private final ReceiveHandler handler;
     private final MqClient client;
 
     @Autowired
-    public MqController(MqClient client) {
+    public MqController(MqClient client, ReceiveHandler handler) {
         this.client = client;
+        this.handler = handler;
     }
 
     @GetMapping("/sub")
     public void subscribe() {
         client.setTopic("test-topic");
         client.setSub("demo");
-        client.setHandler(new ReceiveHandler());
+        client.setHandler(handler);
         client.connect();
     }
 }
