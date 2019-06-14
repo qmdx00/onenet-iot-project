@@ -20,4 +20,9 @@ public class AccountServiceImpl implements AccountService {
     public Account findAccountById(String id) {
         return accountRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public Account findAccountByNameAndPassword(String name, String password) {
+        return accountRepository.findByNameAndPassword(name, password).orElse(null);
+    }
 }

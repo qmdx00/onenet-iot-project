@@ -15,4 +15,13 @@ public interface AccountService {
      * @return Account
      */
     Account findAccountById(String id);
+
+    /**
+     * 通过用户名和密码登录
+     *
+     * @param name     用户名
+     * @param password 密码
+     * @return Account
+     */
+    Account findAccountByNameAndPassword(String name, String password);
 }
