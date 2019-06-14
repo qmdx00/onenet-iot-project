@@ -51,7 +51,6 @@ public class PushCallback implements MqttCallback {
         byte[] payload = message.getPayload();
         OnenetMq.Msg obj = OnenetMq.Msg.parseFrom(payload);
         executor.execute(() -> handler.handle(obj.getMsgid(), new String(obj.getData().toByteArray())));
-
     }
 
     @Override
