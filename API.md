@@ -17,12 +17,12 @@ baseURL: http://localhost:8080
 
 ##### 管理员相关
 
-|  方法  | 地址            |        描述        |
-| :----: | --------------- | :----------------: |
-|  GET   | /api/admin/{id} | 获取指定管理员信息 |
-|  POST  | /api/admin      | 创建一个管理员信息 |
-|  PUT   | /api/admin/{id} | 修改指定管理员信息 |
-| DELETE | /api/admin/{id} | 删除指定管理员信息 |
+|  方法  | 地址            |         描述         |
+| :----: | --------------- | :------------------: |
+|  GET   | /api/admin/{id} |  获取指定管理员信息  |
+|  POST  | /api/admin      | 管理员注册并添加信息 |
+|  PUT   | /api/admin/{id} |  修改指定管理员信息  |
+| DELETE | /api/admin/{id} |  删除指定管理员信息  |
 
 ##### 操作记录相关
 
@@ -33,16 +33,22 @@ baseURL: http://localhost:8080
 |  POST  | /api/record      | 创建一条操作记录 |
 | DELETE | /api/record/{id} | 删除指定操作记录 |
 
+##### 账户相关
+
+| 方法 | 地址         |        描述         |
+| :--: | ------------ | :-----------------: |
+| POST | /api/account | 账户登录，返回token |
+
 #### 产品溯源
 
 ##### 客户相关
 
-|  方法  | 地址               |       描述       |
-| :----: | ------------------ | :--------------: |
-|  GET   | /api/customer/{id} | 获取指定客户信息 |
-|  POST  | /api/customer      | 创建一条客户信息 |
-|  PUT   | /api/customer/{id} | 修改指定客户信息 |
-| DELETE | /api/customer/{id} | 删除指定客户信息 |
+|  方法  | 地址               |        描述        |
+| :----: | ------------------ | :----------------: |
+|  GET   | /api/customer/{id} |  获取指定客户信息  |
+|  POST  | /api/customer      | 客户注册并添加信息 |
+|  PUT   | /api/customer/{id} |  修改指定客户信息  |
+| DELETE | /api/customer/{id} |  删除指定客户信息  |
 
 
 
