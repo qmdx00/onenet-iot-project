@@ -27,8 +27,8 @@ public class Order implements Serializable {
     // 订单编号
     @Id
     private String orderId;
-    // 产品编号
-    private String productId;
+    // 可生产产品编号
+    private String producibleId;
     // 客户编号
     private String customerId;
     // 采购数量

@@ -115,23 +115,25 @@ public class OrderController extends BaseController {
      * 创建一条订单
      *
      * @param request   请求
-     * @param productId 产品ID
+     * @param producibleId 产品ID
      * @param number    产品数量
      * @param diameter  直径
      * @param length    长度
      * @param weight    重量
      * @return Response
      */
+
+
     @PostMapping
     public Response createOrder(HttpServletRequest request,
-                                @RequestParam("product_id") String productId,
+                                @RequestParam("producible_id") String producibleId,
                                 @RequestParam("number") Integer number,
                                 @RequestParam("diameter") Double diameter,
                                 @RequestParam("length") Double length,
                                 @RequestParam("weight") Double weight) {
 
         String token = request.getHeader("token");
-        if (!VerifyUtil.checkString(token, productId) || !VerifyUtil.checkInteger(number) || !VerifyUtil.checkDouble(diameter, length, weight)) {
+        if (!VerifyUtil.checkString(token, producibleId) || !VerifyUtil.checkInteger(number) || !VerifyUtil.checkDouble(diameter, length, weight)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {
             try {
@@ -144,7 +146,7 @@ public class OrderController extends BaseController {
                     Order order = Order.builder()
                             .orderId(orderId)
                             .customerId(customerId)
-                            .productId(productId)
+                            .producibleId(producibleId)
                             .number(number)
                             .diameter(diameter)
                             .length(length)
@@ -169,14 +171,14 @@ public class OrderController extends BaseController {
     @PutMapping("/{id}")
     public Response updateOrder(HttpServletRequest request,
                                 @PathVariable String id,
-                                @RequestParam("product_id") String productId,
+                                @RequestParam("producible_id") String producibleId,
                                 @RequestParam("number") Integer number,
                                 @RequestParam("diameter") Double diameter,
                                 @RequestParam("length") Double length,
                                 @RequestParam("weight") Double weight) {
 
         String token = request.getHeader("token");
-        if (!VerifyUtil.checkString(id, token, productId) || !VerifyUtil.checkInteger(number) || !VerifyUtil.checkDouble(diameter, length, weight)) {
+        if (!VerifyUtil.checkString(id, token, producibleId) || !VerifyUtil.checkInteger(number) || !VerifyUtil.checkDouble(diameter, length, weight)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {
             try {
@@ -190,7 +192,7 @@ public class OrderController extends BaseController {
                         Integer row = orderService.updateOrder(Order.builder()
                                 .orderId(order.getOrderId())
                                 .customerId(order.getCustomerId())
-                                .productId(productId)
+                                .producibleId(producibleId)
                                 .number(number)
                                 .diameter(diameter)
                                 .length(length)

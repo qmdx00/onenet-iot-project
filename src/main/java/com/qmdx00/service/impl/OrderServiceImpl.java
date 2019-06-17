@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
     public Integer updateOrder(Order order) {
         return orderRepository.updateOrderById(
                 order.getOrderId(),
-                order.getProductId(),
+                order.getProducibleId(),
                 order.getNumber(),
                 order.getDiameter(),
                 order.getLength(),
