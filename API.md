@@ -2,7 +2,7 @@
 
 #### 边缘网关
 
-baseURL: http://localhost:8080
+baseURL: http://10.168.30.104:8080
 
 ##### 机器设备相关
 

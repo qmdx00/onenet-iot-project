@@ -38,4 +38,9 @@ public class MachineServiceImpl implements MachineService {
     public Machine findMachineById(String id) {
         return machineRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public Integer updateMachine(Machine machine) {
+        return machineRepository.updateMachineById(machine.getMachineId(), machine.getName(), machine.getType(), machine.getMachineDesc());
+    }
 }

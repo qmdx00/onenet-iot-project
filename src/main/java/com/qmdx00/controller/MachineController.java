@@ -6,10 +6,7 @@ import com.qmdx00.entity.Account;
 import com.qmdx00.entity.Machine;
 import com.qmdx00.service.AccountService;
 import com.qmdx00.service.MachineService;
-import com.qmdx00.util.ResultUtil;
-import com.qmdx00.util.TokenUtil;
-import com.qmdx00.util.UUIDUtil;
-import com.qmdx00.util.VerifyUtil;
+import com.qmdx00.util.*;
 import com.qmdx00.util.enums.ResponseStatus;
 import com.qmdx00.util.enums.Role;
 import com.qmdx00.util.model.Response;
@@ -145,6 +142,52 @@ public class MachineController extends BaseController {
                     } else {
                         return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
                     }
+                } else {
+                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
+                }
+            } catch (JWTVerificationException e) {
+                // 解析失败，token无效
+                log.error("{}", e);
+                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
+            }
+        }
+    }
+
+    /**
+     * 通过 ID 修改设备信息
+     *
+     * @param request 请求
+     * @param id      设备 ID
+     * @param name    名称
+     * @param type    类型
+     * @param desc    描述
+     * @return Response
+     */
+    @PutMapping("/{id}")
+    public Response updateMachine(HttpServletRequest request,
+                                  @PathVariable String id,
+                                  @RequestParam("name") String name,
+                                  @RequestParam("type") String type,
+                                  @RequestParam("desc") String desc) {
+
+        String token = request.getHeader("token");
+        if (!VerifyUtil.checkString(token, id, name, type, desc)) {
+            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
+        } else {
+            try {
+                // 解析token
+                Claim claim = tokenUtil.getClaim(token, "uid");
+                Account account = accountService.findAccountById(claim.asString());
+                // 判断角色是否有权限
+                if (account.getRole() == Role.ADMIN) {
+                    Integer row = machineService.updateMachine(Machine.builder()
+                            .machineId(id)
+                            .name(name)
+                            .type(type)
+                            .machineDesc(desc)
+                            .build());
+                    log.info("update machine: {}", row);
+                    return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, MapUtil.create("row", row + ""));
                 } else {
                     return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
                 }
