@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author yuanweimin
@@ -28,6 +29,8 @@ public class Order implements Serializable {
     private String orderId;
     // 产品编号
     private String productId;
+    // 客户编号
+    private String customerId;
     // 采购数量
     private Integer number;
     // 产品直径 (mm)
@@ -39,4 +42,8 @@ public class Order implements Serializable {
     // 产品重量 (kg)
     @Column(name = "weight", columnDefinition = "double(10,1) default 0.0")
     private Double weight;
+    // 创建时间
+    private Date createTime;
+    // 修改时间
+    private Date updateTime;
 }

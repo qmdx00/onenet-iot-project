@@ -25,4 +25,12 @@ public interface MachineRepository extends JpaRepository<Machine, String> {
     @Modifying
     @Query(value = "update t_machine as m set m.name = ?2, m.type = ?3, m.machine_desc = ?4 where m.machine_id = ?1", nativeQuery = true)
     Integer updateMachineById(String id, String name, String type, String desc);
+
+    /**
+     * 通过 ID 删除设备信息
+     *
+     * @param id 设备 ID
+     * @return Integer
+     */
+    Integer deleteMachineByMachineId(String id);
 }

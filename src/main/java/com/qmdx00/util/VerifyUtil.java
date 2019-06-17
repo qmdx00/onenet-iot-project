@@ -22,7 +22,7 @@ public class VerifyUtil {
     }
 
     /**
-     * 检验整数存在且 大于 0
+     * 检验整数存在且大于 0
      *
      * @param ints 整数
      * @return boolean
@@ -31,6 +31,20 @@ public class VerifyUtil {
         for (Integer integer : ints) {
             if (integer == null) return false;
             else if (integer <= 0) return false;
+        }
+        return true;
+    }
+
+    /**
+     * 检验浮点数存在且大于 0
+     *
+     * @param doubles
+     * @return
+     */
+    public static boolean checkDouble(Double... doubles) {
+        for (Double dou : doubles) {
+            if (dou == null) return false;
+            else if (dou <= 0.0) return false;
         }
         return true;
     }

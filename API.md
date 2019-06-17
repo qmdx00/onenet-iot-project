@@ -66,7 +66,7 @@ baseURL: http://10.168.30.104:8080
 | GET  | /api/order      |                获取所有订单                |
 | GET  | /api/order/{id} |                获取指定订单                |
 | POST | /api/order      |                创建一条订单                |
-| PUT  | /api/order      | 修改指定订单（未确认之前修改，否则无权限） |
+| PUT  | /api/order/{id} | 修改指定订单（未确认之前修改，否则无权限） |
 
 ##### 管理员相关
 

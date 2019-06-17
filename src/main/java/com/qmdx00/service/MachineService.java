@@ -4,7 +4,6 @@ import com.qmdx00.entity.Machine;
 import com.qmdx00.util.enums.ResponseStatus;
 import org.springframework.stereotype.Service;
 
-import javax.crypto.Mac;
 import java.util.List;
 
 /**
@@ -12,7 +11,6 @@ import java.util.List;
  * @date 19/06/17 10:31
  * @description 机器设备 service
  */
-@Service
 public interface MachineService {
     /**
      * 保存设备信息
@@ -38,10 +36,18 @@ public interface MachineService {
     Machine findMachineById(String id);
 
     /**
-     * 修改设备信息
+     * 通过ID修改设备信息
      *
      * @param machine 设备信息
      * @return Integer
      */
     Integer updateMachine(Machine machine);
+
+    /**
+     * 通过 ID 删除设备
+     *
+     * @param id 设备 ID
+     * @return Integer
+     */
+    Integer deleteMachineById(String id);
 }

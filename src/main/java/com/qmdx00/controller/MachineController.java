@@ -52,7 +52,7 @@ public class MachineController extends BaseController {
         } else {
             try {
                 // 解析token
-                Claim claim = tokenUtil.getClaim(token, "uid");
+                Claim claim = tokenUtil.getClaim(token, "account_id");
                 Account account = accountService.findAccountById(claim.asString());
                 // 判断角色是否有权限
                 if (account.getRole() == Role.ADMIN) {
@@ -91,10 +91,10 @@ public class MachineController extends BaseController {
         } else {
             try {
                 // 解析token
-                Claim claim = tokenUtil.getClaim(token, "uid");
+                Claim claim = tokenUtil.getClaim(token, "account_id");
                 Account account = accountService.findAccountById(claim.asString());
                 // 判断角色是否有权限
-                if (account.getRole() == Role.ADMIN) {
+                if (account != null && account.getRole() == Role.ADMIN) {
                     String id = UUIDUtil.getUUID();
                     Machine machine = Machine.builder()
                             .machineId(id)
@@ -103,7 +103,8 @@ public class MachineController extends BaseController {
                             .machineDesc(desc)
                             .build();
                     log.info("saved machine: {}", machine);
-                    return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, machineService.saveMachine(machine));
+                    return ResultUtil.returnStatusAndData(machineService.saveMachine(machine),
+                            MapUtil.create("id", id));
                 } else {
                     return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
                 }
@@ -132,10 +133,10 @@ public class MachineController extends BaseController {
         } else {
             try {
                 // 解析token
-                Claim claim = tokenUtil.getClaim(token, "uid");
+                Claim claim = tokenUtil.getClaim(token, "account_id");
                 Account account = accountService.findAccountById(claim.asString());
                 // 判断角色是否有权限
-                if (account.getRole() == Role.ADMIN) {
+                if (account != null && account.getRole() == Role.ADMIN) {
                     Machine machine = machineService.findMachineById(id);
                     if (machine != null) {
                         return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, machine);
@@ -176,10 +177,10 @@ public class MachineController extends BaseController {
         } else {
             try {
                 // 解析token
-                Claim claim = tokenUtil.getClaim(token, "uid");
+                Claim claim = tokenUtil.getClaim(token, "account_id");
                 Account account = accountService.findAccountById(claim.asString());
                 // 判断角色是否有权限
-                if (account.getRole() == Role.ADMIN) {
+                if (account != null && account.getRole() == Role.ADMIN) {
                     Integer row = machineService.updateMachine(Machine.builder()
                             .machineId(id)
                             .name(name)
@@ -188,6 +189,35 @@ public class MachineController extends BaseController {
                             .build());
                     log.info("update machine: {}", row);
                     return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, MapUtil.create("row", row + ""));
+                } else {
+                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
+                }
+            } catch (JWTVerificationException e) {
+                // 解析失败，token无效
+                log.error("{}", e);
+                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
+            }
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public Response deleteMachine(HttpServletRequest request,
+                                  @PathVariable String id) {
+
+        String token = request.getHeader("token");
+        if (!VerifyUtil.checkString(token, id)) {
+            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
+        } else {
+            try {
+                // 解析token
+                Claim claim = tokenUtil.getClaim(token, "account_id");
+                Account account = accountService.findAccountById(claim.asString());
+                // 判断角色是否有权限
+                if (account != null && account.getRole() == Role.ADMIN) {
+                    Integer row = machineService.deleteMachineById(id);
+                    log.info("delete machine: {}", row);
+                    return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
+                            MapUtil.create("row", row + ""));
                 } else {
                     return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
                 }

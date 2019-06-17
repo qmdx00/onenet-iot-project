@@ -2,6 +2,7 @@ package com.qmdx00.controller;
 
 import com.qmdx00.entity.Account;
 import com.qmdx00.entity.Admin;
+import com.qmdx00.service.AccountService;
 import com.qmdx00.service.AdminService;
 import com.qmdx00.util.*;
 import com.qmdx00.util.enums.ResponseStatus;
@@ -23,11 +24,13 @@ import java.util.Date;
 @RequestMapping("/api/admin")
 public class AdminController extends BaseController {
 
+    private final AccountService accountService;
     private final AdminService adminService;
 
     @Autowired
-    public AdminController(AdminService adminService) {
+    public AdminController(AdminService adminService, AccountService accountService) {
         this.adminService = adminService;
+        this.accountService = accountService;
     }
 
     /**
@@ -48,23 +51,28 @@ public class AdminController extends BaseController {
         if (!VerifyUtil.checkString(name, password, email, phone)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {
-            String id = UUIDUtil.getUUID();
-            Admin admin = Admin.builder()
-                    .adminId(id)
-                    .name(name)
-                    .email(email)
-                    .phone(phone)
-                    .createTime(new Date())
-                    .updateTime(new Date())
-                    .build();
-            Account account = Account.builder()
-                    .id(id)
-                    .name(name)
-                    .password(EncryptionUtil.encrypt(password))
-                    .role(Role.ADMIN)
-                    .build();
-            log.info("saved admin: {}, saved account: {}", admin, account);
-            return ResultUtil.returnStatusAndData(adminService.saveAdmin(admin, account), MapUtil.create("id", id));
+            Account posted = accountService.findByNameAndPassword(name, EncryptionUtil.encrypt(password));
+            if (posted == null) {
+                String id = UUIDUtil.getUUID();
+                Admin admin = Admin.builder()
+                        .adminId(id)
+                        .name(name)
+                        .email(email)
+                        .phone(phone)
+                        .createTime(new Date())
+                        .updateTime(new Date())
+                        .build();
+                Account account = Account.builder()
+                        .id(id)
+                        .name(name)
+                        .password(EncryptionUtil.encrypt(password))
+                        .role(Role.ADMIN)
+                        .build();
+                log.info("saved admin: {}, saved account: {}", admin, account);
+                return ResultUtil.returnStatusAndData(adminService.saveAdmin(admin, account), MapUtil.create("id", id));
+            } else {
+                return ResultUtil.returnStatus(ResponseStatus.UPDATE_FAILED, "账号已存在");
+            }
         }
     }
 

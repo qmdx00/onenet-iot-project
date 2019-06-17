@@ -2,6 +2,7 @@ package com.qmdx00.controller;
 
 import com.qmdx00.entity.Account;
 import com.qmdx00.entity.Customer;
+import com.qmdx00.service.AccountService;
 import com.qmdx00.service.CustomerService;
 import com.qmdx00.util.*;
 import com.qmdx00.util.enums.ResponseStatus;
@@ -23,11 +24,13 @@ import java.util.Date;
 @RequestMapping("/api/customer")
 public class CustomerController extends BaseController {
 
+    private final AccountService accountService;
     private final CustomerService customerService;
 
     @Autowired
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService, AccountService accountService) {
         this.customerService = customerService;
+        this.accountService = accountService;
     }
 
     /**
@@ -48,25 +51,30 @@ public class CustomerController extends BaseController {
         if (!VerifyUtil.checkString(name, password, email, phone)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {
-            String id = UUIDUtil.getUUID();
-            // 构建客户对象
-            Customer customer = Customer.builder()
-                    .customerId(id)
-                    .name(name)
-                    .phone(phone)
-                    .email(email)
-                    .createTime(new Date())
-                    .updateTime(new Date())
-                    .build();
-            // 构建账户实体
-            Account account = Account.builder()
-                    .id(id)
-                    .name(name)
-                    .password(EncryptionUtil.encrypt(password))
-                    .role(Role.USER)
-                    .build();
-            log.info("saved customer: {}, saved account: {}", customer, account);
-            return ResultUtil.returnStatusAndData(customerService.saveCustomer(customer, account), MapUtil.create("id", id));
+            Account posted = accountService.findByNameAndPassword(name, EncryptionUtil.encrypt(password));
+            if (posted == null) {
+                String id = UUIDUtil.getUUID();
+                // 构建客户对象
+                Customer customer = Customer.builder()
+                        .customerId(id)
+                        .name(name)
+                        .phone(phone)
+                        .email(email)
+                        .createTime(new Date())
+                        .updateTime(new Date())
+                        .build();
+                // 构建账户实体
+                Account account = Account.builder()
+                        .id(id)
+                        .name(name)
+                        .password(EncryptionUtil.encrypt(password))
+                        .role(Role.USER)
+                        .build();
+                log.info("saved customer: {}, saved account: {}", customer, account);
+                return ResultUtil.returnStatusAndData(customerService.saveCustomer(customer, account), MapUtil.create("id", id));
+            } else {
+                return ResultUtil.returnStatus(ResponseStatus.UPDATE_FAILED, "账号已存在");
+            }
         }
     }
 
@@ -131,7 +139,8 @@ public class CustomerController extends BaseController {
         if (VerifyUtil.checkString(id)) {
             Integer row = customerService.deleteCustomer(id);
             log.info("delete customer: {}", row);
-            return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, MapUtil.create("row", row + ""));
+            return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
+                    MapUtil.create("row", row + ""));
         } else {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         }
