@@ -31,7 +31,7 @@ public class ReceiveHandler implements MessageHandler {
         String body = msg.getString("body");
         String time = prop.getString("dataTimestamp");
         String id = prop.getString("datastream");
-//        log.info("body: {}, timestamp: {}", msg.getString("body"), prop.getString("dataTimestamp"));
+        log.info("body: {}, timestamp: {}", msg.getString("body"), prop.getString("dataTimestamp"));
         template.convertAndSend("/topic/msg", "body: " + body + " time: " + time + " id: " + id);
     }
 }

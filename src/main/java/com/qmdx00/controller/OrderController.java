@@ -168,6 +168,18 @@ public class OrderController extends BaseController {
         }
     }
 
+    /**
+     * 通过 ID 修改订单信息
+     *
+     * @param request      请求
+     * @param id           订单 ID
+     * @param producibleId 可生产的产品信息
+     * @param number       数量
+     * @param diameter     直径
+     * @param length       长度
+     * @param weight       重量
+     * @return Response
+     */
     @PutMapping("/{id}")
     public Response updateOrder(HttpServletRequest request,
                                 @PathVariable String id,

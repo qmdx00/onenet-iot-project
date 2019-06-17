@@ -11,4 +11,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RecordRepository extends JpaRepository<Record, String> {
+
+    /**
+     * 通过 ID 删除设备操作记录
+     *
+     * @param id 记录 ID
+     * @return Integer
+     */
+    Integer deleteRecordByRecordId(String id);
 }

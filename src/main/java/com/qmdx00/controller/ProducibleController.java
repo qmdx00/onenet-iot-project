@@ -94,7 +94,7 @@ public class ProducibleController extends BaseController {
 
         String token = request.getHeader("token");
         if (!VerifyUtil.checkString(token, name, desc, type, image)) {
-            return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
+            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {
             try {
                 // 解析token
@@ -131,14 +131,30 @@ public class ProducibleController extends BaseController {
      * @return Response
      */
     @DeleteMapping("/{id}")
-    public Response deleteProducible(@PathVariable String id) {
-        if (!VerifyUtil.checkString(id)) {
-            Integer row = producibleService.deleteProducibleById(id);
-            log.info("delete producible: {}", row);
-            return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
-                    MapUtil.create("row", row + ""));
-        } else {
+    public Response deleteProducible(HttpServletRequest request,
+                                     @PathVariable String id) {
+        String token = request.getHeader("token");
+        if (!VerifyUtil.checkString(id, token)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
+        } else {
+            try {
+                // 解析token
+                Claim claim = tokenUtil.getClaim(token, "account_id");
+                Account account = accountService.findAccountById(claim.asString());
+                // 判断角色是否有权限
+                if (account != null && account.getRole() == Role.ADMIN) {
+                    Integer row = producibleService.deleteProducibleById(id);
+                    log.info("delete producible: {}", row);
+                    return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
+                            MapUtil.create("row", row + ""));
+                } else {
+                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
+                }
+            } catch (JWTVerificationException e) {
+                // 解析失败，token无效
+                log.error("{}", e);
+                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
+            }
         }
     }
 }
