@@ -114,12 +114,12 @@ public class OrderController extends BaseController {
     /**
      * 创建一条订单
      *
-     * @param request   请求
-     * @param producibleId 产品ID
-     * @param number    产品数量
-     * @param diameter  直径
-     * @param length    长度
-     * @param weight    重量
+     * @param request      请求
+     * @param producibleId 可生产产品ID
+     * @param number       产品数量
+     * @param diameter     直径
+     * @param length       长度
+     * @param weight       重量
      * @return Response
      */
 

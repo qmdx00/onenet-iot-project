@@ -12,4 +12,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProducibleRepository extends JpaRepository<Producible, String> {
 
+    /**
+     * 通过 ID 删除 Producible
+     *
+     * @param producibleId 可生产产品 ID
+     * @return Integer
+     */
+    Integer deleteProducibleByProducibleId(String producibleId);
 }

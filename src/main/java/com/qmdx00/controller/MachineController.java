@@ -55,7 +55,7 @@ public class MachineController extends BaseController {
                 Claim claim = tokenUtil.getClaim(token, "account_id");
                 Account account = accountService.findAccountById(claim.asString());
                 // 判断角色是否有权限
-                if (account.getRole() == Role.ADMIN) {
+                if (account != null && account.getRole() == Role.ADMIN) {
                     List<Machine> machines = machineService.findAllMachine();
                     log.info("machines: {}", machines);
                     return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, machines);

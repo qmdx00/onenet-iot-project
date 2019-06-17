@@ -28,7 +28,7 @@ public class Producible implements Serializable {
     // 产品名称
     private String name;
     // 产品描述
-    private String desc;
+    private String producibleDesc;
     // 产品类型
     private String type;
     // 产品图片地址
