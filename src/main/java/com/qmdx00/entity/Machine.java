@@ -32,6 +32,4 @@ public class Machine implements Serializable {
     private String machineDesc;
     // 类型
     private String type;
-    // 购买日期
-    private Date buyTime;
 }

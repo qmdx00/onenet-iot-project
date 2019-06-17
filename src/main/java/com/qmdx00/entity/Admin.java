@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author yuanweimin
@@ -31,4 +32,8 @@ public class Admin implements Serializable {
     private String phone;
     // 邮箱
     private String email;
+    // 注册时间
+    private Date createTime;
+    // 修改时间
+    private Date updateTime;
 }

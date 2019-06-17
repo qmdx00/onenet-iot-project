@@ -32,4 +32,9 @@ public class AccountServiceImpl implements AccountService {
             return "";
         }
     }
+
+    @Override
+    public Account findAccountById(String id) {
+        return accountRepository.findById(id).orElse(null);
+    }
 }

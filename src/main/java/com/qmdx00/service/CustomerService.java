@@ -39,7 +39,7 @@ public interface CustomerService {
     Integer updateCustomer(String id, String name, String phone, String email);
 
     /**
-     * 通过 ID 删除客户信息
+     * 通过 ID 删除客户信息和账户
      *
      * @param id 客户 ID
      * @return Integer

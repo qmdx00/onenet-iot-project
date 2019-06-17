@@ -1,5 +1,7 @@
 package com.qmdx00.service;
 
+import com.qmdx00.entity.Account;
+
 /**
  * @author yuanweimin
  * @date 19/06/11 23:08
@@ -15,4 +17,12 @@ public interface AccountService {
      * @return String
      */
     String accountLogin(String name, String password);
+
+    /**
+     * 通过 ID 查找账号信息
+     *
+     * @param id 账号 ID
+     * @return Account
+     */
+    Account findAccountById(String id);
 }

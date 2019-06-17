@@ -78,12 +78,16 @@ public class CustomerController extends BaseController {
      */
     @GetMapping("/{id}")
     public Response getCustomerById(@PathVariable String id) {
-        Customer customer = customerService.findCustomerById(id);
-        if (customer == null) {
-            return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
+        if (VerifyUtil.checkString(id)) {
+            Customer customer = customerService.findCustomerById(id);
+            if (customer == null) {
+                return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
+            } else {
+                log.info("find customer: {}", customer);
+                return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, customer);
+            }
         } else {
-            log.info("find customer: {}", customer);
-            return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, customer);
+            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         }
     }
 
@@ -102,7 +106,7 @@ public class CustomerController extends BaseController {
                                        @RequestParam("phone") String phone,
                                        @RequestParam("email") String email) {
 
-        if (!VerifyUtil.checkString(name, phone, email)) {
+        if (!VerifyUtil.checkString(id, name, phone, email)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {
             Customer customer = customerService.findCustomerById(id);
@@ -124,8 +128,12 @@ public class CustomerController extends BaseController {
      */
     @DeleteMapping("/{id}")
     public Response deleteCustomerById(@PathVariable String id) {
-        Integer row = customerService.deleteCustomer(id);
-        log.info("delete customer: {}", row);
-        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, MapUtil.create("row", row + ""));
+        if (VerifyUtil.checkString(id)) {
+            Integer row = customerService.deleteCustomer(id);
+            log.info("delete customer: {}", row);
+            return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, MapUtil.create("row", row + ""));
+        } else {
+            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
+        }
     }
 }

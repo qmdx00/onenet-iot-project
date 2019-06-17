@@ -6,14 +6,14 @@ baseURL: http://localhost:8080
 
 ##### 机器设备相关
 
-|  方法  | 地址                    |       描述       |
-| :----: | :---------------------- | :--------------: |
-|  GET   | /api/device             | 获取所有设备信息 |
-|  POST  | /api/device             | 创建一个设备信息 |
-|  GET   | /api/device/{id}        | 获取指定设备信息 |
-|  PUT   | /api/device/{id}        | 修改指定设备信息 |
-| DELETE | /api/device/{id}        | 删除指定设备信息 |
-|  GET   | /api/device/{id}/status | 获取指定设备状态 |
+|  方法  | 地址                     |       描述       |
+| :----: | :----------------------- | :--------------: |
+|  GET   | /api/machine             | 获取所有设备信息 |
+|  POST  | /api/machine             | 创建一个设备信息 |
+|  GET   | /api/machine/{id}        | 获取指定设备信息 |
+|  PUT   | /api/machine/{id}        | 修改指定设备信息 |
+| DELETE | /api/machine/{id}        | 删除指定设备信息 |
+|  GET   | /api/machine/{id}/status | 获取指定设备状态 |
 
 ##### 管理员相关
 
