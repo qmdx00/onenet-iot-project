@@ -63,6 +63,8 @@ public class ProducibleController extends BaseController {
     @GetMapping("/{id}")
     public Response getProducibleById(@PathVariable String id) {
         if (!VerifyUtil.checkString(id)) {
+            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
+        } else {
             Producible producible = producibleService.findProducibleById(id);
             if (producible != null) {
                 log.info("get producible: {}", producible);
@@ -70,8 +72,6 @@ public class ProducibleController extends BaseController {
             } else {
                 return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
             }
-        } else {
-            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         }
     }
 
