@@ -25,7 +25,7 @@ public class ReceiveHandler implements MessageHandler {
 
     @Override
     public synchronized void handle(long msgId, String msgBody) {
-//        log.info("msgId: {}, msgBody: {}", msgId, msgBody);
+        log.info("msgId: {}, msgBody: {}", msgId, msgBody);
         JSONObject msg = JSON.parseObject(msgBody);
         JSONObject prop = msg.getJSONObject("appProperty");
         String body = msg.getString("body");

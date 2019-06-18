@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/account")
 public class AccountController extends BaseController {
+
     private final AccountService accountService;
 
     @Autowired
