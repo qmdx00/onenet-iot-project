@@ -56,7 +56,9 @@ public class MqClient {
             }
             resetOptions();
             try {
-                client.connect(options);
+                if (!client.isConnected()) {
+                    client.connect(options);
+                }
             } catch (MqttException e) {
                 e.printStackTrace();
             }

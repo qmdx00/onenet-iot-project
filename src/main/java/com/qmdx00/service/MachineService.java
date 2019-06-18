@@ -42,12 +42,4 @@ public interface MachineService {
      * @return Integer
      */
     Integer updateMachine(Machine machine);
-
-    /**
-     * 通过 ID 删除设备
-     *
-     * @param id 设备 ID
-     * @return Integer
-     */
-    Integer deleteMachineById(String id);
 }

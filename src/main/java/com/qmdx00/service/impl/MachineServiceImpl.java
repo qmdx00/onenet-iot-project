@@ -44,10 +44,4 @@ public class MachineServiceImpl implements MachineService {
     public Integer updateMachine(Machine machine) {
         return machineRepository.updateMachineById(machine.getMachineId(), machine.getName(), machine.getType(), machine.getMachineDesc());
     }
-
-    @Override
-    @Transactional
-    public Integer deleteMachineById(String id) {
-        return machineRepository.deleteMachineByMachineId(id);
-    }
 }

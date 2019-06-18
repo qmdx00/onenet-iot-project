@@ -71,52 +71,6 @@ public class MachineController extends BaseController {
     }
 
     /**
-     * 创建机器设备信息
-     *
-     * @param request 请求
-     * @param name    机器名称
-     * @param desc    机器描述
-     * @param type    机器类型
-     * @return Response
-     */
-    @PostMapping
-    public Response createMachine(HttpServletRequest request,
-                                  @RequestParam("name") String name,
-                                  @RequestParam("desc") String desc,
-                                  @RequestParam("type") String type) {
-
-        String token = request.getHeader("token");
-        if (!VerifyUtil.checkString(token, name, desc, type)) {
-            return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
-        } else {
-            try {
-                // 解析token
-                Claim claim = tokenUtil.getClaim(token, "account_id");
-                Account account = accountService.findAccountById(claim.asString());
-                // 判断角色是否有权限
-                if (account != null && account.getRole() == Role.ADMIN) {
-                    String id = UUIDUtil.getUUID();
-                    Machine machine = Machine.builder()
-                            .machineId(id)
-                            .name(name)
-                            .type(type)
-                            .machineDesc(desc)
-                            .build();
-                    log.info("saved machine: {}", machine);
-                    return ResultUtil.returnStatusAndData(machineService.saveMachine(machine),
-                            MapUtil.create("id", id));
-                } else {
-                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
-                }
-            } catch (JWTVerificationException e) {
-                // 解析失败，token无效
-                log.error("{}", e);
-                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
-            }
-        }
-    }
-
-    /**
      * 通过 ID 获取设备信息
      *
      * @param request 请求
@@ -189,35 +143,6 @@ public class MachineController extends BaseController {
                             .build());
                     log.info("update machine: {}", row);
                     return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, MapUtil.create("row", row + ""));
-                } else {
-                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
-                }
-            } catch (JWTVerificationException e) {
-                // 解析失败，token无效
-                log.error("{}", e);
-                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
-            }
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public Response deleteMachine(HttpServletRequest request,
-                                  @PathVariable String id) {
-
-        String token = request.getHeader("token");
-        if (!VerifyUtil.checkString(token, id)) {
-            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
-        } else {
-            try {
-                // 解析token
-                Claim claim = tokenUtil.getClaim(token, "account_id");
-                Account account = accountService.findAccountById(claim.asString());
-                // 判断角色是否有权限
-                if (account != null && account.getRole() == Role.ADMIN) {
-                    Integer row = machineService.deleteMachineById(id);
-                    log.info("delete machine: {}", row);
-                    return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
-                            MapUtil.create("row", row + ""));
                 } else {
                     return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
                 }
