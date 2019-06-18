@@ -25,9 +25,34 @@ public class MachineStatus implements Serializable {
     // 机器编号
     @Id
     private String machineId;
+    // 时间戳
+    private Long timeStamp;
     // 温度
     private Double temperature;
-    // 转速
-    private Double speed;
+    // 湿度
+    private Double humidity;
+    // 电压
+    private Double voltage;
+    // 电流
+    private Double electric;
+    // 功耗
+    private Double power;
+    // 加工货物重量
+    private Double weight;
 
+    // 电机转速
+    private Integer electricSpeed;
+    // 电机转向
+    private Character electricDir;
+
+    // 滑台移动速度
+    private Integer slideSpeed;
+    // 滑台移动方向
+    private Character slideDir;
+
+    // 推杆推送距离
+    private Integer rodDistance;
+
+    // 机器设备开关状态
+    private Integer buttonStatus;
 }

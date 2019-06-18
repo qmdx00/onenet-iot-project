@@ -213,7 +213,8 @@ public class OrderController extends BaseController {
                                 .createTime(order.getCreateTime())
                                 .build());
                         log.info("update order: {}", row);
-                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, "row", row + "");
+                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
+                                MapUtil.create("row", row + ""));
                     } else {
                         return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
                     }
