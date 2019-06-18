@@ -77,7 +77,7 @@ public class AdminController extends BaseController {
     }
 
     /**
-     * 通过 ID 产找管理员信息
+     * 通过 ID 查找管理员信息
      *
      * @param id 管理员 ID
      * @return Response

@@ -29,4 +29,5 @@ public class MachineStatus implements Serializable {
     private Double temperature;
     // 转速
     private Double speed;
+
 }
