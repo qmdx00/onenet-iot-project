@@ -6,9 +6,6 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -29,25 +26,22 @@ import java.util.Objects;
 
 @Slf4j
 @Component
-@PropertySource("classpath:config/mqClient-config.properties")
 public class MqClient {
     private MqttConnectOptions options = new MqttConnectOptions();
-    private MessageHandler handler;
     private MqttClient client;
     private String subTopic;
-    private String topic = "test-topic";
-    private String sub = "demo";
-    private final Environment env;
 
-    @Autowired
-    public MqClient(Environment env) {
-        this.env = env;
-    }
+    private String topic;
+    private String sub;
+    private String clientID;
+    private String MQID;
+    private String accessKey;
+    private MessageHandler handler;
 
     public synchronized boolean connect() {
-        String clientID = env.getProperty("clientID");
-        String serverURI = env.getProperty("serverURI");
-        String userName = env.getProperty("MQID");
+        String clientID = this.clientID;
+        String userName = this.MQID;
+        String serverURI = "ssl://183.230.40.96:8883";
         try {
             if (null == client) {
                 if (clientID != null) {
@@ -63,7 +57,7 @@ public class MqClient {
                 e.printStackTrace();
             }
             subTopic = String.format("$sys/pb/consume/%s/%s/%s", userName, this.topic, this.sub);
-            client.setCallback(new PushCallback(this, handler));
+            client.setCallback(new PushCallback(this, this.handler));
 
             try {
                 //订阅 topic $sys/pb/consume/$MQ_ID/$TOPIC/$SUB ，QoS必须大于0，否则订阅失败
@@ -71,7 +65,7 @@ public class MqClient {
                 log.info("sub success");
                 return true;
             } catch (MqttException e) {
-                log.error("sub success");
+                log.error("sub failed");
                 e.printStackTrace();
             }
             return false;
@@ -82,8 +76,8 @@ public class MqClient {
     }
 
     private void resetOptions() {
-        String userName = env.getProperty("MQID");
-        String accessKey = env.getProperty("accessKey");
+        String userName = this.MQID;
+        String accessKey = this.accessKey;
 
         String version = "2018-10-31";
         String resourceName = "mqs/" + userName;
@@ -144,6 +138,18 @@ public class MqClient {
 
     public void setSub(String sub) {
         this.sub = sub;
+    }
+
+    public void setClientID(String clientID) {
+        this.clientID = clientID;
+    }
+
+    public void setMQID(String MQID) {
+        this.MQID = MQID;
+    }
+
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
     }
 
     public void setHandler(MessageHandler handler) {

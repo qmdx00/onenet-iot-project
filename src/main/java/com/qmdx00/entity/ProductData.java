@@ -26,6 +26,8 @@ public class ProductData implements Serializable {
     // 产品编号
     @Id
     private String productId;
+    // 工人 ID
+    private String workerId;
     // 产品直径 (mm)
     @Column(name = "diameter", columnDefinition = "double(10,1) default 0.0")
     private Double diameter;
@@ -35,4 +37,13 @@ public class ProductData implements Serializable {
     // 产品重量 (kg)
     @Column(name = "weight", columnDefinition = "double(10,1) default 0.0")
     private Double weight;
+    // 铜含量
+    @Column(name = "copper", columnDefinition = "double(10,1) default 0.0")
+    private Double copper;
+    // 锡含量
+    @Column(name = "tin", columnDefinition = "double(10,1) default 0.0")
+    private Double tin;
+    // 锌含量
+    @Column(name = "zinc", columnDefinition = "double(10,1) default 0.0")
+    private Double zinc;
 }

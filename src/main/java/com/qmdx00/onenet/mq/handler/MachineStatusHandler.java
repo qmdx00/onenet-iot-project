@@ -6,6 +6,7 @@ import com.qmdx00.entity.Machine;
 import com.qmdx00.entity.MachineStatus;
 import com.qmdx00.service.MachineService;
 import com.qmdx00.service.MachineStatusService;
+import com.qmdx00.util.TimeUtil;
 import com.qmdx00.util.UUIDUtil;
 import com.qmdx00.util.enums.DataType;
 import lombok.extern.slf4j.Slf4j;
@@ -19,11 +20,11 @@ import java.util.concurrent.Executors;
 /**
  * @author yuanweimin
  * @date 19/06/13 10:54
- * @description 消息处理类
+ * @description 机器设备实时数据的消息处理类
  */
 @Slf4j
 @Component
-public class ReceiveHandler implements MessageHandler {
+public class MachineStatusHandler implements MessageHandler {
 
     private ExecutorService service = Executors.newCachedThreadPool();
     private final MachineStatusService machineStatusService;
@@ -31,7 +32,7 @@ public class ReceiveHandler implements MessageHandler {
     private final SimpMessagingTemplate template;
 
     @Autowired
-    public ReceiveHandler(SimpMessagingTemplate template, MachineService machineService, MachineStatusService machineStatusService) {
+    public MachineStatusHandler(SimpMessagingTemplate template, MachineService machineService, MachineStatusService machineStatusService) {
         this.template = template;
         this.machineService = machineService;
         this.machineStatusService = machineStatusService;
@@ -74,7 +75,7 @@ public class ReceiveHandler implements MessageHandler {
         return MachineStatus.builder()
                 .statusId(UUIDUtil.getUUID())
                 .machineId(deviceId)
-                .timeStamp(timeStamp)
+                .createDate(TimeUtil.toDate(timeStamp))
                 .type(getType(dataStream))
                 .data(body)
                 .build();

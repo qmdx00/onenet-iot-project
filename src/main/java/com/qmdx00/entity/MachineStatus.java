@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author yuanweimin
@@ -26,8 +27,8 @@ public class MachineStatus implements Serializable {
     private String statusId;
     // 机器编号
     private String machineId;
-    // 时间戳
-    private String timeStamp;
+    // 数据生成日期
+    private Date createDate;
     // 数据类型
     @Enumerated(EnumType.STRING)
     private DataType type;

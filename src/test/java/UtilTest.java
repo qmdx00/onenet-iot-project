@@ -1,8 +1,10 @@
+import com.qmdx00.util.TimeUtil;
 import com.qmdx00.util.TokenUtil;
 import com.qmdx00.util.UUIDUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,5 +25,11 @@ public class UtilTest extends BaseTestApplication {
         String token = tokenUtil.createJwt(map, 1000 * 10);
         System.out.println(token);
         System.out.println(tokenUtil.getClaim(token, "uuid").asString());
+    }
+
+    @Test
+    public void timeTest() {
+        Date date = TimeUtil.toDate("1560911938548");
+        System.out.println(date);
     }
 }
