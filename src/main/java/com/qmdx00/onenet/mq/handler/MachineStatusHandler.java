@@ -72,7 +72,6 @@ public class MachineStatusHandler implements MessageHandler {
                     .machineId(deviceId)
                     .build());
         }
-
         Map map = Arrays.stream(body.split("-"))
                 .map(et -> et.split("@"))
                 .filter(et -> et.length == 2)
