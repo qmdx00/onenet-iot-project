@@ -24,10 +24,9 @@ import java.util.Objects;
  * @date 19/06/12 17:10
  * @description MQ 客户端代码
  */
-
 @Slf4j
-@Scope(value = "prototype")
 @Component
+@Scope(value = "prototype")
 public class MqClient {
     private MqttConnectOptions options = new MqttConnectOptions();
     private MqttClient client;
