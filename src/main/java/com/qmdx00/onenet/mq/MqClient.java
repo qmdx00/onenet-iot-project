@@ -6,6 +6,7 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ import java.util.Objects;
  */
 
 @Slf4j
+@Scope(value = "prototype")
 @Component
 public class MqClient {
     private MqttConnectOptions options = new MqttConnectOptions();
