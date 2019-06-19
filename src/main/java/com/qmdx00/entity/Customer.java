@@ -32,6 +32,8 @@ public class Customer implements Serializable {
     private String phone;
     // 邮箱
     private String email;
+    // 客户地址
+    private String addr;
     // 注册时间
     private Date createTime;
     // 修改时间

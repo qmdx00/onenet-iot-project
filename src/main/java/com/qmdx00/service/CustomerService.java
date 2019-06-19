@@ -34,9 +34,10 @@ public interface CustomerService {
      * @param name  姓名
      * @param phone 手机
      * @param email 邮箱
+     * @param addr  地址
      * @return Integer
      */
-    Integer updateCustomer(String id, String name, String phone, String email);
+    Integer updateCustomer(String id, String name, String phone, String addr, String email);
 
     /**
      * 通过 ID 删除客户信息和账户

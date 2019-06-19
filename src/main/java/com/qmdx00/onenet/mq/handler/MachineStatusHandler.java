@@ -51,9 +51,9 @@ public class MachineStatusHandler implements MessageHandler {
         MachineStatus status = translate(deviceId, timestamp, body);
         log.info("generate status: {}", status);
         // 保存状态数据到数据库中
-//        service.execute(() -> log.info("save status: {}", machineStatusService.saveStatus(status)));
+        service.execute(() -> log.info("save status: {}", machineStatusService.saveStatus(status)));
         // 转发到前端 websocket 中
-//        template.convertAndSend("/topic/msg", status);
+        template.convertAndSend("/topic/msg", status);
     }
 
     /**
@@ -72,16 +72,38 @@ public class MachineStatusHandler implements MessageHandler {
                     .machineId(deviceId)
                     .build());
         }
-        Map map = Arrays.stream(body.split("-"))
+        // 数据串解析为 Map
+        Map<String, String> map = Arrays.stream(body.split("-"))
                 .map(et -> et.split("@"))
                 .filter(et -> et.length == 2)
                 .collect(Collectors.toMap(et -> et[0], et -> et[1]));
-        System.out.println(map);
-
+        // 构建 MachineStatus 对象
         return MachineStatus.builder()
                 .statusId(UUIDUtil.getUUID())
                 .machineId(deviceId)
                 .createTime(TimeUtil.toDate(timeStamp))
+                .temperature(map.get("TM"))
+                .temperatureWarn(map.get("TR"))
+                .fan(map.get("FA"))
+                .humidity(map.get("HU"))
+                .humidityWarn(map.get("HR"))
+                .voltage(map.get("VO"))
+                .electric(map.get("CU"))
+                .power(map.get("PO"))
+                .weight(map.get("WE"))
+                .weightWarn(map.get("WR"))
+                .motorOpen(map.get("MW"))
+                .motorSpeed(map.get("MP"))
+                .motorDir(map.get("MI"))
+                .slideOpen(map.get("TW"))
+                .slideDir(map.get("TD"))
+                .slideSpeed(map.get("TS"))
+                .rodDistance(map.get("PD"))
+                .machineError(map.get("ME"))
+                .reservedA(map.get("RA"))
+                .reservedB(map.get("RB"))
+                .reservedC(map.get("RC"))
+                .reservedD(map.get("RD"))
                 .build();
     }
 }

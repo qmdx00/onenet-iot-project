@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
+@SuppressWarnings("Duplicates")
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -45,8 +46,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public Integer updateCustomer(String id, String name, String phone, String email) {
-        return customerRepository.updateCustomerById(id, name, phone, email, new Date());
+    public Integer updateCustomer(String id, String name, String phone, String addr, String email) {
+        return customerRepository.updateCustomerById(id, name, phone, email, addr, new Date());
     }
 
     @Override

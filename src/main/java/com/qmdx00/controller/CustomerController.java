@@ -38,17 +38,19 @@ public class CustomerController extends BaseController {
      *
      * @param name     用户名
      * @param password 密码
-     * @param email    邮箱
      * @param phone    电话
+     * @param email    邮箱
+     * @param addr     地址
      * @return Response
      */
     @PostMapping
     public Response createCustomer(@RequestParam("name") String name,
                                    @RequestParam("password") String password,
+                                   @RequestParam("phone") String phone,
                                    @RequestParam("email") String email,
-                                   @RequestParam("phone") String phone) {
+                                   @RequestParam("addr") String addr) {
 
-        if (!VerifyUtil.checkString(name, password, email, phone)) {
+        if (!VerifyUtil.checkString(name, password, phone, email, addr)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {
             Account posted = accountService.findByNameAndPassword(name, EncryptionUtil.encrypt(password));
@@ -60,6 +62,7 @@ public class CustomerController extends BaseController {
                         .name(name)
                         .phone(phone)
                         .email(email)
+                        .addr(addr)
                         .createTime(new Date())
                         .updateTime(new Date())
                         .build();
@@ -104,17 +107,19 @@ public class CustomerController extends BaseController {
      *
      * @param id    客户 ID
      * @param name  姓名
-     * @param email 邮箱
      * @param phone 电话
+     * @param email 邮箱
+     * @param addr  地址
      * @return Response
      */
     @PutMapping("/{id}")
     public Response updateCustomerById(@PathVariable String id,
                                        @RequestParam("name") String name,
                                        @RequestParam("phone") String phone,
-                                       @RequestParam("email") String email) {
+                                       @RequestParam("email") String email,
+                                       @RequestParam("addr") String addr) {
 
-        if (!VerifyUtil.checkString(id, name, phone, email)) {
+        if (!VerifyUtil.checkString(id, name, phone, email, addr)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {
             Customer customer = customerService.findCustomerById(id);
@@ -122,7 +127,7 @@ public class CustomerController extends BaseController {
                 return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
             } else {
                 return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
-                        MapUtil.create("row", customerService.updateCustomer(id, name, phone, email) + ""));
+                        MapUtil.create("row", customerService.updateCustomer(id, name, phone, email, addr) + ""));
             }
         }
 

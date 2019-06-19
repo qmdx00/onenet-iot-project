@@ -32,12 +32,13 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
      * @param name       客户姓名
      * @param phone      客户电话
      * @param email      客户邮箱
+     * @param addr       客户地址
      * @param updateTime 修改日期
      * @return Integer
      */
     @Modifying
-    @Query(value = "update t_customer as c set c.name = ?2, c.phone = ?3, c.email = ?4, c.update_time = ?5 where c.customer_id = ?1", nativeQuery = true)
-    Integer updateCustomerById(String id, String name, String phone, String email, Date updateTime);
+    @Query(value = "update t_customer as c set c.name = ?2, c.phone = ?3, c.email = ?4, c.addr = ?5 c.update_time = ?6 where c.customer_id = ?1", nativeQuery = true)
+    Integer updateCustomerById(String id, String name, String phone, String email, String addr, Date updateTime);
 
     /**
      * 通过 ID 删除客户信息
