@@ -17,7 +17,7 @@ public interface MachineStatusRepository extends JpaRepository<MachineStatus, St
      * @param last 过去时间点
      * @return List
      */
-    @Query(value = "select * from t_machine_status as m where to_days(m.create_time) between to_days(?1) and to_days(now()) order by m.create_time", nativeQuery = true)
+    @Query(value = "select * from t_machine_status as m where unix_timestamp(m.create_time) between unix_timestamp(?1) and unix_timestamp(now()) order by m.create_time", nativeQuery = true)
     List<MachineStatus> findLastToNow(Date last);
 
     /**
@@ -27,6 +27,6 @@ public interface MachineStatusRepository extends JpaRepository<MachineStatus, St
      * @param end   结束时间戳
      * @return List
      */
-    @Query(value = "select * from t_machine_status as m where to_days(m.create_time) between to_days(?1) and to_days(?2) order by m.create_time", nativeQuery = true)
+    @Query(value = "select * from t_machine_status as m where unix_timestamp(m.create_time) between unix_timestamp(?1) and unix_timestamp(?2) order by m.create_time", nativeQuery = true)
     List<MachineStatus> findStartToEnd(Date start, Date end);
 }

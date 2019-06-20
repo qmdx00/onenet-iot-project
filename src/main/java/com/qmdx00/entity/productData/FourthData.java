@@ -1,11 +1,10 @@
-package com.qmdx00.entity;
+package com.qmdx00.entity.productData;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,16 +12,16 @@ import java.io.Serializable;
 
 /**
  * @author yuanweimin
- * @date 19/06/10 16:25
- * @description 生产过程数据实体
+ * @date 19/06/20 17:13
+ * @description 生产过程第四道工序实体
  */
 @Entity
-@Table(name = "t_product_data")
+@Table(name = "t_product_fourth")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductData implements Serializable {
+public class FourthData implements Serializable {
     // 数据编号
     @Id
     private String dataId;
@@ -36,10 +35,4 @@ public class ProductData implements Serializable {
     private String length;
     // 产品重量 (kg)
     private String weight;
-    // 铜含量
-    private String copper;
-    // 锡含量
-    private String tin;
-    // 锌含量
-    private String zinc;
 }

@@ -367,11 +367,10 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       "msg": "请求成功",
       "data": [
           {
-              "producibleId": "3f65bae7481348cd8c8b01aeaaf932f2",
-              "name": "Line 1",
-              "producibleDesc": "xxx",
-              "type": "1001",
-              "image": "xxx.xx.jpg"
+              "machineId": "8962cc3b65bc4618b94b28eeebdfb0e7",
+              "name": "拉丝机",
+              "machineDesc": "XXXX",
+              "type": "大型机"
           }
       ]
   }

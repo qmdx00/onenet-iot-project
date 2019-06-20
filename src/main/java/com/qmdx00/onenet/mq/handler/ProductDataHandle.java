@@ -2,7 +2,7 @@ package com.qmdx00.onenet.mq.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.qmdx00.entity.ProductData;
+import com.qmdx00.entity.productData.FirstData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -27,23 +27,23 @@ public class ProductDataHandle implements MessageHandler {
         String deviceId = prop.getString("deviceId");
         String body = msg.getString("body");
         log.info("body: {}, deviceId: {}, timestamp: {}", body, deviceId, timestamp);
-        ProductData data = translate(deviceId, timestamp, body);
+        FirstData data = translate(deviceId, timestamp, body);
     }
 
     /**
-     * 将数据解析成 ProductData 对象
+     * 将数据解析成 FirstData 对象
      *
      * @param deviceId  设备 ID
      * @param timestamp 时间戳
      * @param body      数据体
-     * @return ProductData
+     * @return FirstData
      */
-    private ProductData translate(String deviceId, String timestamp, String body) {
+    private FirstData translate(String deviceId, String timestamp, String body) {
         Map<String, String> map = Arrays.stream(body.split("-"))
                 .map(et -> et.split("@"))
                 .filter(et -> et.length == 2 && !et[1].equals("#"))
                 .collect(Collectors.toMap(et -> et[0], et -> et[1]));
         System.out.println(map);
-        return ProductData.builder().build();
+        return FirstData.builder().build();
     }
 }
