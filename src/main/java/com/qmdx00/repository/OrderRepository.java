@@ -49,5 +49,5 @@ public interface OrderRepository extends JpaRepository<Order, String> {
     @Modifying
     @Query(value = "update t_order as o set o.product_id = ?2, o.number = ?3, o.diameter = ?4, o.length = ?5, o.weight = ?6, o.update_time = ?7 where o.order_id = ?1",
             nativeQuery = true)
-    Integer updateOrderById(String id, String productId, Integer number, Double diameter, Double length, Double weight, Date updateTime);
+    Integer updateOrderById(String id, String productId, String number, String diameter, String length, String weight, Date updateTime);
 }

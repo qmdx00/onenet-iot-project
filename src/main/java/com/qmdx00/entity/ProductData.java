@@ -23,27 +23,23 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductData implements Serializable {
-    // 产品编号
+    // 数据编号
     @Id
+    private String dataId;
+    // 产品编号
     private String productId;
     // 工人 ID
     private String workerId;
     // 产品直径 (mm)
-    @Column(name = "diameter", columnDefinition = "double(10,1) default 0.0")
-    private Double diameter;
+    private String diameter;
     // 产品长度 (m)
-    @Column(name = "length", columnDefinition = "double(10,1) default 0.0")
-    private Double length;
+    private String length;
     // 产品重量 (kg)
-    @Column(name = "weight", columnDefinition = "double(10,1) default 0.0")
-    private Double weight;
+    private String weight;
     // 铜含量
-    @Column(name = "copper", columnDefinition = "double(10,1) default 0.0")
-    private Double copper;
+    private String copper;
     // 锡含量
-    @Column(name = "tin", columnDefinition = "double(10,1) default 0.0")
-    private Double tin;
+    private String tin;
     // 锌含量
-    @Column(name = "zinc", columnDefinition = "double(10,1) default 0.0")
-    private Double zinc;
+    private String zinc;
 }

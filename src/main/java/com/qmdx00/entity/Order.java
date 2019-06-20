@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -32,16 +31,13 @@ public class Order implements Serializable {
     // 客户编号
     private String customerId;
     // 采购数量
-    private Integer number;
+    private String number;
     // 产品直径 (mm)
-    @Column(name = "diameter", columnDefinition = "double(10,1) default 0.0")
-    private Double diameter;
+    private String diameter;
     // 产品长度 (m)
-    @Column(name = "length", columnDefinition = "double(10,1) default 0.0")
-    private Double length;
+    private String length;
     // 产品重量 (kg)
-    @Column(name = "weight", columnDefinition = "double(10,1) default 0.0")
-    private Double weight;
+    private String weight;
     // 创建时间
     private Date createTime;
     // 修改时间

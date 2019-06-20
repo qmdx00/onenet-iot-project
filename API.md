@@ -594,10 +594,10 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       },
       "body": {
           "producible_id": "可生产的产品ID",
-          "number": 10,
-          "diameter": 10.0,
-          "length": 10.0,
-          "weight": 10.0
+          "number": "10",
+          "diameter": "10.0",
+          "length": "10.0",
+          "weight": "10.0"
       }
   }
   ```
@@ -626,10 +626,10 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       },
       "body": {
           "producible_id": "可生产的产品ID",
-          "number": 30,
-          "diameter": 30.0,
-          "length": 30.0,
-          "weight": 30.0
+          "number": "30",
+          "diameter": "30.0",
+          "length": "30.0",
+          "weight": "30.0"
       }
   }
   ```

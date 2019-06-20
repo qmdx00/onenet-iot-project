@@ -127,13 +127,13 @@ public class OrderController extends BaseController {
     @PostMapping
     public Response createOrder(HttpServletRequest request,
                                 @RequestParam("producible_id") String producibleId,
-                                @RequestParam("number") Integer number,
-                                @RequestParam("diameter") Double diameter,
-                                @RequestParam("length") Double length,
-                                @RequestParam("weight") Double weight) {
+                                @RequestParam("number") String number,
+                                @RequestParam("diameter") String diameter,
+                                @RequestParam("length") String length,
+                                @RequestParam("weight") String weight) {
 
         String token = request.getHeader("token");
-        if (!VerifyUtil.checkString(token, producibleId) || !VerifyUtil.checkInteger(number) || !VerifyUtil.checkDouble(diameter, length, weight)) {
+        if (!VerifyUtil.checkString(token, producibleId, number, diameter, length, weight)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {
             try {
@@ -184,13 +184,13 @@ public class OrderController extends BaseController {
     public Response updateOrder(HttpServletRequest request,
                                 @PathVariable String id,
                                 @RequestParam("producible_id") String producibleId,
-                                @RequestParam("number") Integer number,
-                                @RequestParam("diameter") Double diameter,
-                                @RequestParam("length") Double length,
-                                @RequestParam("weight") Double weight) {
+                                @RequestParam("number") String number,
+                                @RequestParam("diameter") String diameter,
+                                @RequestParam("length") String length,
+                                @RequestParam("weight") String weight) {
 
         String token = request.getHeader("token");
-        if (!VerifyUtil.checkString(id, token, producibleId) || !VerifyUtil.checkInteger(number) || !VerifyUtil.checkDouble(diameter, length, weight)) {
+        if (!VerifyUtil.checkString(id, token, producibleId, number, diameter, length, weight)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {
             try {
