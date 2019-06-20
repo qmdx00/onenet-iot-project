@@ -11,15 +11,15 @@ import java.util.Base64;
 /**
  * @author yuanweimin
  * @date 19/06/12 17:06
- * @description Token生成工具类
+ * @description mqtt 客户端连接的 token 生成
  */
 @SuppressWarnings("ALL")
 public class Token {
     static String assembleToken(String version,
-                                       String resourceName,
-                                       String expirationTime,
-                                       String signatureMethod,
-                                       String accessKey)
+                                String resourceName,
+                                String expirationTime,
+                                String signatureMethod,
+                                String accessKey)
             throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
         StringBuilder sb = new StringBuilder();
         String res = URLEncoder.encode(resourceName, "UTF-8");
@@ -42,10 +42,10 @@ public class Token {
     }
 
     static String generatorSignature(String version,
-                                            String resourceName,
-                                            String expirationTime,
-                                            String accessKey,
-                                            String signatureMethod)
+                                     String resourceName,
+                                     String expirationTime,
+                                     String accessKey,
+                                     String signatureMethod)
             throws NoSuchAlgorithmException, InvalidKeyException {
         String encryptText = expirationTime + "\n" + signatureMethod + "\n" + resourceName + "\n" + version;
         String signature;

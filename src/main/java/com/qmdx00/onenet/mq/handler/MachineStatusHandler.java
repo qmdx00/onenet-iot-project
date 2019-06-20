@@ -1,11 +1,11 @@
 package com.qmdx00.onenet.mq.handler;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.qmdx00.entity.Machine;
 import com.qmdx00.entity.MachineStatus;
+import com.qmdx00.util.model.Message;
 import com.qmdx00.service.MachineService;
 import com.qmdx00.service.MachineStatusService;
+import com.qmdx00.util.MessageUtil;
 import com.qmdx00.util.TimeUtil;
 import com.qmdx00.util.UUIDUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -42,13 +42,10 @@ public class MachineStatusHandler implements MessageHandler {
 
     @Override
     public synchronized void handle(long msgId, String msgBody) {
+        // 封装成 Message 实体
+        Message msg = MessageUtil.analysis(msgId, msgBody);
         // 映射成 MachineStatus 实体类对象
-        JSONObject msg = JSON.parseObject(msgBody);
-        JSONObject prop = msg.getJSONObject("appProperty");
-        String timestamp = prop.getString("dataTimestamp");
-        String deviceId = prop.getString("deviceId");
-        String body = msg.getString("body");
-        MachineStatus status = translate(deviceId, timestamp, body);
+        MachineStatus status = translate(msg.getDeviceId(), msg.getTimestamp(), msg.getBody());
         log.info("generate status: {}", status);
         // 保存状态数据到数据库中
         service.execute(() -> log.info("save status: {}", machineStatusService.saveStatus(status)));

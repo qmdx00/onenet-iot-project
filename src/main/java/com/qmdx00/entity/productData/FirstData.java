@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author yuanweimin
@@ -35,4 +36,6 @@ public class FirstData implements Serializable {
     private String tin;
     // 锌含量
     private String zinc;
+    // 上传时间
+    private Date createTime;
 }

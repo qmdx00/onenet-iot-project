@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author yuanweimin
@@ -35,4 +36,8 @@ public class FourthData implements Serializable {
     private String length;
     // 产品重量 (kg)
     private String weight;
+    // 上传时间
+    private Date createTime;
+    // 前一道工序的数据编号
+    private String previous;
 }
