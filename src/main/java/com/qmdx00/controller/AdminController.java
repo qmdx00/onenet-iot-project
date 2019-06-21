@@ -103,7 +103,7 @@ public class AdminController extends BaseController {
                 if (account != null) {
                     Admin admin = adminService.findAdminById(adminId);
                     log.info("admin: {}", admin);
-                    return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, adminId);
+                    return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, admin);
                 } else {
                     return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
                 }
