@@ -253,7 +253,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-          "Content-Type": "x-www-form-urlencoded"
+          "Content-Type": "application/x-www-form-urlencoded"
       },
       "body": {
           "name": "Jack",
@@ -283,7 +283,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-          "Content-Type": "x-www-form-urlencoded",
+          "Content-Type": "application/x-www-form-urlencoded",
           "token": "生成的token"
       },
       "body": {
@@ -460,7 +460,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-          "Content-Type": "application/x-www-form-urlencodec",
+          "Content-Type": "application/x-www-form-urlencoded",
          	"token": "生成的token"
       },
       "body": {
@@ -638,7 +638,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-          "Content-type": "x-www-form-urlencoded",
+          "Content-type": "application/x-www-form-urlencoded",
           "token": "生成的token"
       },
       "body": {
@@ -670,7 +670,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-          "Content-type": "x-www-form-urlencoded",
+          "Content-type": "application/x-www-form-urlencoded",
           "token": "生成的token"
       },
       "body": {
@@ -764,7 +764,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-          "Content-type": "x-www-form-urlencoded",
+          "Content-type": "application/x-www-form-urlencoded",
           "token": "生成的token"
       },
       "body": {
@@ -797,7 +797,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-          "Content-type": "x-www-form-urlencoded",
+          "Content-type": "application/x-www-form-urlencoded",
           "token": "生成的token"
       },
       "body": {
