@@ -1,7 +1,10 @@
 package com.qmdx00.controller;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
 import com.qmdx00.entity.Account;
 import com.qmdx00.entity.Admin;
+import com.qmdx00.entity.Customer;
 import com.qmdx00.service.AccountService;
 import com.qmdx00.service.AdminService;
 import com.qmdx00.util.*;
@@ -12,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -24,13 +28,15 @@ import java.util.Date;
 @RequestMapping("/api/admin")
 public class AdminController extends BaseController {
 
+    private final TokenUtil tokenUtil;
     private final AccountService accountService;
     private final AdminService adminService;
 
     @Autowired
-    public AdminController(AdminService adminService, AccountService accountService) {
+    public AdminController(AdminService adminService, AccountService accountService, TokenUtil tokenUtil) {
         this.adminService = adminService;
         this.accountService = accountService;
+        this.tokenUtil = tokenUtil;
     }
 
     /**
@@ -77,68 +83,112 @@ public class AdminController extends BaseController {
     }
 
     /**
-     * 通过 ID 查找管理员信息
+     * 通过 token 查找管理员信息
      *
-     * @param id 管理员 ID
+     * @param request 请求
      * @return Response
      */
-    @GetMapping("/{id}")
-    public Response getCustomerById(@PathVariable String id) {
-        if (VerifyUtil.checkString(id)) {
-            Admin admin = adminService.findAdminById(id);
-            if (admin == null) {
-                return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
-            } else {
-                log.info("find admin: {}", admin);
-                return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, admin);
-            }
+    @GetMapping
+    public Response getCustomerById(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        if (!VerifyUtil.checkString(token)) {
+            return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
         } else {
-            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
+            try {
+                // 解析token
+                Claim claim = tokenUtil.getClaim(token, "account_id");
+                String adminId = claim.asString();
+                Account account = accountService.findAccountById(adminId);
+                // 判断角色是否有权限
+                if (account != null) {
+                    Admin admin = adminService.findAdminById(adminId);
+                    log.info("admin: {}", admin);
+                    return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, adminId);
+                } else {
+                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
+                }
+            } catch (JWTVerificationException e) {
+                // 解析失败，token无效
+                log.error("{}", e);
+                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
+            }
         }
     }
 
     /**
-     * 通过 ID 修改管理员信息
+     * 通过 token 修改管理员信息
      *
-     * @param id    管理员 ID
-     * @param name  姓名
-     * @param email 邮箱
-     * @param phone 电话
+     * @param request 请求
+     * @param name    姓名
+     * @param email   邮箱
+     * @param phone   电话
      * @return Response
      */
-    @PutMapping("/{id}")
-    public Response updateCustomerById(@PathVariable String id,
+    @PutMapping
+    public Response updateCustomerById(HttpServletRequest request,
                                        @RequestParam("name") String name,
                                        @RequestParam("phone") String phone,
                                        @RequestParam("email") String email) {
 
-        if (!VerifyUtil.checkString(id, name, phone, email)) {
+        String token = request.getHeader("token");
+        if (!VerifyUtil.checkString(token, name, phone, email)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {
-            Admin admin = adminService.findAdminById(id);
-            if (admin == null) {
-                return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
-            } else {
-                return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
-                        MapUtil.create("row", adminService.updateAdmin(id, name, phone, email) + ""));
+            try {
+                // 解析token
+                Claim claim = tokenUtil.getClaim(token, "account_id");
+                String adminId = claim.asString();
+                Account account = accountService.findAccountById(adminId);
+                // 判断角色是否有权限
+                if (account != null) {
+                    Admin admin = adminService.findAdminById(adminId);
+                    if (admin == null) {
+                        return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
+                    } else {
+                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
+                                MapUtil.create("row", adminService.updateAdmin(adminId, name, phone, email) + ""));
+                    }
+                } else {
+                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
+                }
+            } catch (JWTVerificationException e) {
+                // 解析失败，token无效
+                log.error("{}", e);
+                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
             }
         }
     }
 
     /**
-     * 通过 ID 删除管理员信息
+     * 通过 token 删除管理员信息
      *
-     * @param id 管理员 ID
+     * @param request 请求
      * @return Response
      */
-    @DeleteMapping("/{id}")
-    public Response deleteCustomerById(@PathVariable String id) {
-        if (VerifyUtil.checkString(id)) {
-            Integer row = adminService.deleteAdmin(id);
-            log.info("delete customer: {}", row);
-            return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, MapUtil.create("row", row + ""));
+    @DeleteMapping
+    public Response deleteCustomerById(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        if (!VerifyUtil.checkString(token)) {
+            return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
         } else {
-            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
+            try {
+                // 解析token
+                Claim claim = tokenUtil.getClaim(token, "account_id");
+                String adminId = claim.asString();
+                Account account = accountService.findAccountById(adminId);
+                // 判断角色是否有权限
+                if (account != null) {
+                    Integer row = adminService.deleteAdmin(adminId);
+                    log.info("delete customer: {}", row);
+                    return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, MapUtil.create("row", row + ""));
+                } else {
+                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
+                }
+            } catch (JWTVerificationException e) {
+                // 解析失败，token无效
+                log.error("{}", e);
+                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
+            }
         }
     }
 }

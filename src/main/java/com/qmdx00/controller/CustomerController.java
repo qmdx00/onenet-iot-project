@@ -1,5 +1,7 @@
 package com.qmdx00.controller;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
 import com.qmdx00.entity.Account;
 import com.qmdx00.entity.Customer;
 import com.qmdx00.service.AccountService;
@@ -12,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -24,13 +27,15 @@ import java.util.Date;
 @RequestMapping("/api/customer")
 public class CustomerController extends BaseController {
 
+    private final TokenUtil tokenUtil;
     private final AccountService accountService;
     private final CustomerService customerService;
 
     @Autowired
-    public CustomerController(CustomerService customerService, AccountService accountService) {
+    public CustomerController(CustomerService customerService, AccountService accountService, TokenUtil tokenUtil) {
         this.customerService = customerService;
         this.accountService = accountService;
+        this.tokenUtil = tokenUtil;
     }
 
     /**
@@ -82,72 +87,115 @@ public class CustomerController extends BaseController {
     }
 
     /**
-     * 通过 Id 获取客户信息
+     * 通过 token 获取客户信息
      *
-     * @param id 客户 ID
+     * @param request 请求
      * @return Response
      */
-    @GetMapping("/{id}")
-    public Response getCustomerById(@PathVariable String id) {
-        if (VerifyUtil.checkString(id)) {
-            Customer customer = customerService.findCustomerById(id);
-            if (customer == null) {
-                return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
-            } else {
-                log.info("find customer: {}", customer);
-                return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, customer);
-            }
+    @GetMapping
+    public Response getCustomerById(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        if (!VerifyUtil.checkString(token)) {
+            return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
         } else {
-            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
+            try {
+                // 解析token
+                Claim claim = tokenUtil.getClaim(token, "account_id");
+                String customerId = claim.asString();
+                Account account = accountService.findAccountById(customerId);
+                // 判断角色是否有权限
+                if (account != null) {
+                    Customer customer = customerService.findCustomerById(customerId);
+                    log.info("customer: {}", customer);
+                    return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, customer);
+                } else {
+                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
+                }
+            } catch (JWTVerificationException e) {
+                // 解析失败，token无效
+                log.error("{}", e);
+                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
+            }
         }
     }
 
     /**
-     * 通过客户 ID 修改客户信息
+     * 通过客户 token 修改客户信息
      *
-     * @param id    客户 ID
-     * @param name  姓名
-     * @param phone 电话
-     * @param email 邮箱
-     * @param addr  地址
+     * @param request 请求
+     * @param name    姓名
+     * @param phone   电话
+     * @param email   邮箱
+     * @param addr    地址
      * @return Response
      */
-    @PutMapping("/{id}")
-    public Response updateCustomerById(@PathVariable String id,
+    @PutMapping
+    public Response updateCustomerById(HttpServletRequest request,
                                        @RequestParam("name") String name,
                                        @RequestParam("phone") String phone,
                                        @RequestParam("email") String email,
                                        @RequestParam("addr") String addr) {
 
-        if (!VerifyUtil.checkString(id, name, phone, email, addr)) {
+        String token = request.getHeader("token");
+        if (!VerifyUtil.checkString(token, name, phone, email, addr)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {
-            Customer customer = customerService.findCustomerById(id);
-            if (customer == null) {
-                return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
-            } else {
-                return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
-                        MapUtil.create("row", customerService.updateCustomer(id, name, phone, email, addr) + ""));
+            try {
+                // 解析token
+                Claim claim = tokenUtil.getClaim(token, "account_id");
+                String customerId = claim.asString();
+                Account account = accountService.findAccountById(customerId);
+                // 判断角色是否有权限
+                if (account != null) {
+                    Customer customer = customerService.findCustomerById(customerId);
+                    if (customer == null) {
+                        return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
+                    } else {
+                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
+                                MapUtil.create("row", customerService.updateCustomer(customerId, name, phone, email, addr) + ""));
+                    }
+                } else {
+                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
+                }
+            } catch (JWTVerificationException e) {
+                // 解析失败，token无效
+                log.error("{}", e);
+                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
             }
         }
-
     }
 
     /**
-     * 通过客户 ID 删除客户信息
+     * 通过客户 token 删除客户信息
      *
-     * @param id 客户 ID
+     * @param request 请求
      * @return Response
      */
-    @DeleteMapping("/{id}")
-    public Response deleteCustomerById(@PathVariable String id) {
-        if (VerifyUtil.checkString(id)) {
-            Integer row = customerService.deleteCustomer(id);
-            log.info("delete customer: {}", row);
-            return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
-                    MapUtil.create("row", row + ""));
+    @DeleteMapping
+    public Response deleteCustomerById(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        if (!VerifyUtil.checkString(token)) {
+            return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
         } else {
-            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
+            try {
+                // 解析token
+                Claim claim = tokenUtil.getClaim(token, "account_id");
+                String customerId = claim.asString();
+                Account account = accountService.findAccountById(customerId);
+                // 判断角色是否有权限
+                if (account != null) {
+                    Integer row = customerService.deleteCustomer(customerId);
+                    log.info("delete customer: {}", row);
+                    return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
+                            MapUtil.create("row", row + ""));
+                } else {
+                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
+                }
+            } catch (JWTVerificationException e) {
+                // 解析失败，token无效
+                log.error("{}", e);
+                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
+            }
         }
     }
 }

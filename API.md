@@ -155,14 +155,15 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   }
   ```
 
-- PUT /api/customer/{id} 通过客户 ID 修改客户信息
+- PUT /api/customer 通过客户 token 修改客户信息
 
   - Request
 
   ```json
   {
       "headers": {
-          "Content-Type": "application/x-www-form-urlencoded"
+          "Content-Type": "application/x-www-form-urlencoded",
+          "token": "生成的token"
       },
       "body": {
           "name": "Jack",
@@ -185,7 +186,19 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   }
   ```
 
-* GET /api/customer/{id} 通过 Id 获取客户信息
+* GET /api/customer 通过 token 获取客户信息
+
+  - Request
+
+  ```json
+  {
+        "headers": {
+            "token": "生成的token"
+        }
+    }
+  ```
+
+  
 
   * Response
 
@@ -205,7 +218,19 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   }
   ```
 
-* DELETE /api/customer/{id} 通过客户 ID 删除客户信息
+* DELETE /api/customer 通过客户token 删除客户信息
+
+  - Request
+
+  ```json
+  {
+        "headers": {
+            "token": "生成的token"
+        }
+    }
+  ```
+
+  
 
   * Response
 
@@ -251,14 +276,15 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   }
   ```
 
-* PUT /api/admin/{id} 通过 ID 修改管理员信息
+* PUT /api/admin 通过 token 修改管理员信息
 
   * Request
 
   ```json
   {
       "headers": {
-          "Content-Type": "x-www-form-urlencoded"
+          "Content-Type": "x-www-form-urlencoded",
+          "token": "生成的token"
       },
       "body": {
           "name": "Jack2",
@@ -280,7 +306,19 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   }
   ```
 
-* GET /api/admin/{id} 通过 ID 查找管理员信息
+* GET /api/admin 通过 token 查找管理员信息
+
+  - Request
+
+  ```json
+  {
+        "headers": {
+            "token": "生成的token"
+        }
+    }
+  ```
+
+  
 
   * Response
 
@@ -299,7 +337,19 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   }
   ```
 
-* DELETE /api/admin/{id} 通过 ID 删除管理员信息
+* DELETE /api/admin 通过 token 删除管理员信息
+
+  - Request
+
+  ```json
+  {
+        "headers": {
+            "token": "生成的token"
+        }
+    }
+  ```
+
+  
 
   * Response
 
