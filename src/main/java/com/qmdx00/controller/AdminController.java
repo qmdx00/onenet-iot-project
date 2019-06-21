@@ -89,7 +89,7 @@ public class AdminController extends BaseController {
      * @return Response
      */
     @GetMapping
-    public Response getCustomerById(HttpServletRequest request) {
+    public Response getCustomer(HttpServletRequest request) {
         String token = request.getHeader("token");
         if (!VerifyUtil.checkString(token)) {
             return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
@@ -102,8 +102,12 @@ public class AdminController extends BaseController {
                 // 判断角色是否有权限
                 if (account != null) {
                     Admin admin = adminService.findAdminById(adminId);
-                    log.info("admin: {}", admin);
-                    return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, admin);
+                    if (admin != null) {
+                        log.info("admin: {}", admin);
+                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, admin);
+                    } else {
+                        return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
+                    }
                 } else {
                     return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
                 }
@@ -125,7 +129,7 @@ public class AdminController extends BaseController {
      * @return Response
      */
     @PutMapping
-    public Response updateCustomerById(HttpServletRequest request,
+    public Response updateCustomer(HttpServletRequest request,
                                        @RequestParam("name") String name,
                                        @RequestParam("phone") String phone,
                                        @RequestParam("email") String email) {

@@ -93,7 +93,7 @@ public class CustomerController extends BaseController {
      * @return Response
      */
     @GetMapping
-    public Response getCustomerById(HttpServletRequest request) {
+    public Response getCustomer(HttpServletRequest request) {
         String token = request.getHeader("token");
         if (!VerifyUtil.checkString(token)) {
             return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
@@ -106,8 +106,12 @@ public class CustomerController extends BaseController {
                 // 判断角色是否有权限
                 if (account != null) {
                     Customer customer = customerService.findCustomerById(customerId);
-                    log.info("customer: {}", customer);
-                    return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, customer);
+                    if (customer != null) {
+                        log.info("customer: {}", customer);
+                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, customer);
+                    } else {
+                        return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
+                    }
                 } else {
                     return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
                 }
@@ -130,7 +134,7 @@ public class CustomerController extends BaseController {
      * @return Response
      */
     @PutMapping
-    public Response updateCustomerById(HttpServletRequest request,
+    public Response updateCustomer(HttpServletRequest request,
                                        @RequestParam("name") String name,
                                        @RequestParam("phone") String phone,
                                        @RequestParam("email") String email,
@@ -172,7 +176,7 @@ public class CustomerController extends BaseController {
      * @return Response
      */
     @DeleteMapping
-    public Response deleteCustomerById(HttpServletRequest request) {
+    public Response deleteCustomer(HttpServletRequest request) {
         String token = request.getHeader("token");
         if (!VerifyUtil.checkString(token)) {
             return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
