@@ -5,7 +5,6 @@
 baseURL: http://119.23.243.252:8080
 
 #### 返回结果状态码枚举
-
 ```json
 {
     "200": "请求成功",
@@ -19,24 +18,20 @@ baseURL: http://119.23.243.252:8080
     "500": "系统错误"
 }
 ```
-
 #### 设备实时状态监控相关
 
 WebSocket 地址：http://119.23.243.252:8080/ws
 
 - GET /api/status/{timestamp} 获取时间戳到现在的设备状态数据
   - Request
-  
   ```json
     {
         "headers": {
-            "token": "生成的token"
+            "token": "admin_token"
         }
     }
   ```
-  
   - Response
-  
   ```json
     {
         "code": 200,
@@ -72,15 +67,12 @@ WebSocket 地址：http://119.23.243.252:8080/ws
         ]
     }
   ```
-
 - GET /api/status/{start}/{end} 获取start到end的设备状态数据
-
   - Request
-  
   ```json
     {
         "headers": {
-            "token": "生成的token"
+            "token": "admin_token"
         }
     }
   ```
@@ -124,10 +116,8 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```
 
 #### 客户相关
-
 - POST /api/customer 客户注册并添加信息
   - Request
-
   ```json
   {
       "headers": {
@@ -142,9 +132,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
   - Response
-
   ```json
   {
       "code":201,
@@ -154,16 +142,13 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
 - PUT /api/customer 通过客户 token 修改客户信息
-
   - Request
-
   ```json
   {
       "headers": {
           "Content-Type": "application/x-www-form-urlencoded",
-          "token": "生成的token"
+          "token": "customer_token"
       },
       "body": {
           "name": "Jack",
@@ -173,9 +158,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
   * Response
-
   ```json
   {
       "code": 200,
@@ -185,23 +168,16 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
 * GET /api/customer 通过 token 获取客户信息
-
   - Request
-
   ```json
   {
         "headers": {
-            "token": "生成的token"
+            "token": "customer_token"
         }
     }
   ```
-
-  
-
   * Response
-
   ```json
   {
       "code": 200,
@@ -219,18 +195,15 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```
 
 * DELETE /api/customer 通过客户token 删除客户信息
-
   - Request
 
   ```json
   {
         "headers": {
-            "token": "生成的token"
+            "token": "customer_token"
         }
     }
   ```
-
-  
 
   * Response
 
@@ -245,11 +218,8 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```
 
 #### 管理员相关 
-
 * POST /api/admin 管理员注册
-
   * Request
-
   ```json
   {
       "headers": {
@@ -263,9 +233,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
   * Response
-
   ```json
   {
       "code": 201,
@@ -277,14 +245,12 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```
 
 * PUT /api/admin 通过 token 修改管理员信息
-
   * Request
-
   ```json
   {
       "headers": {
           "Content-Type": "application/x-www-form-urlencoded",
-          "token": "生成的token"
+          "token": "admin_token"
       },
       "body": {
           "name": "Jack2",
@@ -293,7 +259,6 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
   * Response
 
   ```json
@@ -305,7 +270,6 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
 * GET /api/admin 通过 token 查找管理员信息
 
   - Request
@@ -313,12 +277,10 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
         "headers": {
-            "token": "生成的token"
+            "token": "admin_token"
         }
     }
   ```
-
-  
 
   * Response
 
@@ -344,12 +306,10 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
         "headers": {
-            "token": "生成的token"
+            "token": "admin_token"
         }
     }
   ```
-
-  
 
   * Response
 
@@ -388,7 +348,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       "code": 200,
       "msg": "请求成功",
       "data": {
-          "token": "生成的token"
+          "token": "customer_token / admin_token"
       }
   }
   ```
@@ -404,11 +364,10 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-         	"token": "生成的token"
+         	"token": "admin_token"
       }
   }
   ```
-
   * Response
 
   ```json
@@ -433,7 +392,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-         	"token": "生成的token"
+         	"token": "admin_token"
       }
   }
   ```
@@ -446,9 +405,9 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       "msg": "请求成功",
       "data": {
           "machineId": "8962cc3b65bc4618b94b28eeebdfb0e7",
-          "name": "拉丝机",
+          "name": "Machine 1",
           "machineDesc": "XXXX",
-          "type": "大型机"
+          "type": "Small machine"
       }
   }
   ```
@@ -461,7 +420,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   {
       "headers": {
           "Content-Type": "application/x-www-form-urlencoded",
-         	"token": "生成的token"
+         	"token": "admin_token"
       },
       "body": {
           "name": "machine 1",
@@ -513,7 +472,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   {
       "headers": {
           "Content-type": "application/x-www-form-urlencoded",
-          "token": "生成的token"
+          "token": "admin_token"
       },
       "body": {
           "name": "Line 1",
@@ -561,7 +520,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-          "token": "生成的token"
+          "token": "admin_token"
       }
   }
   ```
@@ -593,7 +552,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-         	"token": "生成的token"
+         	"token": "customer_token"
       }
   }
   ```
@@ -639,7 +598,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   {
       "headers": {
           "Content-type": "application/x-www-form-urlencoded",
-          "token": "生成的token"
+          "token": "customer_token"
       },
       "body": {
           "producible_id": "可生产的产品ID",
@@ -671,7 +630,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   {
       "headers": {
           "Content-type": "application/x-www-form-urlencoded",
-          "token": "生成的token"
+          "token": "customer_token"
       },
       "body": {
           "producible_id": "可生产的产品ID",
@@ -702,7 +661,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-          "token": "生成的token"
+          "token": "admin_token"
       }
   }
   ```
@@ -734,7 +693,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-          "token": "生成的token"
+          "token": "admin_token"
       }
   }
   ```
@@ -765,7 +724,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   {
       "headers": {
           "Content-type": "application/x-www-form-urlencoded",
-          "token": "生成的token"
+          "token": "admin_token"
       },
       "body": {
           "name": "workerA",
@@ -798,7 +757,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   {
       "headers": {
           "Content-type": "application/x-www-form-urlencoded",
-          "token": "生成的token"
+          "token": "admin_token"
       },
       "body": {
           "name": "Aszed",
@@ -832,7 +791,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-          "token": "生成的token"
+          "token": "admin_token"
       }
   }
   ```
