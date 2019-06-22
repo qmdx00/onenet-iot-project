@@ -5,7 +5,6 @@
 baseURL: http://119.23.243.252:8080
 
 #### 返回结果状态码枚举
-
 ```json
 {
     "200": "请求成功",
@@ -19,24 +18,20 @@ baseURL: http://119.23.243.252:8080
     "500": "系统错误"
 }
 ```
-
 #### 设备实时状态监控相关
 
 WebSocket 地址：http://119.23.243.252:8080/ws
 
 - GET /api/status/{timestamp} 获取时间戳到现在的设备状态数据
   - Request
-  
   ```json
     {
         "headers": {
-            "token": "生成的token"
+            "token": "admin_token"
         }
     }
   ```
-  
   - Response
-  
   ```json
     {
         "code": 200,
@@ -72,15 +67,12 @@ WebSocket 地址：http://119.23.243.252:8080/ws
         ]
     }
   ```
-
 - GET /api/status/{start}/{end} 获取start到end的设备状态数据
-
   - Request
-  
   ```json
     {
         "headers": {
-            "token": "生成的token"
+            "token": "admin_token"
         }
     }
   ```
@@ -124,10 +116,8 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```
 
 #### 客户相关
-
 - POST /api/customer 客户注册并添加信息
   - Request
-
   ```json
   {
       "headers": {
@@ -142,9 +132,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
   - Response
-
   ```json
   {
       "code":201,
@@ -154,16 +142,13 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
 - PUT /api/customer 通过客户 token 修改客户信息
-
   - Request
-
   ```json
   {
       "headers": {
           "Content-Type": "application/x-www-form-urlencoded",
-          "token": "生成的token"
+          "token": "customer_token"
       },
       "body": {
           "name": "Jack",
@@ -173,9 +158,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
   * Response
-
   ```json
   {
       "code": 200,
@@ -185,23 +168,16 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
 * GET /api/customer 通过 token 获取客户信息
-
   - Request
-
   ```json
   {
         "headers": {
-            "token": "生成的token"
+            "token": "customer_token"
         }
     }
   ```
-
-  
-
   * Response
-
   ```json
   {
       "code": 200,
@@ -219,18 +195,15 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```
 
 * DELETE /api/customer 通过客户token 删除客户信息
-
   - Request
 
   ```json
   {
         "headers": {
-            "token": "生成的token"
+            "token": "customer_token"
         }
     }
   ```
-
-  
 
   * Response
 
@@ -245,11 +218,8 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```
 
 #### 管理员相关 
-
 * POST /api/admin 管理员注册
-
   * Request
-
   ```json
   {
       "headers": {
@@ -263,9 +233,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
   * Response
-
   ```json
   {
       "code": 201,
@@ -277,14 +245,12 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```
 
 * PUT /api/admin 通过 token 修改管理员信息
-
   * Request
-
   ```json
   {
       "headers": {
           "Content-Type": "application/x-www-form-urlencoded",
-          "token": "生成的token"
+          "token": "admin_token"
       },
       "body": {
           "name": "Jack2",
@@ -293,7 +259,6 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
   * Response
 
   ```json
@@ -305,7 +270,6 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
 * GET /api/admin 通过 token 查找管理员信息
 
   - Request
@@ -313,12 +277,10 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
         "headers": {
-            "token": "生成的token"
+            "token": "admin_token"
         }
     }
   ```
-
-  
 
   * Response
 
@@ -344,12 +306,10 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
         "headers": {
-            "token": "生成的token"
+            "token": "admin_token"
         }
     }
   ```
-
-  
 
   * Response
 
@@ -388,7 +348,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       "code": 200,
       "msg": "请求成功",
       "data": {
-          "token": "生成的token"
+          "token": "customer_token / admin_token"
       }
   }
   ```
@@ -404,11 +364,10 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-         	"token": "生成的token"
+         	"token": "admin_token"
       }
   }
   ```
-
   * Response
 
   ```json
@@ -433,7 +392,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-         	"token": "生成的token"
+         	"token": "admin_token"
       }
   }
   ```
@@ -446,9 +405,9 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       "msg": "请求成功",
       "data": {
           "machineId": "8962cc3b65bc4618b94b28eeebdfb0e7",
-          "name": "拉丝机",
+          "name": "Machine 1",
           "machineDesc": "XXXX",
-          "type": "大型机"
+          "type": "Small machine"
       }
   }
   ```
@@ -461,7 +420,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   {
       "headers": {
           "Content-Type": "application/x-www-form-urlencoded",
-         	"token": "生成的token"
+         	"token": "admin_token"
       },
       "body": {
           "name": "machine 1",
@@ -513,7 +472,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   {
       "headers": {
           "Content-type": "application/x-www-form-urlencoded",
-          "token": "生成的token"
+          "token": "admin_token"
       },
       "body": {
           "name": "Line 1",
@@ -561,7 +520,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-          "token": "生成的token"
+          "token": "admin_token"
       }
   }
   ```
@@ -593,7 +552,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-         	"token": "生成的token"
+         	"token": "customer_token"
       }
   }
   ```
@@ -606,26 +565,72 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       "msg": "请求成功",
       "data": [
           {
-              "orderId": "2070ecd0f1a444f4ba4823ed9c38c8e2",
-              "producibleId": "03439fffdf1c469ab7d3e69d05228c3b",
-              "customerId": "ae9e6b3b17fa495597ad8881b528f6bc",
-              "number": 30,
-              "diameter": 30,
-              "length": 30,
-              "weight": 30,
-              "createTime": "2019-06-18T03:21:08.000+0000",
-              "updateTime": "2019-06-18T03:23:32.000+0000"
+              "handle": {
+                  "orderId": "5e1ae67209fe4615b641a6617d51abda",
+                  "producibleId": "b078a3da18c14ad0ad44e007daf46c68",
+                  "customerId": "283fed7669514dada626a408f0b1096a",
+                  "number": "30",
+                  "diameter": "30",
+                  "length": "31.1",
+                  "weight": "20.3",
+                  "createTime": "2019-06-22T08:12:37.000+0000",
+                  "updateTime": "2019-06-22T08:33:50.000+0000"
+              },
+              "status": {
+                  "orderId": "5e1ae67209fe4615b641a6617d51abda",
+                  "orderStatus": "ACCEPT"
+              }
           },
           {
-              "orderId": "c7507620eb2d4b1da900b8c8051752b3",
-              "producibleId": "03439fffdf1c469ab7d3e69d05228c3b",
-              "customerId": "ae9e6b3b17fa495597ad8881b528f6bc",
-              "number": 20,
-              "diameter": 10,
-              "length": 10,
-              "weight": 10,
-              "createTime": "2019-06-18T03:21:38.000+0000",
-              "updateTime": "2019-06-18T03:21:38.000+0000"
+              "handle": {
+                  "orderId": "6225247741684ecab7f25594486363d7",
+                  "producibleId": "b078a3da18c14ad0ad44e007daf46c68",
+                  "customerId": "283fed7669514dada626a408f0b1096a",
+                  "number": "10",
+                  "diameter": "20.0",
+                  "length": "30.0",
+                  "weight": "40.0",
+                  "createTime": "2019-06-22T08:12:05.000+0000",
+                  "updateTime": "2019-06-22T08:12:05.000+0000"
+              },
+              "status": {
+                  "orderId": "6225247741684ecab7f25594486363d7",
+                  "orderStatus": "CREATED"
+              }
+          },
+          {
+              "handle": {
+                  "orderId": "6fd1d61ae6b4486eaa5797f66a9a5817",
+                  "producibleId": "b078a3da18c14ad0ad44e007daf46c68",
+                  "customerId": "283fed7669514dada626a408f0b1096a",
+                  "number": "30",
+                  "diameter": "30",
+                  "length": "31.1",
+                  "weight": "20.3",
+                  "createTime": "2019-06-22T08:29:23.000+0000",
+                  "updateTime": "2019-06-22T08:29:23.000+0000"
+              },
+              "status": {
+                  "orderId": "6fd1d61ae6b4486eaa5797f66a9a5817",
+                  "orderStatus": "CREATED"
+              }
+          },
+          {
+              "handle": {
+                  "orderId": "b5df94d4777140cfb20c06de475b4f1f",
+                  "producibleId": "4ec812351eb046b1be768b5cf6cf331f",
+                  "customerId": "283fed7669514dada626a408f0b1096a",
+                  "number": "10",
+                  "diameter": "20.0",
+                  "length": "10.0",
+                  "weight": "20.0",
+                  "createTime": "2019-06-22T08:14:02.000+0000",
+                  "updateTime": "2019-06-22T08:14:02.000+0000"
+              },
+              "status": {
+                  "orderId": "b5df94d4777140cfb20c06de475b4f1f",
+                  "orderStatus": "CREATED"
+              }
           }
       ]
   }
@@ -639,7 +644,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   {
       "headers": {
           "Content-type": "application/x-www-form-urlencoded",
-          "token": "生成的token"
+          "token": "customer_token"
       },
       "body": {
           "producible_id": "可生产的产品ID",
@@ -663,6 +668,40 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   }
   ```
 
+* GET /api/order/{id} 通过订单 ID 获取详细信息
+  * Request
+  ```json
+  {
+      "headers": {
+          "token": "customer_token"
+      }
+  }
+  ```
+  * Response
+  ```json
+  {
+      "code": 200,
+      "msg": "请求成功",
+      "data": {
+          "order": {
+              "orderId": "cbd74163ce924d4abfccaa38e82202e1",
+              "producibleId": "43f56770be0946c58e94cd1d1157c9d8",
+              "customerId": "7284124763ca4d888ba2dc1046ee5715",
+              "number": "10",
+              "diameter": "20.0",
+              "length": "30.0",
+              "weight": "4.0",
+              "createTime": "2019-06-22T09:11:38.000+0000",
+              "updateTime": "2019-06-22T09:11:38.000+0000"
+          },
+          "status": {
+              "orderId": "cbd74163ce924d4abfccaa38e82202e1",
+              "orderStatus": "CREATE"
+          }
+      }
+  }
+  ```
+
 * PUT /api/order/{id} 通过 ID 修改订单信息
 
   * Request
@@ -671,14 +710,14 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   {
       "headers": {
           "Content-type": "application/x-www-form-urlencoded",
-          "token": "生成的token"
+          "token": "customer_token"
       },
       "body": {
           "producible_id": "可生产的产品ID",
           "number": "30",
           "diameter": "30.0",
           "length": "30.0",
-          "weight": "30.0"
+          "weight": "30.0",
       }
   }
   ```
@@ -689,7 +728,65 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   {
       "code": 200,
       "msg": "请求成功",
-      "data": "1"
+      "data": {
+          "row": "1"
+      }
+  }
+  ```
+
+#### 订单处理相关
+
+* GET /api/handle 获取所有处理订单记录
+  * Request
+  ```json
+  {
+      "headers": {
+         "token": "admin_token"
+      }
+  }
+  ```
+
+  * Response
+  ```json
+  {
+    "code": 200,
+    "msg": "请求成功",
+    "data": [
+        {
+            "handle": {
+                "orderId": "5e1ae67209fe4615b641a6617d51abda",
+                "adminId": "67bc736f2f5c413089bcdeb3db3a424a",
+                "handleTime": "2019-06-22T08:37:26.000+0000",
+                "handleResult": "ACCEPT"
+            },
+            "status": {
+                "orderId": "5e1ae67209fe4615b641a6617d51abda",
+                "orderStatus": "ACCEPT"
+            }
+        }
+    ]
+  }
+  ```
+* PUT /api/handle/{id} 修改指定订单状态
+  * Request
+  ```json
+  {
+    "headers": {
+        "token": "admin_token"
+    },
+    "body": {
+        "status": "ACCEPT / REJECT / CREATE"
+    }
+  }
+  ```
+  * Response
+  ```json
+  {
+      "code": 200,
+      "msg": "请求成功",
+      "data": {
+          "row": "1"
+      }
   }
   ```
 
@@ -702,7 +799,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-          "token": "生成的token"
+          "token": "admin_token"
       }
   }
   ```
@@ -734,7 +831,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-          "token": "生成的token"
+          "token": "admin_token"
       }
   }
   ```
@@ -765,7 +862,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   {
       "headers": {
           "Content-type": "application/x-www-form-urlencoded",
-          "token": "生成的token"
+          "token": "admin_token"
       },
       "body": {
           "name": "workerA",
@@ -798,7 +895,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   {
       "headers": {
           "Content-type": "application/x-www-form-urlencoded",
-          "token": "生成的token"
+          "token": "admin_token"
       },
       "body": {
           "name": "Aszed",
@@ -832,7 +929,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   ```json
   {
       "headers": {
-          "token": "生成的token"
+          "token": "admin_token"
       }
   }
   ```
@@ -913,9 +1010,16 @@ WebSocket 地址：http://119.23.243.252:8080/ws
 | 方法 | 地址            |                    描述                    |
 | :--: | --------------- | :----------------------------------------: |
 | GET  | /api/order      |                获取所有订单                |
-| GET  | /api/order/{id} |                获取指定订单                |
 | POST | /api/order      |                创建一条订单                |
+| GET  | /api/order/{id} |                获取指定订单                |
 | PUT  | /api/order/{id} | 修改指定订单（未确认之前修改，否则无权限） |
+
+##### 订单处理相关
+
+| 方法 | 地址            |                    描述                    |
+| :--: | --------------- | :----------------------------------------: |
+| GET  | /api/handle      |                处理过的信息                |
+| PUT  | /api/handle/{id} | 修改指定订单状态 |
 
 ##### 管理员相关
 
