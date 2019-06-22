@@ -561,78 +561,78 @@ WebSocket 地址：http://119.23.243.252:8080/ws
 
   ```json
   {
-    "code": 200,
-    "msg": "请求成功",
-    "data": [
-        {
-            "handle": {
-                "orderId": "5e1ae67209fe4615b641a6617d51abda",
-                "producibleId": "b078a3da18c14ad0ad44e007daf46c68",
-                "customerId": "283fed7669514dada626a408f0b1096a",
-                "number": "30",
-                "diameter": "30",
-                "length": "31.1",
-                "weight": "20.3",
-                "createTime": "2019-06-22T08:12:37.000+0000",
-                "updateTime": "2019-06-22T08:33:50.000+0000"
-            },
-            "status": {
-                "orderId": "5e1ae67209fe4615b641a6617d51abda",
-                "orderStatus": "ACCEPT"
-            }
-        },
-        {
-            "handle": {
-                "orderId": "6225247741684ecab7f25594486363d7",
-                "producibleId": "b078a3da18c14ad0ad44e007daf46c68",
-                "customerId": "283fed7669514dada626a408f0b1096a",
-                "number": "10",
-                "diameter": "20.0",
-                "length": "30.0",
-                "weight": "40.0",
-                "createTime": "2019-06-22T08:12:05.000+0000",
-                "updateTime": "2019-06-22T08:12:05.000+0000"
-            },
-            "status": {
-                "orderId": "6225247741684ecab7f25594486363d7",
-                "orderStatus": "CREATED"
-            }
-        },
-        {
-            "handle": {
-                "orderId": "6fd1d61ae6b4486eaa5797f66a9a5817",
-                "producibleId": "b078a3da18c14ad0ad44e007daf46c68",
-                "customerId": "283fed7669514dada626a408f0b1096a",
-                "number": "30",
-                "diameter": "30",
-                "length": "31.1",
-                "weight": "20.3",
-                "createTime": "2019-06-22T08:29:23.000+0000",
-                "updateTime": "2019-06-22T08:29:23.000+0000"
-            },
-            "status": {
-                "orderId": "6fd1d61ae6b4486eaa5797f66a9a5817",
-                "orderStatus": "CREATED"
-            }
-        },
-        {
-            "handle": {
-                "orderId": "b5df94d4777140cfb20c06de475b4f1f",
-                "producibleId": "4ec812351eb046b1be768b5cf6cf331f",
-                "customerId": "283fed7669514dada626a408f0b1096a",
-                "number": "10",
-                "diameter": "20.0",
-                "length": "10.0",
-                "weight": "20.0",
-                "createTime": "2019-06-22T08:14:02.000+0000",
-                "updateTime": "2019-06-22T08:14:02.000+0000"
-            },
-            "status": {
-                "orderId": "b5df94d4777140cfb20c06de475b4f1f",
-                "orderStatus": "CREATED"
-            }
-        }
-    ]
+      "code": 200,
+      "msg": "请求成功",
+      "data": [
+          {
+              "handle": {
+                  "orderId": "5e1ae67209fe4615b641a6617d51abda",
+                  "producibleId": "b078a3da18c14ad0ad44e007daf46c68",
+                  "customerId": "283fed7669514dada626a408f0b1096a",
+                  "number": "30",
+                  "diameter": "30",
+                  "length": "31.1",
+                  "weight": "20.3",
+                  "createTime": "2019-06-22T08:12:37.000+0000",
+                  "updateTime": "2019-06-22T08:33:50.000+0000"
+              },
+              "status": {
+                  "orderId": "5e1ae67209fe4615b641a6617d51abda",
+                  "orderStatus": "ACCEPT"
+              }
+          },
+          {
+              "handle": {
+                  "orderId": "6225247741684ecab7f25594486363d7",
+                  "producibleId": "b078a3da18c14ad0ad44e007daf46c68",
+                  "customerId": "283fed7669514dada626a408f0b1096a",
+                  "number": "10",
+                  "diameter": "20.0",
+                  "length": "30.0",
+                  "weight": "40.0",
+                  "createTime": "2019-06-22T08:12:05.000+0000",
+                  "updateTime": "2019-06-22T08:12:05.000+0000"
+              },
+              "status": {
+                  "orderId": "6225247741684ecab7f25594486363d7",
+                  "orderStatus": "CREATED"
+              }
+          },
+          {
+              "handle": {
+                  "orderId": "6fd1d61ae6b4486eaa5797f66a9a5817",
+                  "producibleId": "b078a3da18c14ad0ad44e007daf46c68",
+                  "customerId": "283fed7669514dada626a408f0b1096a",
+                  "number": "30",
+                  "diameter": "30",
+                  "length": "31.1",
+                  "weight": "20.3",
+                  "createTime": "2019-06-22T08:29:23.000+0000",
+                  "updateTime": "2019-06-22T08:29:23.000+0000"
+              },
+              "status": {
+                  "orderId": "6fd1d61ae6b4486eaa5797f66a9a5817",
+                  "orderStatus": "CREATED"
+              }
+          },
+          {
+              "handle": {
+                  "orderId": "b5df94d4777140cfb20c06de475b4f1f",
+                  "producibleId": "4ec812351eb046b1be768b5cf6cf331f",
+                  "customerId": "283fed7669514dada626a408f0b1096a",
+                  "number": "10",
+                  "diameter": "20.0",
+                  "length": "10.0",
+                  "weight": "20.0",
+                  "createTime": "2019-06-22T08:14:02.000+0000",
+                  "updateTime": "2019-06-22T08:14:02.000+0000"
+              },
+              "status": {
+                  "orderId": "b5df94d4777140cfb20c06de475b4f1f",
+                  "orderStatus": "CREATED"
+              }
+          }
+      ]
   }
   ```
 
@@ -664,6 +664,40 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       "msg": "创建，修改成功",
       "data": {
           "id": "2070ecd0f1a444f4ba4823ed9c38c8e2"
+      }
+  }
+  ```
+
+* GET /api/order/{id} 通过订单 ID 获取详细信息
+  * Request
+  ```json
+  {
+      "headers": {
+          "token": "customer_token"
+      }
+  }
+  ```
+  * Response
+  ```json
+  {
+      "code": 200,
+      "msg": "请求成功",
+      "data": {
+          "order": {
+              "orderId": "cbd74163ce924d4abfccaa38e82202e1",
+              "producibleId": "43f56770be0946c58e94cd1d1157c9d8",
+              "customerId": "7284124763ca4d888ba2dc1046ee5715",
+              "number": "10",
+              "diameter": "20.0",
+              "length": "30.0",
+              "weight": "4.0",
+              "createTime": "2019-06-22T09:11:38.000+0000",
+              "updateTime": "2019-06-22T09:11:38.000+0000"
+          },
+          "status": {
+              "orderId": "cbd74163ce924d4abfccaa38e82202e1",
+              "orderStatus": "CREATE"
+          }
       }
   }
   ```
@@ -976,8 +1010,8 @@ WebSocket 地址：http://119.23.243.252:8080/ws
 | 方法 | 地址            |                    描述                    |
 | :--: | --------------- | :----------------------------------------: |
 | GET  | /api/order      |                获取所有订单                |
-| GET  | /api/order/{id} |                获取指定订单                |
 | POST | /api/order      |                创建一条订单                |
+| GET  | /api/order/{id} |                获取指定订单                |
 | PUT  | /api/order/{id} | 修改指定订单（未确认之前修改，否则无权限） |
 
 ##### 订单处理相关
