@@ -36,6 +36,8 @@ public class FourthData implements Serializable {
     private String length;
     // 产品重量 (kg)
     private String weight;
+    // 拉伸强度 N/mm^2
+    private String tensile;
     // 上传时间
     private Date createTime;
     // 前一道工序的数据编号

@@ -38,16 +38,16 @@ public interface OrderRepository extends JpaRepository<Order, String> {
     /**
      * 通过 ID 修改订单内容
      *
-     * @param id        订单 ID
-     * @param productId 产品 ID
-     * @param number    产品数量
-     * @param diameter  产品直径
-     * @param length    产品长度
-     * @param weight    产品重量
+     * @param id           订单 ID
+     * @param producibleId 可生产产品 ID
+     * @param number       产品数量
+     * @param diameter     产品直径
+     * @param length       产品长度
+     * @param weight       产品重量
      * @return Integer
      */
     @Modifying
-    @Query(value = "update t_order as o set o.product_id = ?2, o.number = ?3, o.diameter = ?4, o.length = ?5, o.weight = ?6, o.update_time = ?7 where o.order_id = ?1",
+    @Query(value = "update t_order as o set o.producible_id = ?2, o.number = ?3, o.diameter = ?4, o.length = ?5, o.weight = ?6, o.update_time = ?7 where o.order_id = ?1",
             nativeQuery = true)
-    Integer updateOrderById(String id, String productId, String number, String diameter, String length, String weight, Date updateTime);
+    Integer updateOrderById(String id, String producibleId, String number, String diameter, String length, String weight, Date updateTime);
 }

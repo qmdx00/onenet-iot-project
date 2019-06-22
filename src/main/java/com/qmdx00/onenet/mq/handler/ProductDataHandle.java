@@ -94,6 +94,7 @@ public class ProductDataHandle implements MessageHandler {
                         .diameter(data.getDiameter())
                         .weight(data.getWeight())
                         .length(data.getLength())
+                        .tensile(data.getTensile())
                         .createTime(data.getCreateTime())
                         .build());
             }
@@ -123,6 +124,7 @@ public class ProductDataHandle implements MessageHandler {
                 .copper(map.get("COC"))
                 .tin(map.get("TOC"))
                 .zinc(map.get("ZOC"))
+                .tensile(map.get("PST"))
                 .createTime(TimeUtil.toDate(timestamp))
                 .build();
     }

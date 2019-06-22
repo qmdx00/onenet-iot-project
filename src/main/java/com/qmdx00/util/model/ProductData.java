@@ -25,5 +25,6 @@ public class ProductData {
     private String copper;
     private String tin;
     private String zinc;
+    private String tensile;
     private Date createTime;
 }
