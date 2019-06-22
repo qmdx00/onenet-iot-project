@@ -28,6 +28,7 @@ import java.util.*;
  * @date 19/06/22 10:58
  * @description 管理员处理订单 Controller
  */
+@SuppressWarnings("unchecked")
 @Slf4j
 @RestController
 @RequestMapping("/api/handle")
@@ -66,14 +67,14 @@ public class HandleOrderController {
                 if (account != null && account.getRole() == Role.ADMIN) {
                     List<Handle> handles = handleService.getAllHandle();
                     if (handles != null) {
-                        Map map = new HashMap<>();
+                        List<HashMap> list = new LinkedList<>();
                         for (Handle handle : handles) {
-                            Map in = new HashMap();
+                            HashMap in = new HashMap();
                             in.put("handle", handle);
                             in.put("status", orderStatusService.getStatusById(handle.getOrderId()));
-                            map.put("list", in);
+                            list.add(in);
                         }
-                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, map);
+                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, list);
                     } else {
                         return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
                     }

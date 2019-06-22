@@ -17,16 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author yuanweimin
  * @date 19/06/17 08:43
  * @description 订单 Controller
  */
+@SuppressWarnings("unchecked")
 @Slf4j
 @RestController
 @RequestMapping("/api/order")
@@ -65,15 +63,15 @@ public class OrderController extends BaseController {
                 if (account != null) {
                     List<Order> orders = orderService.findAllOrder(customerId);
                     if (orders != null) {
-                        Map map = new HashMap<>();
+                        List<HashMap> list = new LinkedList<>();
                         for (Order order : orders) {
-                            Map in = new HashMap();
+                            HashMap in = new HashMap();
                             in.put("handle", order);
                             in.put("status", orderStatusService.getStatusById(order.getOrderId()));
-                            map.put("list", in);
+                            list.add(in);
                         }
-                        log.info("get orders: {}", map);
-                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, map);
+                        log.info("get orders: {}", list);
+                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, list);
                     } else {
                         return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
                     }
