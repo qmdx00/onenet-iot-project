@@ -19,14 +19,6 @@ public interface HandleService {
     List<Handle> getAllHandle();
 
     /**
-     * 修改订单处理的状态
-     *
-     * @param handle 处理后的处理信息
-     * @return Integer
-     */
-    Integer updateHandle(Handle handle);
-
-    /**
      * 通过订单ID获取处理记录
      *
      * @param orderId 订单ID

@@ -4,23 +4,26 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.qmdx00.entity.Account;
 import com.qmdx00.entity.Handle;
+import com.qmdx00.entity.OrderStatus;
 import com.qmdx00.service.AccountService;
 import com.qmdx00.service.HandleService;
+import com.qmdx00.service.OrderStatusService;
 import com.qmdx00.util.MapUtil;
 import com.qmdx00.util.ResultUtil;
 import com.qmdx00.util.TokenUtil;
 import com.qmdx00.util.VerifyUtil;
-import com.qmdx00.util.enums.HandleStatus;
 import com.qmdx00.util.enums.ResponseStatus;
 import com.qmdx00.util.enums.Role;
+import com.qmdx00.util.enums.Status;
 import com.qmdx00.util.model.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yuanweimin
@@ -35,12 +38,14 @@ public class HandleOrderController {
     private final TokenUtil tokenUtil;
     private final AccountService accountService;
     private final HandleService handleService;
+    private final OrderStatusService orderStatusService;
 
     @Autowired
-    public HandleOrderController(HandleService handleService, TokenUtil tokenUtil, AccountService accountService) {
+    public HandleOrderController(HandleService handleService, TokenUtil tokenUtil, AccountService accountService, OrderStatusService orderStatusService) {
         this.handleService = handleService;
         this.tokenUtil = tokenUtil;
         this.accountService = accountService;
+        this.orderStatusService = orderStatusService;
     }
 
     /**
@@ -63,7 +68,14 @@ public class HandleOrderController {
                 if (account != null && account.getRole() == Role.ADMIN) {
                     List<Handle> handles = handleService.getAllHandle();
                     if (handles != null) {
-                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, handles);
+                        Map map = new HashMap<>();
+                        for (Handle handle : handles) {
+                            Map in = new HashMap();
+                            in.put("handle", handle);
+                            in.put("status", orderStatusService.getStatusById(handle.getOrderId()));
+                            map.put("list", in);
+                        }
+                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, map);
                     } else {
                         return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
                     }
@@ -101,19 +113,13 @@ public class HandleOrderController {
                 String adminId = claim.asString();
                 Account account = accountService.findAccountById(adminId);
                 if (account != null && account.getRole() == Role.ADMIN) {
-                    Handle handle = handleService.getHandle(id);
-                    if (handle != null) {
-                        Handle posted = Handle.builder()
-                                .orderId(id)
-                                .adminId(adminId)
-                                .handleTime(new Date())
-                                .handleStatus(getStatus(status.trim()))
-                                .build();
-                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
-                                MapUtil.create("row", handleService.updateHandle(posted) + ""));
-                    } else {
-                        return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
-                    }
+                    Integer row = orderStatusService.updateStatus(OrderStatus.builder()
+                            .orderId(id)
+                            .orderStatus(getStatus(status))
+                            .build());
+                    log.info("update status: {}", row);
+                    return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
+                            MapUtil.create("row", row + ""));
                 } else {
                     return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
                 }
@@ -125,10 +131,10 @@ public class HandleOrderController {
         }
     }
 
-    private HandleStatus getStatus(String status) {
-        if (status.equalsIgnoreCase("REFUSE")) return HandleStatus.REFUSE;
-        if (status.equalsIgnoreCase("ACCEPT")) return HandleStatus.ACCEPT;
-        if (status.equalsIgnoreCase("UNTREATED")) return HandleStatus.UNTREATED;
+    private Status getStatus(String status) {
+        if (status.equalsIgnoreCase("CREATED")) return Status.CREATED;
+        if (status.equalsIgnoreCase("ACCEPT")) return Status.ACCEPT;
+        if (status.equalsIgnoreCase("REFUSE")) return Status.REFUSE;
         else return null;
     }
 }

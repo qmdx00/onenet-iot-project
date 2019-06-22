@@ -1,33 +1,31 @@
 package com.qmdx00.entity;
 
+import com.qmdx00.util.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author yuanweimin
  * @date 19/06/10 16:28
- * @description 订单处理记录实体
+ * @description 订单状态表
  */
 @Entity
-@Table(name = "t_order_handle")
+@Table(name = "t_order_status")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Handle implements Serializable {
+public class OrderStatus implements Serializable {
     // 处理的订单编号
     @Id
     private String orderId;
-    // 处理的管理员的编号
-    private String adminId;
-    // 处理时间
-    private Date handleTime;
-    // 处理结果
-    private String handleResult;
+    // 订单状态
+    private Status orderStatus;
 }

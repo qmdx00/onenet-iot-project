@@ -3,15 +3,14 @@ package com.qmdx00.controller;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.qmdx00.entity.Account;
-import com.qmdx00.entity.Handle;
 import com.qmdx00.entity.Order;
+import com.qmdx00.entity.OrderStatus;
 import com.qmdx00.service.AccountService;
-import com.qmdx00.service.HandleService;
 import com.qmdx00.service.OrderService;
+import com.qmdx00.service.OrderStatusService;
 import com.qmdx00.util.*;
-import com.qmdx00.util.enums.HandleStatus;
-import com.qmdx00.util.enums.OrderStatus;
 import com.qmdx00.util.enums.ResponseStatus;
+import com.qmdx00.util.enums.Status;
 import com.qmdx00.util.model.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +33,14 @@ public class OrderController extends BaseController {
     private final TokenUtil tokenUtil;
     private final AccountService accountService;
     private final OrderService orderService;
-    private final HandleService handleService;
+    private final OrderStatusService orderStatusService;
 
     @Autowired
-    public OrderController(OrderService orderService, TokenUtil tokenUtil, AccountService accountService, HandleService handleService) {
+    public OrderController(OrderService orderService, TokenUtil tokenUtil, AccountService accountService, OrderStatusService orderStatusService) {
         this.orderService = orderService;
         this.tokenUtil = tokenUtil;
         this.accountService = accountService;
-        this.handleService = handleService;
+        this.orderStatusService = orderStatusService;
     }
 
     /**
@@ -160,16 +159,14 @@ public class OrderController extends BaseController {
                             .weight(weight)
                             .createTime(new Date())
                             .updateTime(new Date())
-                            .orderStatus(OrderStatus.CREATED)
                             .build();
-                    // 同时创建一条待处理的记录
-                    Handle handle = Handle.builder()
+                    // 同时创建一条订单状态的记录
+                    OrderStatus status = orderStatusService.saveStatus(OrderStatus.builder()
                             .orderId(orderId)
-                            .handleStatus(HandleStatus.UNTREATED)
-                            .build();
+                            .orderStatus(Status.CREATED)
+                            .build());
                     log.info("create order: {}", order);
-                    log.info("create handle: {}", handle);
-                    handleService.insertHandle(handle);
+                    log.info("create status: {}", status);
                     return ResultUtil.returnStatusAndData(orderService.saveOrder(order),
                             MapUtil.create("id", orderId));
                 } else {
@@ -214,9 +211,10 @@ public class OrderController extends BaseController {
                 String customerId = claim.asString();
                 Account account = accountService.findAccountById(customerId);
                 if (account != null) {
+                    OrderStatus status = orderStatusService.getStatusById(id);
                     Order order = orderService.findOrderById(id, customerId);
                     if (order != null) {
-                        if (order.getOrderStatus() == OrderStatus.CREATED) {
+                        if (status.getOrderStatus() == Status.CREATED) {
                             Integer row = orderService.updateOrder(Order.builder()
                                     .orderId(order.getOrderId())
                                     .customerId(order.getCustomerId())

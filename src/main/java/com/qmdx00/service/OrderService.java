@@ -38,7 +38,7 @@ public interface OrderService {
     ResponseStatus saveOrder(Order order);
 
     /**
-     * 更新订单
+     * 修改订单
      *
      * @param order 订单实体
      * @return Integer

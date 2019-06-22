@@ -50,15 +50,4 @@ public interface OrderRepository extends JpaRepository<Order, String> {
     @Query(value = "update t_order as o set o.producible_id = ?2, o.number = ?3, o.diameter = ?4, o.length = ?5, o.weight = ?6, o.update_time = ?7 where o.order_id = ?1",
             nativeQuery = true)
     Integer updateOrderById(String id, String producibleId, String number, String diameter, String length, String weight, Date updateTime);
-
-    /**
-     * 处理订单，修改订单状态为已处理
-     *
-     * @param orderId 订单 ID
-     * @param status  订单状态
-     * @return Integer
-     */
-    @Modifying
-    @Query(value = "update t_order as o set o.order_status = ?2 where o.order_id = ?1", nativeQuery = true)
-    Integer handleOrder(String orderId, String status);
 }
