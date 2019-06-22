@@ -1,13 +1,12 @@
 package com.qmdx00.entity;
 
+import com.qmdx00.util.enums.HandleStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -23,15 +22,14 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Handle implements Serializable {
-    // 处理记录编号
+    // 处理的订单编号
     @Id
-    private String handleId;
+    private String orderId;
     // 处理的管理员的编号
     private String adminId;
-    // 处理的订单编号
-    private String orderId;
     // 处理时间
     private Date handleTime;
     // 处理结果
-    private String handleResult;
+    @Enumerated(EnumType.STRING)
+    private HandleStatus handleStatus;
 }

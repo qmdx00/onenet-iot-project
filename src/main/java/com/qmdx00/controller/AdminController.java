@@ -4,7 +4,6 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.qmdx00.entity.Account;
 import com.qmdx00.entity.Admin;
-import com.qmdx00.entity.Customer;
 import com.qmdx00.service.AccountService;
 import com.qmdx00.service.AdminService;
 import com.qmdx00.util.*;

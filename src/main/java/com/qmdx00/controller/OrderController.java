@@ -3,10 +3,14 @@ package com.qmdx00.controller;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.qmdx00.entity.Account;
+import com.qmdx00.entity.Handle;
 import com.qmdx00.entity.Order;
 import com.qmdx00.service.AccountService;
+import com.qmdx00.service.HandleService;
 import com.qmdx00.service.OrderService;
 import com.qmdx00.util.*;
+import com.qmdx00.util.enums.HandleStatus;
+import com.qmdx00.util.enums.OrderStatus;
 import com.qmdx00.util.enums.ResponseStatus;
 import com.qmdx00.util.model.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -30,12 +34,14 @@ public class OrderController extends BaseController {
     private final TokenUtil tokenUtil;
     private final AccountService accountService;
     private final OrderService orderService;
+    private final HandleService handleService;
 
     @Autowired
-    public OrderController(OrderService orderService, TokenUtil tokenUtil, AccountService accountService) {
+    public OrderController(OrderService orderService, TokenUtil tokenUtil, AccountService accountService, HandleService handleService) {
         this.orderService = orderService;
         this.tokenUtil = tokenUtil;
         this.accountService = accountService;
+        this.handleService = handleService;
     }
 
     /**
@@ -142,6 +148,7 @@ public class OrderController extends BaseController {
                 String customerId = claim.asString();
                 Account account = accountService.findAccountById(customerId);
                 if (account != null) {
+                    // 创建订单记录
                     String orderId = UUIDUtil.getUUID();
                     Order order = Order.builder()
                             .orderId(orderId)
@@ -153,8 +160,16 @@ public class OrderController extends BaseController {
                             .weight(weight)
                             .createTime(new Date())
                             .updateTime(new Date())
+                            .orderStatus(OrderStatus.CREATED)
+                            .build();
+                    // 同时创建一条待处理的记录
+                    Handle handle = Handle.builder()
+                            .orderId(orderId)
+                            .handleStatus(HandleStatus.UNTREATED)
                             .build();
                     log.info("create order: {}", order);
+                    log.info("create handle: {}", handle);
+                    handleService.insertHandle(handle);
                     return ResultUtil.returnStatusAndData(orderService.saveOrder(order),
                             MapUtil.create("id", orderId));
                 } else {
@@ -201,20 +216,24 @@ public class OrderController extends BaseController {
                 if (account != null) {
                     Order order = orderService.findOrderById(id, customerId);
                     if (order != null) {
-                        Integer row = orderService.updateOrder(Order.builder()
-                                .orderId(order.getOrderId())
-                                .customerId(order.getCustomerId())
-                                .producibleId(producibleId)
-                                .number(number)
-                                .diameter(diameter)
-                                .length(length)
-                                .weight(weight)
-                                .updateTime(new Date())
-                                .createTime(order.getCreateTime())
-                                .build());
-                        log.info("update order: {}", row);
-                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
-                                MapUtil.create("row", row + ""));
+                        if (order.getOrderStatus() == OrderStatus.CREATED) {
+                            Integer row = orderService.updateOrder(Order.builder()
+                                    .orderId(order.getOrderId())
+                                    .customerId(order.getCustomerId())
+                                    .producibleId(producibleId)
+                                    .number(number)
+                                    .diameter(diameter)
+                                    .length(length)
+                                    .weight(weight)
+                                    .updateTime(new Date())
+                                    .createTime(order.getCreateTime())
+                                    .build());
+                            log.info("update order: {}", row);
+                            return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
+                                    MapUtil.create("row", row + ""));
+                        } else {
+                            return ResultUtil.returnStatus(ResponseStatus.UPDATE_FAILED, "订单已被处理，无法修改");
+                        }
                     } else {
                         return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
                     }

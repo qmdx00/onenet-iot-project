@@ -1,5 +1,6 @@
 package com.qmdx00.entity;
 
+import com.qmdx00.util.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -42,4 +43,6 @@ public class Order implements Serializable {
     private Date createTime;
     // 修改时间
     private Date updateTime;
+    // 订单状态
+    private OrderStatus orderStatus;
 }
