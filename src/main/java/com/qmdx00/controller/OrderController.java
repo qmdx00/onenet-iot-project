@@ -108,7 +108,10 @@ public class OrderController extends BaseController {
                 if (account != null) {
                     Order order = orderService.findOrderById(id, customerId);
                     if (order != null) {
-                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, order);
+                        HashMap in = new HashMap();
+                        in.put("order", order);
+                        in.put("status", orderStatusService.getStatusById(order.getOrderId()));
+                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, in);
                     } else {
                         return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
                     }
@@ -170,7 +173,7 @@ public class OrderController extends BaseController {
                     // 同时创建一条订单状态的记录
                     OrderStatus status = orderStatusService.saveStatus(OrderStatus.builder()
                             .orderId(orderId)
-                            .orderStatus(Status.CREATED)
+                            .orderStatus(Status.CREATE)
                             .build());
                     log.info("create order: {}", order);
                     log.info("create status: {}", status);
@@ -221,7 +224,7 @@ public class OrderController extends BaseController {
                     OrderStatus status = orderStatusService.getStatusById(id);
                     Order order = orderService.findOrderById(id, customerId);
                     if (order != null) {
-                        if (status.getOrderStatus() == Status.CREATED) {
+                        if (status.getOrderStatus() == Status.CREATE) {
                             Integer row = orderService.updateOrder(Order.builder()
                                     .orderId(order.getOrderId())
                                     .customerId(order.getCustomerId())
