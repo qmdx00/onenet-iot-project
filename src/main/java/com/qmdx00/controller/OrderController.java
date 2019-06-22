@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yuanweimin
@@ -63,8 +65,15 @@ public class OrderController extends BaseController {
                 if (account != null) {
                     List<Order> orders = orderService.findAllOrder(customerId);
                     if (orders != null) {
-                        log.info("get orders: {}", orders);
-                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, orders);
+                        Map map = new HashMap<>();
+                        for (Order order : orders) {
+                            Map in = new HashMap();
+                            in.put("handle", order);
+                            in.put("status", orderStatusService.getStatusById(order.getOrderId()));
+                            map.put("list", in);
+                        }
+                        log.info("get orders: {}", map);
+                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, map);
                     } else {
                         return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
                     }

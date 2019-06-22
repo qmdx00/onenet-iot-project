@@ -21,9 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author yuanweimin
@@ -113,10 +111,19 @@ public class HandleOrderController {
                 String adminId = claim.asString();
                 Account account = accountService.findAccountById(adminId);
                 if (account != null && account.getRole() == Role.ADMIN) {
+                    // 添加订单处理记录
+                    Handle handle = handleService.insertHandle(Handle.builder()
+                            .orderId(id)
+                            .adminId(adminId)
+                            .handleTime(new Date())
+                            .handleResult(Objects.requireNonNull(getStatus(status)).name())
+                            .build());
+                    // 修改订单状态
                     Integer row = orderStatusService.updateStatus(OrderStatus.builder()
                             .orderId(id)
                             .orderStatus(getStatus(status))
                             .build());
+                    log.info("handle order: {}", handle);
                     log.info("update status: {}", row);
                     return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS,
                             MapUtil.create("row", row + ""));

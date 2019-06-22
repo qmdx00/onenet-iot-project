@@ -6,9 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -27,5 +25,6 @@ public class OrderStatus implements Serializable {
     @Id
     private String orderId;
     // 订单状态
+    @Enumerated(EnumType.STRING)
     private Status orderStatus;
 }
