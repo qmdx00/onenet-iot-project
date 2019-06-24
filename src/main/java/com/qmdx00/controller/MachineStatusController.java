@@ -20,6 +20,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * @author yuanweimin
+ * @date 19/06/24 08:49
+ * @description 获取设备历史数据 Controller
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api/status")

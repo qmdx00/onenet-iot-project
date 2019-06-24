@@ -67,7 +67,6 @@ public class ProductController extends BaseController {
         if (!VerifyUtil.checkString(id)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {
-            // TODO 查询逻辑，链式查询
             HashMap map = productDataService.getData(id);
             log.info("get data: {}", map);
             return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, map);

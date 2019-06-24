@@ -1,5 +1,9 @@
 package com.qmdx00.service.impl;
 
+import com.qmdx00.entity.productData.FirstData;
+import com.qmdx00.entity.productData.FourthData;
+import com.qmdx00.entity.productData.SecondData;
+import com.qmdx00.entity.productData.ThirdData;
 import com.qmdx00.repository.productData.FirstDataRepository;
 import com.qmdx00.repository.productData.FourthDataRepository;
 import com.qmdx00.repository.productData.SecondDataRepository;
@@ -9,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Optional;
 
+@SuppressWarnings("unchecked")
 @Service
 public class ProductDataServiceImpl implements ProductDataService {
 
@@ -28,7 +34,27 @@ public class ProductDataServiceImpl implements ProductDataService {
 
     @Override
     public HashMap getData(String productId) {
-        // Todo 生产过程数据查询逻辑
-        return null;
+        HashMap map = new HashMap();
+        Optional<FourthData> fourthData = fourthDataRepository.findById(productId);
+        if (fourthData.isPresent()) {
+            FourthData fourth = fourthData.get();
+            map.put("fourth", fourth);
+            Optional<ThirdData> thirdData = thirdDataRepository.findById(fourth.getPrevious());
+            if (thirdData.isPresent()) {
+                ThirdData third = thirdData.get();
+                map.put("third", third);
+                Optional<SecondData> secondData = secondDataRepository.findById(third.getPrevious());
+                if (secondData.isPresent()) {
+                    SecondData second = secondData.get();
+                    map.put("second", second);
+                    Optional<FirstData> firstData = firstDataRepository.findById(second.getPrevious());
+                    if (firstData.isPresent()) {
+                        FirstData first = firstData.get();
+                        map.put("first", first);
+                    }
+                }
+            }
+        }
+        return map;
     }
 }
