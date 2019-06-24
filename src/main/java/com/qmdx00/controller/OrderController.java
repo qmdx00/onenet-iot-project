@@ -50,7 +50,7 @@ public class OrderController extends BaseController {
      * @param request 请求
      * @return Response
      */
-    @GetMapping
+    @GetMapping("/admin")
     public Response getAllOrderByAdmin(HttpServletRequest request) {
         String token = request.getHeader("token");
         if (!VerifyUtil.checkString(token)) {

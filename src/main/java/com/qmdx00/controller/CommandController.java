@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author yuanweimin
  * @date 19/06/21 09:52
  * @description 设备控制，命令下发 Controller
  */
-@SuppressWarnings("SpellCheckingInspection")
 @Slf4j
 @RestController
 @RequestMapping("/api/cmd")
@@ -58,14 +58,18 @@ public class CommandController {
             // 构建 request body 中的 json 字符串
             HashMap<String, List> map = new HashMap<>();
             List<Command> commands = new ArrayList<>();
-            commands.add(new Command(5527, getCmd(cmd).getCode()));
+            // 资源 ID 为 5527
+            commands.add(new Command(5527, Objects.requireNonNull(getCmd(cmd.trim())).getCode()));
             map.put("data", commands);
             String params = JSONObject.toJSONString(map);
             // 发送控制指令请求到平台，返回响应的 json 字符串
             String response = okHttpUtil.postJson(url, params);
             // 解析响应的字符串，判断是否下发成功
             JSONObject jsonObject = JSONObject.parseObject(response);
-            String code = jsonObject.getString("errno");
+            String code = null;
+            if (jsonObject.getString("errno") != null) {
+                code = jsonObject.getString("errno");
+            }
             if (code != null && code.equals("0")) {
                 return ResultUtil.returnStatus(ResponseStatus.SUCCESS);
             } else {

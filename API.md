@@ -736,7 +736,49 @@ WebSocket 地址：http://119.23.243.252:8080/ws
 
 #### 订单处理相关
 
-* GET /api/handle 获取所有处理订单记录
+- GET /api/order/admin 获取所有的订单信息
+
+  - Request
+
+  ```json
+  {
+      "headers": {
+         "token": "admin_token"
+      }
+  }
+  ```
+
+  - Response
+
+  ```json
+  {
+      "code": 200,
+      "msg": "请求成功",
+      "data": [
+          {
+              "order": {
+                  "orderId": "8cd6c4e9eb7a4c7888752847553fe26d",
+                  "producibleId": "51af2759583d46599f2fa988b6a47a71",
+                  "customerId": "ff99e3ae5edb451eb82fb7a9ca2561c6",
+                  "number": "10",
+                  "diameter": "20",
+                  "length": "10",
+                  "weight": "20",
+                  "createTime": "2019-06-22T06:45:35.000+0000",
+                  "updateTime": "2019-06-22T06:45:35.000+0000"
+              },
+              "status": {
+                  "orderId": "8cd6c4e9eb7a4c7888752847553fe26d",
+                  "orderStatus": "ACCEPT"
+              }
+          }
+      ]
+  }
+  ```
+
+  
+
+- GET /api/handle 获取所有处理订单记录
   * Request
   ```json
   {
@@ -767,7 +809,8 @@ WebSocket 地址：http://119.23.243.252:8080/ws
     ]
   }
   ```
-* PUT /api/handle/{id} 修改指定订单状态
+
+- PUT /api/handle/{id} 修改指定订单状态
   * Request
   ```json
   {
