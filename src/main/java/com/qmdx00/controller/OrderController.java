@@ -25,7 +25,7 @@ import java.util.*;
  * @date 19/06/17 08:43
  * @description 订单 Controller
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "Duplicates"})
 @Slf4j
 @RestController
 @RequestMapping("/api/order")
@@ -62,13 +62,12 @@ public class OrderController extends BaseController {
                 String customerId = claim.asString();
                 Account account = accountService.findAccountById(customerId);
                 if (account != null && account.getRole() == Role.ADMIN) {
-                    // @Todo
-                    List<Order> orders = orderService.findAllOrder(customerId);
+                    List<Order> orders = orderService.findAllOrderByAdmin();
                     if (orders != null) {
                         List<HashMap> list = new LinkedList<>();
                         for (Order order : orders) {
                             HashMap in = new HashMap();
-                            in.put("handle", order);
+                            in.put("order", order);
                             in.put("status", orderStatusService.getStatusById(order.getOrderId()));
                             list.add(in);
                         }
@@ -106,12 +105,12 @@ public class OrderController extends BaseController {
                 String customerId = claim.asString();
                 Account account = accountService.findAccountById(customerId);
                 if (account != null) {
-                    List<Order> orders = orderService.findAllOrder(customerId);
+                    List<Order> orders = orderService.findAllOrderByCustomer(customerId);
                     if (orders != null) {
                         List<HashMap> list = new LinkedList<>();
                         for (Order order : orders) {
                             HashMap in = new HashMap();
-                            in.put("handle", order);
+                            in.put("order", order);
                             in.put("status", orderStatusService.getStatusById(order.getOrderId()));
                             list.add(in);
                         }

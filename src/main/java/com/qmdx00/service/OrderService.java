@@ -27,7 +27,14 @@ public interface OrderService {
      * @param customerId 客户 ID
      * @return List
      */
-    List<Order> findAllOrder(String customerId);
+    List<Order> findAllOrderByCustomer(String customerId);
+
+    /**
+     * 管理员获取所有客户订单
+     *
+     * @return List
+     */
+    List<Order> findAllOrderByAdmin();
 
     /**
      * 创建一条订单

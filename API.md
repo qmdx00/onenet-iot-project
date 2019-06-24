@@ -717,7 +717,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
           "number": "30",
           "diameter": "30.0",
           "length": "30.0",
-          "weight": "30.0",
+          "weight": "30.0"
       }
   }
   ```

@@ -9,7 +9,6 @@ import com.qmdx00.util.enums.ResponseStatus;
 import com.qmdx00.util.model.Command;
 import com.qmdx00.util.model.Response;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,13 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author yuanweimin
  * @date 19/06/21 09:52
  * @description 设备控制，命令下发 Controller
  */
+@SuppressWarnings("SpellCheckingInspection")
 @Slf4j
 @RestController
 @RequestMapping("/api/cmd")
@@ -95,28 +94,28 @@ public class CommandController {
      * @param cmd 命令字符串
      * @return Cmd
      */
-    // Todo
     private Cmd getCmd(String cmd) {
-        if (cmd.equalsIgnoreCase("")) return Cmd.MOTOR_STOP;
-        if (cmd.equalsIgnoreCase("")) return Cmd.MOTOR_FORWARD;
-        if (cmd.equalsIgnoreCase("")) return Cmd.MOTOR_REVERSE;
-        if (cmd.equalsIgnoreCase("")) return Cmd.MOTOR_SLOW;
-        if (cmd.equalsIgnoreCase("")) return Cmd.MOTOR_MIDDLE;
-        if (cmd.equalsIgnoreCase("")) return Cmd.MOTOR_FAST;
-
-        if (cmd.equalsIgnoreCase("")) return Cmd.SLIDE_CLOSE;
-        if (cmd.equalsIgnoreCase("")) return Cmd.SLIDE_OPEN;
-        if (cmd.equalsIgnoreCase("")) return Cmd.SLIDE_SLOW;
-        if (cmd.equalsIgnoreCase("")) return Cmd.SLIDE_MIDDLE;
-        if (cmd.equalsIgnoreCase("")) return Cmd.SLIDE_FAST;
-
-        if (cmd.equalsIgnoreCase("")) return Cmd.ROD_DIS_0;
-        if (cmd.equalsIgnoreCase("")) return Cmd.ROD_DIS_5;
-        if (cmd.equalsIgnoreCase("")) return Cmd.ROD_DIS_15;
-        if (cmd.equalsIgnoreCase("")) return Cmd.ROD_DIS_20;
-
-        if (cmd.equalsIgnoreCase("")) return Cmd.FAN_CLOSE;
-        if (cmd.equalsIgnoreCase("")) return Cmd.FAN_OPEN;
+        // 电机相关
+        if (cmd.equalsIgnoreCase("motor-stop")) return Cmd.MOTOR_STOP;
+        if (cmd.equalsIgnoreCase("motor-forward")) return Cmd.MOTOR_FORWARD;
+        if (cmd.equalsIgnoreCase("motor-reverse")) return Cmd.MOTOR_REVERSE;
+        if (cmd.equalsIgnoreCase("motor-slow")) return Cmd.MOTOR_SLOW;
+        if (cmd.equalsIgnoreCase("motor-middle")) return Cmd.MOTOR_MIDDLE;
+        if (cmd.equalsIgnoreCase("motor-fast")) return Cmd.MOTOR_FAST;
+        // 滑台相关
+        if (cmd.equalsIgnoreCase("slide-close")) return Cmd.SLIDE_CLOSE;
+        if (cmd.equalsIgnoreCase("slide-open")) return Cmd.SLIDE_OPEN;
+        if (cmd.equalsIgnoreCase("slide-slow")) return Cmd.SLIDE_SLOW;
+        if (cmd.equalsIgnoreCase("slide-middle")) return Cmd.SLIDE_MIDDLE;
+        if (cmd.equalsIgnoreCase("slide-fast")) return Cmd.SLIDE_FAST;
+        // 推杆相关
+        if (cmd.equalsIgnoreCase("rod-dis-0")) return Cmd.ROD_DIS_0;
+        if (cmd.equalsIgnoreCase("rod-dis-5")) return Cmd.ROD_DIS_5;
+        if (cmd.equalsIgnoreCase("rod-dis-15")) return Cmd.ROD_DIS_15;
+        if (cmd.equalsIgnoreCase("rod-dis-20")) return Cmd.ROD_DIS_20;
+        // 风扇相关
+        if (cmd.equalsIgnoreCase("fan-close")) return Cmd.FAN_CLOSE;
+        if (cmd.equalsIgnoreCase("fan-open")) return Cmd.FAN_OPEN;
         else return null;
     }
 }
