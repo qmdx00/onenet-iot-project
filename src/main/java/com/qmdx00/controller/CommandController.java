@@ -89,6 +89,13 @@ public class CommandController {
         return sb.deleteCharAt(sb.length() - 1).toString();
     }
 
+    /**
+     * 将 请求的命令映射到枚举中
+     *
+     * @param cmd 命令字符串
+     * @return Cmd
+     */
+    // Todo
     private Cmd getCmd(String cmd) {
         if (cmd.equalsIgnoreCase("")) return Cmd.MOTOR_STOP;
         if (cmd.equalsIgnoreCase("")) return Cmd.MOTOR_FORWARD;
