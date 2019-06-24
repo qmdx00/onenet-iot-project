@@ -25,15 +25,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class MqController extends BaseController {
 
     private final Environment env;
-    private final MqClient productClient;
+    private final MqClient productClient1;
+    private final MqClient productClient2;
+    private final MqClient productClient3;
+    private final MqClient productClient4;
     private final MqClient machineClient;
     private final ProductDataHandle productDataHandle;
     private final MachineStatusHandler machineStatusHandler;
 
     @Autowired
-    public MqController(MqClient machineClient, MqClient productClient, ProductDataHandle productDataHandle, MachineStatusHandler machineStatusHandler, Environment env) {
+    public MqController(MqClient machineClient, MqClient productClient1, MqClient productClient2, MqClient productClient3, MqClient productClient4, ProductDataHandle productDataHandle, MachineStatusHandler machineStatusHandler, Environment env) {
         this.machineClient = machineClient;
-        this.productClient = productClient;
+        this.productClient1 = productClient1;
+        this.productClient2 = productClient2;
+        this.productClient3 = productClient3;
+        this.productClient4 = productClient4;
         this.productDataHandle = productDataHandle;
         this.machineStatusHandler = machineStatusHandler;
         this.env = env;
@@ -54,16 +60,58 @@ public class MqController extends BaseController {
     }
 
     /**
-     * 产品溯源系统数据订阅
+     * 产品溯源系统数据订阅-第一道工序
      */
-    @GetMapping("/product")
-    public void subProduct() {
-        subscribe(productClient,
+    @GetMapping("/product/1")
+    public void subProduct1() {
+        subscribe(productClient1,
                 "test-topic",
                 "demo",
-                env.getProperty("product.clientId"),
-                env.getProperty("product.MQID"),
-                env.getProperty("product.accessKey"),
+                env.getProperty("product1.clientId"),
+                env.getProperty("product1.MQID"),
+                env.getProperty("product1.accessKey"),
+                productDataHandle);
+    }
+
+    /**
+     * 产品溯源系统数据订阅-第二道工序
+     */
+    @GetMapping("/product/2")
+    public void subProduct2() {
+        subscribe(productClient2,
+                "test-topic",
+                "demo",
+                env.getProperty("product2.clientId"),
+                env.getProperty("product2.MQID"),
+                env.getProperty("product2.accessKey"),
+                productDataHandle);
+    }
+
+    /**
+     * 产品溯源系统数据订阅-第三道工序
+     */
+    @GetMapping("/product/3")
+    public void subProduct3() {
+        subscribe(productClient3,
+                "test-topic",
+                "demo",
+                env.getProperty("product3.clientId"),
+                env.getProperty("product3.MQID"),
+                env.getProperty("product3.accessKey"),
+                productDataHandle);
+    }
+
+    /**
+     * 产品溯源系统数据订阅-第四道工序
+     */
+    @GetMapping("/product/4")
+    public void subProduct4() {
+        subscribe(productClient4,
+                "test-topic",
+                "demo",
+                env.getProperty("product4.clientId"),
+                env.getProperty("product4.MQID"),
+                env.getProperty("product4.accessKey"),
                 productDataHandle);
     }
 
