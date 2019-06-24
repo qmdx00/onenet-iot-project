@@ -14,7 +14,6 @@ import java.util.Objects;
  * @date 19/06/24 09:29
  * @description okHttp 工具类
  */
-@SuppressWarnings("unused")
 @Slf4j
 @Component
 @PropertySource("classpath:config/mqClient-config.properties")

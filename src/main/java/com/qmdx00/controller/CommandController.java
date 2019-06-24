@@ -64,14 +64,16 @@ public class CommandController {
             String params = JSONObject.toJSONString(map);
             // 发送控制指令请求到平台，返回响应的 json 字符串
             String response = okHttpUtil.postJson(url, params);
+            System.out.println(response);
             // 解析响应的字符串，判断是否下发成功
             JSONObject jsonObject = JSONObject.parseObject(response);
-            String code = null;
-            if (jsonObject.getString("errno") != null) {
-                code = jsonObject.getString("errno");
-            }
-            if (code != null && code.equals("0")) {
-                return ResultUtil.returnStatus(ResponseStatus.SUCCESS);
+            if (jsonObject != null) {
+                String code = jsonObject.getString("errno");
+                if (code != null && code.equals("0")) {
+                    return ResultUtil.returnStatus(ResponseStatus.SUCCESS);
+                } else {
+                    return ResultUtil.returnStatus(ResponseStatus.FAILED);
+                }
             } else {
                 return ResultUtil.returnStatus(ResponseStatus.FAILED);
             }
@@ -93,7 +95,7 @@ public class CommandController {
     }
 
     /**
-     * 将 请求的命令映射到枚举中
+     * 将请求的命令映射到枚举中
      *
      * @param cmd 命令字符串
      * @return Cmd
