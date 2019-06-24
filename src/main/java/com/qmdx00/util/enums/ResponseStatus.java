@@ -16,6 +16,7 @@ public enum ResponseStatus {
     DELETE_SUCCESS(204, "删除成功"),
     PARAMS_ERROR(400, "参数错误"),
     NOT_LOGIN(401, "未登录"),
+    FAILED(402, "请求失败"),
     VISITED_FORBID(403, "禁止访问"),
     NOT_FOUND(404, "资源未找到"),
     STYTEM_ERROR(500, "系统错误");

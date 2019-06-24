@@ -10,6 +10,7 @@ import com.qmdx00.service.OrderService;
 import com.qmdx00.service.OrderStatusService;
 import com.qmdx00.util.*;
 import com.qmdx00.util.enums.ResponseStatus;
+import com.qmdx00.util.enums.Role;
 import com.qmdx00.util.enums.Status;
 import com.qmdx00.util.model.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -44,13 +45,56 @@ public class OrderController extends BaseController {
     }
 
     /**
+     * 管理员获取所有订单
+     *
+     * @param request 请求
+     * @return Response
+     */
+    @GetMapping
+    public Response getAllOrderByAdmin(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        if (!VerifyUtil.checkString(token)) {
+            return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
+        } else {
+            try {
+                // 解析token
+                Claim claim = tokenUtil.getClaim(token, "account_id");
+                String customerId = claim.asString();
+                Account account = accountService.findAccountById(customerId);
+                if (account != null && account.getRole() == Role.ADMIN) {
+                    List<Order> orders = orderService.findAllOrder(customerId);
+                    if (orders != null) {
+                        List<HashMap> list = new LinkedList<>();
+                        for (Order order : orders) {
+                            HashMap in = new HashMap();
+                            in.put("handle", order);
+                            in.put("status", orderStatusService.getStatusById(order.getOrderId()));
+                            list.add(in);
+                        }
+                        log.info("get orders: {}", list);
+                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, list);
+                    } else {
+                        return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
+                    }
+                } else {
+                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
+                }
+            } catch (JWTVerificationException e) {
+                // 解析失败，token无效
+                log.error("{}", e);
+                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
+            }
+        }
+    }
+
+    /**
      * 获取当前用户的所有订单
      *
      * @param request 请求
      * @return Response
      */
     @GetMapping
-    public Response getAllOrder(HttpServletRequest request) {
+    public Response getAllOrderByCustomer(HttpServletRequest request) {
         String token = request.getHeader("token");
         if (!VerifyUtil.checkString(token)) {
             return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);

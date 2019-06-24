@@ -10,6 +10,12 @@ public enum Status {
      * 已创建
      */
     CREATE,
+    /**
+     * 拒绝
+     */
     REFUSE,
+    /**
+     * 接受
+     */
     ACCEPT
 }
