@@ -22,6 +22,33 @@ baseURL: http://119.23.243.252:8080
 
 WebSocket 地址：http://119.23.243.252:8080/ws
 
+- 属性说明
+
+|      属性       |       说明       |
+| :-------------: | :--------------: |
+|   temperature   |       温度       |
+| temperatureWarn | 温度超过阈值预警 |
+|       fan       | 散热风扇开启状态 |
+|    humidity     |       湿度       |
+|  humidityWarn   | 湿度超过阈值预警 |
+|     voltage     |       电压       |
+|    electric     |       电流       |
+|      power      |       功耗       |
+|     weight      |   加工货物重量   |
+|   weightWarn    |   重量超载预警   |
+|    motorOpen    |   电机开关状态   |
+|   motorSpeed    |     电机转速     |
+|    motorDir     |     电机转向     |
+|    slideOpen    |   滑台开关状态   |
+|   slideSpeed    |   滑台移动速度   |
+|    slideDir     |   滑台移动方向   |
+|   rodDistance   |   推杆推送距离   |
+|  machineError   |   机器故障预警   |
+|    reservedA    |    预留状态A     |
+|    reservedB    |    预留状态B     |
+|    reservedC    |    预留状态C     |
+|    reservedD    |    预留状态D     |
+
 - GET /api/status/{timestamp} 获取时间戳到现在的设备状态数据
   - Request
   ```json
@@ -357,25 +384,25 @@ WebSocket 地址：http://119.23.243.252:8080/ws
 
 - 指令对照表
 
-| 指令字符串    | 含义           |
-| ------------- | -------------- |
-| motor-stop    | 电机静止       |
-| motor-forward | 电机正转       |
-| motor-reverse | 电机反转       |
-| motor-fast    | 电机速度: 快   |
-| motor-middle  | 电机速度: 中   |
-| motor-slow    | 电机速度: 慢   |
-| slide-open    | 滑台打开       |
-| slide-close   | 滑台关闭       |
-| slide-fast    | 滑台速度: 快   |
-| slide-middle  | 滑台速度: 中   |
-| slide-slow    | 滑台速度: 慢   |
-| rod-dis-0     | 推杆距离: 0cm  |
-| rod-dis-5     | 推杆距离: 5cm  |
-| rod-dis-15    | 推杆距离: 15cm |
-| rod-dis-20    | 推杆距离: 20cm |
-| fan-open      | 风扇打开       |
-| fan-close     | 风扇关闭       |
+| 指令字符串(cmd) |      含义      |
+| :-------------: | :------------: |
+|   motor-stop    |    电机静止    |
+|  motor-forward  |    电机正转    |
+|  motor-reverse  |    电机反转    |
+|   motor-fast    |  电机速度: 快  |
+|  motor-middle   |  电机速度: 中  |
+|   motor-slow    |  电机速度: 慢  |
+|   slide-open    |    滑台打开    |
+|   slide-close   |    滑台关闭    |
+|   slide-fast    |  滑台速度: 快  |
+|  slide-middle   |  滑台速度: 中  |
+|   slide-slow    |  滑台速度: 慢  |
+|    rod-dis-0    | 推杆距离: 0cm  |
+|    rod-dis-5    | 推杆距离: 5cm  |
+|   rod-dis-15    | 推杆距离: 15cm |
+|   rod-dis-20    | 推杆距离: 20cm |
+|    fan-open     |    风扇打开    |
+|    fan-close    |    风扇关闭    |
 
 
 
@@ -1098,92 +1125,3 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
-##### 机器设备相关(通过上传的数据生成设备)
-
-| 方法 | 地址              |       描述       |
-| :--: | :---------------- | :--------------: |
-| GET  | /api/machine      | 获取所有设备信息 |
-| GET  | /api/machine/{id} | 获取指定设备信息 |
-| PUT  | /api/machine/{id} | 修改指定设备信息 |
-
-##### 管理员相关
-
-|  方法  | 地址            |         描述         |
-| :----: | --------------- | :------------------: |
-|  GET   | /api/admin/{id} |  获取指定管理员信息  |
-|  POST  | /api/admin      | 管理员注册并添加信息 |
-|  PUT   | /api/admin/{id} |  修改指定管理员信息  |
-| DELETE | /api/admin/{id} |  删除指定管理员信息  |
-
-##### 操作记录相关(通过上传数据创建记录)
-
-|  方法  | 地址             |       描述       |
-| :----: | ---------------- | :--------------: |
-|  GET   | /api/record      | 获取所有操作记录 |
-|  GET   | /api/record/{id} | 获取指定操作记录 |
-| DELETE | /api/record/{id} | 删除指定操作记录 |
-
-##### 账户相关
-
-| 方法 | 地址         |        描述         |
-| :--: | ------------ | :-----------------: |
-| POST | /api/account | 账户登录，返回token |
-
-#### 产品溯源
-
-##### 客户相关
-
-|  方法  | 地址               |        描述        |
-| :----: | ------------------ | :----------------: |
-|  GET   | /api/customer/{id} |  获取指定客户信息  |
-|  POST  | /api/customer      | 客户注册并添加信息 |
-|  PUT   | /api/customer/{id} |  修改指定客户信息  |
-| DELETE | /api/customer/{id} |  删除指定客户信息  |
-
-
-
-##### 生产成品相关（生产过程数据由服务端根据上传数据自动生成）
-
-| 方法 | 地址              |       描述       |
-| :--: | ----------------- | :--------------: |
-| GET  | /api/product/{id} | 获取指定产品信息 |
-
-##### 可生产产品相关
-
-|  方法  | 地址                 |                  描述                  |
-| :----: | -------------------- | :------------------------------------: |
-|  GET   | /api/producible      |         获取所有可生产产品信息         |
-|  POST  | /api/producible      | 创建一条可生产产品信息(需要管理员权限) |
-|  GET   | /api/producible/{id} |         获取指定可生产产品信息         |
-| DELETE | /api/producible/{id} | 删除指定可生产产品信息(需要管理员权限) |
-
-##### 订单相关
-
-| 方法 | 地址            |                    描述                    |
-| :--: | --------------- | :----------------------------------------: |
-| GET  | /api/order      |                获取所有订单                |
-| POST | /api/order      |                创建一条订单                |
-| GET  | /api/order/{id} |                获取指定订单                |
-| PUT  | /api/order/{id} | 修改指定订单（未确认之前修改，否则无权限） |
-
-##### 订单处理相关
-
-| 方法 | 地址            |                    描述                    |
-| :--: | --------------- | :----------------------------------------: |
-| GET  | /api/handle      |                处理过的信息                |
-| PUT  | /api/handle/{id} | 修改指定订单状态 |
-
-##### 管理员相关
-
-同边缘网关管理员接口
-
-##### 工人相关
-
-|  方法  | 地址             |       描述       |
-| :----: | ---------------- | :--------------: |
-|  GET   | /api/worker      | 获取所有工人信息 |
-|  GET   | /api/worker/{id} | 获取指定工人信息 |
-|  POST  | /api/worker      | 创建一条工人信息 |
-|  PUT   | /api/worker/{id} | 修改指定工人信息 |
-| DELETE | /api/worker/{id} | 删除一条工人信息 |
