@@ -140,7 +140,7 @@ public class HandleOrderController extends BaseController {
     }
 
     private Status getStatus(String status) {
-        if (status.equalsIgnoreCase("CREATED")) return Status.CREATE;
+        if (status.equalsIgnoreCase("CREATE")) return Status.CREATE;
         if (status.equalsIgnoreCase("ACCEPT")) return Status.ACCEPT;
         if (status.equalsIgnoreCase("REFUSE")) return Status.REFUSE;
         else return null;
