@@ -615,17 +615,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
 
 #### 已生产产品相关
 
-​	通过上传的数据生成产品实体
-
-* GET /api/product/{id} 通过 ID 查找产品信息
-
-  - Response
-
-  ```json
-  
-  ```
-
-- GET /api/product/data/{id} 通过产品ID产找产品生产过程数据
+- GET /api/product/{id} 通过产品ID产找产品生产过程数据
 
   - Response
 
@@ -677,8 +667,6 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
-
-  
 
 #### 订单相关
 

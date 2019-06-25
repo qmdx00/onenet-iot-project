@@ -1,8 +1,6 @@
 package com.qmdx00.controller;
 
-import com.qmdx00.entity.Product;
 import com.qmdx00.service.ProductDataService;
-import com.qmdx00.service.ProductService;
 import com.qmdx00.util.ResultUtil;
 import com.qmdx00.util.VerifyUtil;
 import com.qmdx00.util.enums.ResponseStatus;
@@ -19,42 +17,18 @@ import java.util.HashMap;
 /**
  * @author yuanweimin
  * @date 19/06/22 17:19
- * @description 产品信息和生产过程数据 Controller
+ * @description 生产过程数据 Controller
  */
 @Slf4j
 @RestController
 @RequestMapping("/api/product")
-public class ProductController extends BaseController {
+public class ProductDataController extends BaseController {
 
     private final ProductDataService productDataService;
-    private final ProductService productService;
 
     @Autowired
-    public ProductController(ProductService productService, ProductDataService productDataService) {
-        this.productService = productService;
+    public ProductDataController(ProductDataService productDataService) {
         this.productDataService = productDataService;
-    }
-
-    /**
-     * 通过 ID 查找产品信息
-     *
-     * @param id 产品 ID
-     * @return Response
-     */
-    @GetMapping("/{id}")
-    public Response findProductById(@PathVariable String id) {
-        // Todo 根据上传数据生成产品信息
-        if (!VerifyUtil.checkString(id)) {
-            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
-        } else {
-            Product product = productService.findProductById(id);
-            if (product != null) {
-                log.info("get product: {}", product);
-                return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, product);
-            } else {
-                return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
-            }
-        }
     }
 
     /**
@@ -63,7 +37,7 @@ public class ProductController extends BaseController {
      * @param id 产品 ID
      * @return Response
      */
-    @GetMapping("/data/{id}")
+    @GetMapping("/{id}")
     public Response findProductDataById(@PathVariable String id) {
         if (!VerifyUtil.checkString(id)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);

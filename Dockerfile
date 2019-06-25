@@ -5,8 +5,8 @@ FROM java:8
 # 工作目录
 WORKDIR /app
 # 拷贝文件
-COPY tinyroom.jar /app
+COPY onenet-iot.jar /app
 # 镜像服务的守护端口
 EXPOSE 8080
 # 执行命令
-ENTRYPOINT [ "java", "-jar", "./tinyroom.jar" ]
+ENTRYPOINT [ "java", "-jar", "./onenet-iot.jar" ]
