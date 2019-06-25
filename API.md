@@ -308,7 +308,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
         "headers": {
             "token": "admin_token"
         }
-    }
+  }
   ```
 
   * Response
@@ -352,6 +352,55 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
+
+#### 控制下发相关
+
+- 指令对照表
+
+| 指令字符串    | 含义           |
+| ------------- | -------------- |
+| motor-stop    | 电机静止       |
+| motor-forward | 电机正转       |
+| motor-reverse | 电机反转       |
+| motor-fast    | 电机速度: 快   |
+| motor-middle  | 电机速度: 中   |
+| motor-slow    | 电机速度: 慢   |
+| slide-open    | 滑台打开       |
+| slide-close   | 滑台关闭       |
+| slide-fast    | 滑台速度: 快   |
+| slide-middle  | 滑台速度: 中   |
+| slide-slow    | 滑台速度: 慢   |
+| rod-dis-0     | 推杆距离: 0cm  |
+| rod-dis-5     | 推杆距离: 5cm  |
+| rod-dis-15    | 推杆距离: 15cm |
+| rod-dis-20    | 推杆距离: 20cm |
+| fan-open      | 风扇打开       |
+| fan-close     | 风扇关闭       |
+
+
+
+- GET /api/cmd/{cmd} 控制下发
+
+  - Request
+
+  ```json
+  {
+        "headers": {
+            "token": "admin_token"
+        }
+  }
+  ```
+
+  - Response
+
+  ```json
+  {
+      "code": 200,
+      "msg": "请求成功"
+  }
+  ```
+
+  
 
 #### 设备相关
 
@@ -537,11 +586,72 @@ WebSocket 地址：http://119.23.243.252:8080/ws
   }
   ```
 
-#### 已生产产品相关 (UNDO)
+#### 已生产产品相关
 
 ​	通过上传的数据生成产品实体
 
 * GET /api/product/{id} 通过 ID 查找产品信息
+
+  - Response
+
+  ```json
+  
+  ```
+
+- GET /api/product/data/{id} 通过产品ID产找产品生产过程数据
+
+  - Response
+
+  ```json
+  {
+      "code": 200,
+      "msg": "请求成功",
+      "data": {
+          "third": {
+              "dataId": "6ca3076bfa77412f87ef4015f7cd9468",
+              "productId": "3001",
+              "workerId": "1",
+              "diameter": "0.250000",
+              "length": "50.000000",
+              "weight": "0.087331",
+              "createTime": "2019-06-25T01:41:51.000+0000",
+              "previous": "2001"
+          },
+          "fourth": {
+              "dataId": "67cd140307cc4647986ba12e364c8f2b",
+              "productId": "4001",
+              "workerId": "2",
+              "diameter": "0.250000",
+              "length": "50.000000",
+              "weight": "0.000000",
+              "tensile": "452.000000",
+              "createTime": "2019-06-25T01:49:16.000+0000",
+              "previous": "3001"
+          },
+          "first": {
+              "dataId": "545ad0a6856045a581378bc3bbd281fb",
+              "productId": "1001",
+              "workerId": "1",
+              "copper": "0.010000",
+              "tin": "0.030000",
+              "zinc": "0.020000",
+              "createTime": "2019-06-25T01:35:17.000+0000"
+          },
+          "second": {
+              "dataId": "9a8e957a99f94ae181f83c031948a140",
+              "productId": "2001",
+              "workerId": "2",
+              "diameter": "0.250000",
+              "length": "100.000000",
+              "weight": "0.174662",
+              "createTime": "2019-06-25T01:38:15.000+0000",
+              "previous": "1001"
+          }
+      }
+  }
+  ```
+
+  
 
 #### 订单相关
 

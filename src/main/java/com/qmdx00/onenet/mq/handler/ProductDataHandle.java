@@ -51,6 +51,7 @@ public class ProductDataHandle implements MessageHandler {
         // 解析接收的数据
         Message msg = MessageUtil.analysis(msgId, msgBody);
         ProductData data = translate(msg.getTimestamp(), msg.getBody());
+        log.info("receive data: {}", data);
         // 判断数据所属第几道工序并将工序数据存储到数据库中
         service.execute(() -> {
             if (data.getProductId().startsWith("1")) {

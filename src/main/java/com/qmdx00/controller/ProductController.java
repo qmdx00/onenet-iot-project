@@ -43,6 +43,7 @@ public class ProductController extends BaseController {
      */
     @GetMapping("/{id}")
     public Response findProductById(@PathVariable String id) {
+        // Todo 根据上传数据生成产品信息
         if (!VerifyUtil.checkString(id)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {

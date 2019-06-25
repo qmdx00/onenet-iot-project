@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -22,6 +23,7 @@ public class ThirdData implements Serializable {
     @Id
     private String dataId;
     // 产品编号
+    @Column(unique = true)
     private String productId;
     // 工人 ID
     private String workerId;

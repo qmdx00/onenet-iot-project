@@ -35,19 +35,19 @@ public class ProductDataServiceImpl implements ProductDataService {
     @Override
     public HashMap getData(String productId) {
         HashMap map = new HashMap();
-        Optional<FourthData> fourthData = fourthDataRepository.findById(productId);
+        Optional<FourthData> fourthData = fourthDataRepository.findByProductId(productId);
         if (fourthData.isPresent()) {
             FourthData fourth = fourthData.get();
             map.put("fourth", fourth);
-            Optional<ThirdData> thirdData = thirdDataRepository.findById(fourth.getPrevious());
+            Optional<ThirdData> thirdData = thirdDataRepository.findByProductId(fourth.getPrevious());
             if (thirdData.isPresent()) {
                 ThirdData third = thirdData.get();
                 map.put("third", third);
-                Optional<SecondData> secondData = secondDataRepository.findById(third.getPrevious());
+                Optional<SecondData> secondData = secondDataRepository.findByProductId(third.getPrevious());
                 if (secondData.isPresent()) {
                     SecondData second = secondData.get();
                     map.put("second", second);
-                    Optional<FirstData> firstData = firstDataRepository.findById(second.getPrevious());
+                    Optional<FirstData> firstData = firstDataRepository.findByProductId(second.getPrevious());
                     if (firstData.isPresent()) {
                         FirstData first = firstData.get();
                         map.put("first", first);

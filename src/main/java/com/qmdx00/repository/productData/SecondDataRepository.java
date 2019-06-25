@@ -4,6 +4,8 @@ import com.qmdx00.entity.productData.SecondData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * @author yuanweimin
  * @date 19/06/20 20:07
@@ -11,4 +13,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface SecondDataRepository extends JpaRepository<SecondData, String> {
+
+    /**
+     * 通过产品ID产找工序数据
+     *
+     * @param productId 产品 ID
+     * @return Optional
+     */
+    Optional<SecondData> findByProductId(String productId);
 }

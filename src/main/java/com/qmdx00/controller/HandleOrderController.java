@@ -32,7 +32,7 @@ import java.util.*;
 @Slf4j
 @RestController
 @RequestMapping("/api/handle")
-public class HandleOrderController {
+public class HandleOrderController extends BaseController {
 
     private final TokenUtil tokenUtil;
     private final AccountService accountService;

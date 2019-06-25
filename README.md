@@ -5,5 +5,8 @@
 #### 生成可执行的 jar 包
 ```mvn clean package -Dmaven.test.skip=true```
 
+#### 创建 MySQL 容器
+```docker run --name=mysql -e ```
+
 #### 服务器后台运行
 ```nohup java -jar xxx.jar > xxx.log &```
