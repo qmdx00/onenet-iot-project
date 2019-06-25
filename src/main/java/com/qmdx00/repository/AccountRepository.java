@@ -23,6 +23,14 @@ public interface AccountRepository extends JpaRepository<Account, String> {
     Optional<Account> findById(String id);
 
     /**
+     * 通过用户名查找账户
+     *
+     * @param name 用户名
+     * @return Optional<Account>
+     */
+    Optional<Account> findByName(String name);
+
+    /**
      * 通过用户名和密码查找账户
      *
      * @param name     用户名

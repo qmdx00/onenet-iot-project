@@ -58,7 +58,7 @@ public class CustomerController extends BaseController {
         if (!VerifyUtil.checkString(name, password, phone, email, addr)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {
-            Account posted = accountService.findByNameAndPassword(name, EncryptionUtil.encrypt(password));
+            Account posted = accountService.findByName(name);
             if (posted == null) {
                 String id = UUIDUtil.getUUID();
                 // 构建客户对象

@@ -39,7 +39,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account findByNameAndPassword(String name, String password) {
-        return accountRepository.findByNameAndPassword(name, password).orElse(null);
+    public Account findByName(String name) {
+        return accountRepository.findByName(name).orElse(null);
     }
 }

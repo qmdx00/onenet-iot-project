@@ -56,7 +56,7 @@ public class AdminController extends BaseController {
         if (!VerifyUtil.checkString(name, password, email, phone)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
         } else {
-            Account posted = accountService.findByNameAndPassword(name, EncryptionUtil.encrypt(password));
+            Account posted = accountService.findByName(name);
             if (posted == null) {
                 String id = UUIDUtil.getUUID();
                 Admin admin = Admin.builder()
