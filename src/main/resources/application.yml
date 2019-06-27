@@ -6,7 +6,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false
   datasource:
-    url: jdbc:mysql://localhost:3306/project?useSSL=false&serverTimezone=GMT%2b8&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:8888/project?useSSL=false&serverTimezone=GMT%2b8&characterEncoding=UTF-8
     username: root
-    password: qmdx00
+    password: 123
     driver-class-name: com.mysql.cj.jdbc.Driver
