@@ -949,7 +949,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
         "token": "admin_token"
     },
     "body": {
-        "status": "ACCEPT / REJECT / CREATE"
+        "status": "ACCEPT / REFUSE / CREATE"
     }
   }
   ```
