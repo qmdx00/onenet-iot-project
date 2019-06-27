@@ -726,7 +726,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
               },
               "status": {
                   "orderId": "6225247741684ecab7f25594486363d7",
-                  "orderStatus": "CREATED"
+                  "orderStatus": "CREATE"
               }
           },
           {
@@ -743,7 +743,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
               },
               "status": {
                   "orderId": "6fd1d61ae6b4486eaa5797f66a9a5817",
-                  "orderStatus": "CREATED"
+                  "orderStatus": "CREATE"
               }
           },
           {
@@ -760,7 +760,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
               },
               "status": {
                   "orderId": "b5df94d4777140cfb20c06de475b4f1f",
-                  "orderStatus": "CREATED"
+                  "orderStatus": "CREATE"
               }
           }
       ]
