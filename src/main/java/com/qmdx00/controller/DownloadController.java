@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -30,13 +29,20 @@ public class DownloadController extends BaseController {
     /**
      * 边缘网关 App 下载
      *
-     * @param request  请求
      * @param response 响应
      */
     @GetMapping("/gateway")
-    public void getEdgeGateway(HttpServletRequest request,
-                               HttpServletResponse response) {
+    public void getEdgeGateway(HttpServletResponse response) {
+        downloadService.download("gateway.apk", response);
+    }
 
-        
+    /**
+     * 边缘网关 App 下载
+     *
+     * @param response 响应
+     */
+    @GetMapping("/origins")
+    public void getOrigins(HttpServletResponse response) {
+        downloadService.download("origins.apk", response);
     }
 }
