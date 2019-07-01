@@ -87,6 +87,46 @@ public class CustomerController extends BaseController {
     }
 
     /**
+     * 管理员通过 客户ID 获取客户信息
+     *
+     * @param request 请求
+     * @param id      用户 ID
+     * @return Response
+     */
+    @GetMapping("/{id}")
+    public Response getCustomerByAdmin(HttpServletRequest request,
+                                       @PathVariable String id) {
+
+        String token = request.getHeader("token");
+        if (!VerifyUtil.checkString(id, token)) {
+            return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
+        } else {
+            try {
+                // 解析token
+                Claim claim = tokenUtil.getClaim(token, "account_id");
+                String adminId = claim.asString();
+                Account account = accountService.findAccountById(adminId);
+                // 判断角色是否有权限
+                if (account != null && account.getRole() == Role.ADMIN) {
+                    Customer customer = customerService.findCustomerById(id);
+                    if (customer != null) {
+                        log.info("customer: {}", customer);
+                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, customer);
+                    } else {
+                        return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
+                    }
+                } else {
+                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
+                }
+            } catch (JWTVerificationException e) {
+                // 解析失败，token无效
+                log.error("{}", e);
+                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
+            }
+        }
+    }
+
+    /**
      * 通过 token 获取客户信息
      *
      * @param request 请求
@@ -94,6 +134,7 @@ public class CustomerController extends BaseController {
      */
     @GetMapping
     public Response getCustomer(HttpServletRequest request) {
+        
         String token = request.getHeader("token");
         if (!VerifyUtil.checkString(token)) {
             return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
@@ -135,10 +176,10 @@ public class CustomerController extends BaseController {
      */
     @PutMapping
     public Response updateCustomer(HttpServletRequest request,
-                                       @RequestParam("name") String name,
-                                       @RequestParam("phone") String phone,
-                                       @RequestParam("email") String email,
-                                       @RequestParam("addr") String addr) {
+                                   @RequestParam("name") String name,
+                                   @RequestParam("phone") String phone,
+                                   @RequestParam("email") String email,
+                                   @RequestParam("addr") String addr) {
 
         String token = request.getHeader("token");
         if (!VerifyUtil.checkString(token, name, phone, email, addr)) {

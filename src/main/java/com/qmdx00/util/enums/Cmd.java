@@ -5,7 +5,7 @@ package com.qmdx00.util.enums;
  * @date 19/06/11 10:56
  * @description 下发命令枚举
  */
-@SuppressWarnings("ALL")
+@SuppressWarnings("unused")
 public enum Cmd {
     /**
      * 电机相关
@@ -13,17 +13,17 @@ public enum Cmd {
     MOTOR_STOP("11", "电机静止"),
     MOTOR_FORWARD("12", "电机正转"),
     MOTOR_REVERSE("13", "电机反转"),
-    MOTOR_FAST("21", "电机速度: 快"),
+    MOTOR_FAST("23", "电机速度: 快"),
     MOTOR_MIDDLE("22", "电机速度: 中"),
-    MOTOR_SLOW("23", "电机速度: 慢"),
+    MOTOR_SLOW("21", "电机速度: 慢"),
     /**
      * 滑台相关
      */
     SLIDE_OPEN("31", "滑台打开"),
     SLIDE_CLOSE("32", "滑台关闭"),
-    SLIDE_FAST("41", "滑台速度: 快"),
+    SLIDE_FAST("43", "滑台速度: 快"),
     SLIDE_MIDDLE("42", "滑台速度: 中"),
-    SLIDE_SLOW("43", "滑台速度: 慢"),
+    SLIDE_SLOW("41", "滑台速度: 慢"),
     /**
      * 推杆相关
      */

@@ -201,6 +201,36 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
+* GET /api/customer/{id} 管理员通过客户ID获取客户信息
+
+  - Request
+
+  ```json
+  {
+        "headers": {
+            "token": "admin_token"
+        }
+  }
+  ```
+
+  - Response
+
+  ```json
+  {
+      "code": 200,
+      "msg": "请求成功",
+      "data": {
+          "customerId": "011fe8fa3f104be982aaf93cf45ef6c1",
+          "name": "Alice",
+          "phone": "18379822223",
+          "email": "ywm00@qq.com",
+          "addr": "china",
+          "createTime": "2019-07-01T02:28:46.000+0000",
+          "updateTime": "2019-07-01T02:28:46.000+0000"
+      }
+  }
+  ```
+
 * GET /api/customer 通过 token 获取客户信息
   - Request
   ```json
@@ -208,7 +238,7 @@ WebSocket 地址：http://119.23.243.252:8080/ws
         "headers": {
             "token": "customer_token"
         }
-    }
+  }
   ```
   * Response
   ```json
