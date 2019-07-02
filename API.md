@@ -21,8 +21,8 @@ baseURL: http://119.23.243.252:8080
 
 #### 安卓App下载相关
 
-GET /api/download/origins 产品溯源系统app下载
-GET /api/download/gateway 边缘网关系统app下载
+- GET /api/download/origins 产品溯源系统app下载
+- GET /api/download/gateway 边缘网关系统app下载
 
 #### 设备实时状态监控相关
 

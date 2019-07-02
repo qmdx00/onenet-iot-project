@@ -17,7 +17,7 @@ public class TimeUtil {
      * @param timestamp 时间戳
      * @return String
      */
-    public static String toTime(String timestamp) {
+    private static String toTime(String timestamp) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return dateFormat.format(Double.parseDouble(timestamp));
     }
