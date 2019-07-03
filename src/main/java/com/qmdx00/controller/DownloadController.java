@@ -33,7 +33,7 @@ public class DownloadController extends BaseController {
      */
     @GetMapping("/gateway")
     public void getEdgeGateway(HttpServletResponse response) {
-        downloadService.download("apk/gateway.apk", response);
+        downloadService.download("gateway.apk", response);
     }
 
     /**
@@ -43,6 +43,6 @@ public class DownloadController extends BaseController {
      */
     @GetMapping("/origins")
     public void getOrigins(HttpServletResponse response) {
-        downloadService.download("apk/origins.apk", response);
+        downloadService.download("origins.apk", response);
     }
 }
