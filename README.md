@@ -8,5 +8,9 @@
 #### 创建 MySQL 容器
 ```docker run --name=mysql -p 8888:3306 -e MYSQL_ROOT_PASSWORD=123 -d mysql:latest```
 
+#### 修改 MySql远程访问密码加密方式
+```alter user 'root'@'%' identified with mysql_native_password by 'xxx';```
+```flush privileges;```
+
 #### 服务器后台运行
 ```nohup java -jar xxx.jar > xxx.log &```
