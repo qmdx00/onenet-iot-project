@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author yuanweimin
@@ -31,4 +32,6 @@ public class TaskStatus implements Serializable {
     private String belong;
     // 完成的数量
     private String doneNum;
+    // 状态上传日期
+    private Date uploadTime;
 }

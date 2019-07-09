@@ -153,6 +153,7 @@ public class ProductDataHandle implements MessageHandler {
                 .belong(belong)
                 .taskId(map.get("TON"))
                 .doneNum(map.get("NOT"))
+                .uploadTime(TimeUtil.toDate(timestamp))
                 .build();
     }
 
