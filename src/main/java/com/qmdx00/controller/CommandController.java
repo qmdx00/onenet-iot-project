@@ -86,7 +86,6 @@ public class CommandController extends BaseController {
                     String params = JSONObject.toJSONString(map);
                     // 发送控制指令请求到平台，返回响应的 json 字符串
                     String response = okHttpUtil.postJson(url, params);
-                    System.out.println(response);
                     // 解析响应的字符串，判断是否下发成功
                     JSONObject jsonObject = JSONObject.parseObject(response);
                     if (jsonObject != null) {
