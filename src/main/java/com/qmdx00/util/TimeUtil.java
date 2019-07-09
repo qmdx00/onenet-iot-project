@@ -12,7 +12,7 @@ import java.util.Date;
 @SuppressWarnings("unused")
 public class TimeUtil {
     /**
-     * 将13位数时间戳装换成字符串
+     * 将13位数时间戳装换成时间字符串
      *
      * @param timestamp 时间戳
      * @return String

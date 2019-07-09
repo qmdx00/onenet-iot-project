@@ -72,7 +72,7 @@ public class CommandController extends BaseController {
                     // 构建 Url 参数
                     HashMap<String, String> urlParams = new HashMap<>();
                     urlParams.put("imei", "869662034519832");
-                    urlParams.put("timeout", "5");
+                    urlParams.put("timeout", "10");
                     urlParams.put("obj_id", "3341");
                     urlParams.put("obj_inst_id", "0");
                     urlParams.put("mode", "2");

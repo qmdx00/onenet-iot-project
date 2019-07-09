@@ -7,6 +7,6 @@ WORKDIR /app
 # 拷贝文件
 COPY onenet-iot.jar /app
 # 镜像服务的守护端口
-EXPOSE 8080
+EXPOSE 8200
 # 执行命令
 ENTRYPOINT [ "java", "-jar", "./onenet-iot.jar" ]
