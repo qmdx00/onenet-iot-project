@@ -8,10 +8,7 @@ import com.qmdx00.entity.TaskStatus;
 import com.qmdx00.repository.TaskProductRepository;
 import com.qmdx00.repository.TaskStatusRepository;
 import com.qmdx00.service.AccountService;
-import com.qmdx00.util.MapUtil;
-import com.qmdx00.util.ResultUtil;
-import com.qmdx00.util.TokenUtil;
-import com.qmdx00.util.VerifyUtil;
+import com.qmdx00.util.*;
 import com.qmdx00.util.enums.ResponseStatus;
 import com.qmdx00.util.enums.Role;
 import com.qmdx00.util.model.Response;
@@ -20,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,6 +43,7 @@ public class TaskController extends BaseController {
         this.taskProductRepository = taskProductRepository;
     }
 
+    // Todo 测试这些接口，数据上传生成任务进度，网页手动输入创建任务
     /**
      * 创建生产任务
      *
@@ -79,9 +78,15 @@ public class TaskController extends BaseController {
                 Account account = accountService.findAccountById(claim.asString());
                 // 判断角色是否有权限
                 if (account != null && account.getRole() == Role.ADMIN) {
-                    // Todo 创建生产任务逻辑
                     TaskProduct saved = taskProductRepository.save(TaskProduct.builder()
-
+                            .taskId(taskId)
+                            .orderId(orderId)
+                            .priority(priority)
+                            .first(first)
+                            .second(second)
+                            .third(third)
+                            .creatTime(new Date())
+                            .deadline(TimeUtil.toDate(deadline))
                             .build());
                     if (saved != null) {
                         log.info("create task: {}", saved);
