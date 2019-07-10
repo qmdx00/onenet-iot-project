@@ -1149,3 +1149,92 @@ WebSocket 地址：http://119.23.243.252:8080/ws
       }
   }
   ```
+  
+  #### 生产任务相关
+- POST /api/task 创建一条生产任务
+
+  - Request
+
+  ```json
+  {
+      "headers": {
+          "token": "admin_token"
+      },
+      "body": {
+          "taskId": "1000",
+          "orderId": "aaaaaaaa",
+          "priority": "1",
+          "first": "2",
+          "second": "4",
+          "third": "8",
+          "deadline": "1562740138888"
+      }
+  }
+  ```
+
+  - Response
+
+  ```json
+  {
+      "code": 200,
+      "msg": "请求成功",
+      "data": {
+          "taskId": "1000"
+      }
+  }
+  ```
+
+- GET /api/task 获取生产任务列表
+
+  - Request
+
+  ```json
+  {
+      "headers": {
+          "token": "admin_token"
+      }
+  }
+  ```
+
+  - Response
+
+  ```json
+  {
+      "code": 200,
+      "msg": "请求成功",
+      "data": [
+          {
+              "taskId": "1000",
+              "orderId": "aaaaaaaa",
+              "priority": "1",
+              "first": "2",
+              "second": "4",
+              "third": "8",
+              "creatTime": "2019-07-10T05:35:40.000+0000",
+              "deadline": "2019-07-10T06:28:58.000+0000"
+          }
+      ]
+  }
+  ```
+
+- GET /api/task/{taskId} 通过任务ID获取任务进度详情
+
+  - Request
+
+  ```json
+  {
+      "headers": {
+          "token": "admin_token"
+      }
+  }
+  ```
+
+  - Response
+
+  ```json
+  {
+      
+  }
+  ```
+
+  
