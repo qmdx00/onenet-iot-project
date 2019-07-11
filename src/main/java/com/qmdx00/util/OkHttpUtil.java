@@ -47,14 +47,12 @@ public class OkHttpUtil {
                 .addHeader("api-key", Objects.requireNonNull(env.getProperty("machine.apiKey")))
                 .build();
 
-        System.out.println(new String(responseBody.getBytes()));
-
         try (Response response = this.client.newCall(request).execute()) {
             if (response.isSuccessful()) {
                 return Objects.requireNonNull(response.body()).string();
             }
         } catch (Exception e) {
-            log.error("{}", e);
+            log.error("{}", e.getMessage());
         }
         return responseBody;
     }
