@@ -21,8 +21,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 /**
@@ -39,7 +37,6 @@ public class ProductDataHandle implements MessageHandler {
     private final SecondDataRepository secondDataRepository;
     private final ThirdDataRepository thirdDataRepository;
     private final FourthDataRepository fourthDataRepository;
-    private ExecutorService service = Executors.newCachedThreadPool();
 
     @Autowired
     public ProductDataHandle(FirstDataRepository firstDataRepository, SecondDataRepository secondDataRepository, ThirdDataRepository thirdDataRepository, FourthDataRepository fourthDataRepository, TaskStatusRepository taskStatusRepository) {
@@ -54,62 +51,60 @@ public class ProductDataHandle implements MessageHandler {
     public void handle(long msgId, String msgBody) {
         // 解析接收的数据
         Message msg = MessageUtil.analysis(msgId, msgBody);
+        // log.info("receive product data: {}", msg);
         ProductData data = toData(msg.getTimestamp(), msg.getBody());
-        log.info("receive data: {}", data);
         // 判断数据所属第几道工序并将工序数据存储到数据库中
-        service.execute(() -> {
-            if (data.getProductId().startsWith("1")) {
-                firstDataRepository.save(FirstData.builder()
-                        .dataId(UUIDUtil.getUUID())
-                        .workerId(data.getWorkId())
-                        .productId(data.getProductId().split("=")[0])
-                        .copper(data.getCopper())
-                        .tin(data.getTin())
-                        .zinc(data.getZinc())
-                        .createTime(data.getCreateTime())
-                        .build());
-                // 存储任务完成状态
-                taskStatusRepository.save(toStatus(msg.getTimestamp(), msg.getBody(), "first"));
-            } else if (data.getProductId().startsWith("2")) {
-                secondDataRepository.save(SecondData.builder()
-                        .dataId(UUIDUtil.getUUID())
-                        .workerId(data.getWorkId())
-                        .productId(data.getProductId().split("=")[0])
-                        .previous(data.getProductId().split("=")[1])
-                        .diameter(data.getDiameter())
-                        .weight(data.getWeight())
-                        .length(data.getLength())
-                        .createTime(data.getCreateTime())
-                        .build());
-                // 存储任务完成状态
-                taskStatusRepository.save(toStatus(msg.getTimestamp(), msg.getBody(), "second"));
-            } else if (data.getProductId().startsWith("3")) {
-                thirdDataRepository.save(ThirdData.builder()
-                        .dataId(UUIDUtil.getUUID())
-                        .workerId(data.getWorkId())
-                        .productId(data.getProductId().split("=")[0])
-                        .previous(data.getProductId().split("=")[1])
-                        .diameter(data.getDiameter())
-                        .weight(data.getWeight())
-                        .length(data.getLength())
-                        .createTime(data.getCreateTime())
-                        .build());
-                // 存储任务完成状态
-                taskStatusRepository.save(toStatus(msg.getTimestamp(), msg.getBody(), "third"));
-            } else if (data.getProductId().startsWith("4")) {
-                fourthDataRepository.save(FourthData.builder()
-                        .dataId(UUIDUtil.getUUID())
-                        .workerId(data.getWorkId())
-                        .productId(data.getProductId().split("=")[0])
-                        .previous(data.getProductId().split("=")[1])
-                        .diameter(data.getDiameter())
-                        .weight(data.getWeight())
-                        .length(data.getLength())
-                        .tensile(data.getTensile())
-                        .createTime(data.getCreateTime())
-                        .build());
-            }
-        });
+        if (data.getProductId().startsWith("1")) {
+            firstDataRepository.save(FirstData.builder()
+                    .dataId(UUIDUtil.getUUID())
+                    .workerId(data.getWorkId())
+                    .productId(data.getProductId().split("=")[0])
+                    .copper(data.getCopper())
+                    .tin(data.getTin())
+                    .zinc(data.getZinc())
+                    .createTime(data.getCreateTime())
+                    .build());
+            // 存储任务完成状态
+            taskStatusRepository.save(toStatus(msg.getTimestamp(), msg.getBody(), "first"));
+        } else if (data.getProductId().startsWith("2")) {
+            secondDataRepository.save(SecondData.builder()
+                    .dataId(UUIDUtil.getUUID())
+                    .workerId(data.getWorkId())
+                    .productId(data.getProductId().split("=")[0])
+                    .previous(data.getProductId().split("=")[1])
+                    .diameter(data.getDiameter())
+                    .weight(data.getWeight())
+                    .length(data.getLength())
+                    .createTime(data.getCreateTime())
+                    .build());
+            // 存储任务完成状态
+            taskStatusRepository.save(toStatus(msg.getTimestamp(), msg.getBody(), "second"));
+        } else if (data.getProductId().startsWith("3")) {
+            thirdDataRepository.save(ThirdData.builder()
+                    .dataId(UUIDUtil.getUUID())
+                    .workerId(data.getWorkId())
+                    .productId(data.getProductId().split("=")[0])
+                    .previous(data.getProductId().split("=")[1])
+                    .diameter(data.getDiameter())
+                    .weight(data.getWeight())
+                    .length(data.getLength())
+                    .createTime(data.getCreateTime())
+                    .build());
+            // 存储任务完成状态
+            taskStatusRepository.save(toStatus(msg.getTimestamp(), msg.getBody(), "third"));
+        } else if (data.getProductId().startsWith("4")) {
+            fourthDataRepository.save(FourthData.builder()
+                    .dataId(UUIDUtil.getUUID())
+                    .workerId(data.getWorkId())
+                    .productId(data.getProductId().split("=")[0])
+                    .previous(data.getProductId().split("=")[1])
+                    .diameter(data.getDiameter())
+                    .weight(data.getWeight())
+                    .length(data.getLength())
+                    .tensile(data.getTensile())
+                    .createTime(data.getCreateTime())
+                    .build());
+        }
     }
 
     /**

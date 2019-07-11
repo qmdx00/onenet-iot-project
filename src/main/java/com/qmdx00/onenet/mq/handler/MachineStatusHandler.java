@@ -2,12 +2,12 @@ package com.qmdx00.onenet.mq.handler;
 
 import com.qmdx00.entity.Machine;
 import com.qmdx00.entity.MachineStatus;
-import com.qmdx00.util.model.Message;
 import com.qmdx00.service.MachineService;
 import com.qmdx00.service.MachineStatusService;
 import com.qmdx00.util.MessageUtil;
 import com.qmdx00.util.TimeUtil;
 import com.qmdx00.util.UUIDUtil;
+import com.qmdx00.util.model.Message;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -15,8 +15,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 /**
@@ -28,7 +26,6 @@ import java.util.stream.Collectors;
 @Component
 public class MachineStatusHandler implements MessageHandler {
 
-    private ExecutorService service = Executors.newCachedThreadPool();
     private final MachineStatusService machineStatusService;
     private final MachineService machineService;
     private final SimpMessagingTemplate template;
@@ -44,11 +41,11 @@ public class MachineStatusHandler implements MessageHandler {
     public synchronized void handle(long msgId, String msgBody) {
         // 封装成 Message 实体
         Message msg = MessageUtil.analysis(msgId, msgBody);
+        // log.info("receive machine status: {}", msg);
         // 映射成 MachineStatus 实体类对象
         MachineStatus status = translate(msg.getDeviceId(), msg.getTimestamp(), msg.getBody());
-        log.info("generate status: {}", status);
         // 保存状态数据到数据库中
-        service.execute(() -> log.info("save status: {}", machineStatusService.saveStatus(status)));
+        machineStatusService.saveStatus(status);
         // 转发到前端 websocket 中
         template.convertAndSend("/topic/msg", status);
     }
