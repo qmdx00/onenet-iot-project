@@ -144,6 +144,44 @@ public class TaskController extends BaseController {
     }
 
     /**
+     * 管理员获取生产任务详情
+     *
+     * @param request 请求
+     * @param taskId  任务 ID
+     * @return Response
+     */
+    @GetMapping("/{taskId}")
+    public Response getTaskDetail(HttpServletRequest request, @PathVariable String taskId) {
+        String token = request.getHeader("token");
+        if (!VerifyUtil.checkString(taskId, token)) {
+            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
+        } else {
+            try {
+                // 解析token
+                Claim claim = tokenUtil.getClaim(token, "account_id");
+                Account account = accountService.findAccountById(claim.asString());
+                // 判断角色是否有权限
+                if (account != null && account.getRole() == Role.ADMIN) {
+                    Optional<TaskProduct> optional = taskProductRepository.findById(taskId);
+                    if (optional.isPresent()) {
+                        TaskProduct task = optional.get();
+                        log.info("get task: {}", task);
+                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, task);
+                    } else {
+                        return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
+                    }
+                } else {
+                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
+                }
+            } catch (JWTVerificationException e) {
+                // 解析失败，token无效
+                log.error("{}", e);
+                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
+            }
+        }
+    }
+
+    /**
      * 通过任务 ID 获取任务生产进度
      *
      * @param request 请求
@@ -165,37 +203,6 @@ public class TaskController extends BaseController {
                     Map<String, Object> status = taskService.getStatus(taskId);
                     log.info("get status: {}", status);
                     return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, status);
-                } else {
-                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
-                }
-            } catch (JWTVerificationException e) {
-                // 解析失败，token无效
-                log.error("{}", e);
-                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
-            }
-        }
-    }
-
-    @GetMapping("/{taskId}")
-    public Response getTaskDetail(HttpServletRequest request, @PathVariable String taskId) {
-        String token = request.getHeader("token");
-        if (!VerifyUtil.checkString(taskId, token)) {
-            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
-        } else {
-            try {
-                // 解析token
-                Claim claim = tokenUtil.getClaim(token, "account_id");
-                Account account = accountService.findAccountById(claim.asString());
-                // 判断角色是否有权限
-                if (account != null && account.getRole() == Role.ADMIN) {
-                    Optional<TaskProduct> optional = taskProductRepository.findById(taskId);
-                    if (optional.isPresent()) {
-                        TaskProduct task = optional.get();
-                        log.info("get task: {}", task);
-                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, task);
-                    } else {
-                        return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
-                    }
                 } else {
                     return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
                 }
