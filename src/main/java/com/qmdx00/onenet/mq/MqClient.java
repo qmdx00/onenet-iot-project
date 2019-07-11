@@ -71,7 +71,7 @@ public class MqClient {
             }
             return false;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("sub exception: {}", e.getMessage());
             return false;
         }
     }
@@ -124,8 +124,7 @@ public class MqClient {
                 log.info("reconnect and sub ok");
                 return true;
             } catch (Exception e) {
-                log.error("reconnect failed");
-                e.printStackTrace();
+                log.error("reconnect failed: {}", e.getMessage());
                 return false;
             }
         } else {

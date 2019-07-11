@@ -41,7 +41,7 @@ public class PushCallback implements MqttCallback {
                     Thread.sleep(10000);
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error("{}", e.getMessage());
             }
         }
     }
