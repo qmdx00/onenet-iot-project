@@ -13,11 +13,13 @@ import java.util.List;
  */
 @Repository
 public interface TaskStatusRepository extends JpaRepository<TaskStatus, String> {
+
     /**
-     * 通过生产任务 ID 获取生产进度信息
+     * 通过生产任务 ID 和 所属工序查找记录
      *
-     * @param taskId 生产任务 ID
+     * @param taskId 任务 ID
+     * @param belong 所属工序
      * @return List
      */
-    List<TaskStatus> findAllByTaskId(String taskId);
+    List<TaskStatus> findAllByTaskIdAndBelong(String taskId, String belong);
 }

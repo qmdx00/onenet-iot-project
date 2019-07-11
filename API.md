@@ -1212,12 +1212,22 @@ WebSocket 地址：http://119.23.243.252:8080/ws
               "third": "8",
               "creatTime": "2019-07-10T05:35:40.000+0000",
               "deadline": "2019-07-10T06:28:58.000+0000"
+          },
+          {
+              "taskId": "1001",
+              "orderId": "bbbbb",
+              "priority": "2",
+              "first": "4",
+              "second": "6",
+              "third": "8",
+              "creatTime": "2019-07-10T05:35:46.000+0000",
+              "deadline": "2019-07-10T06:28:50.000+0000"
           }
       ]
   }
   ```
 
-- GET /api/task/{taskId} 通过任务ID获取任务进度详情
+- GET /api/task/{taskId} 通过任务 ID 获取生产任务
 
   - Request
 
@@ -1233,7 +1243,58 @@ WebSocket 地址：http://119.23.243.252:8080/ws
 
   ```json
   {
-      
+      "code": 200,
+      "msg": "请求成功",
+      "data": {
+          "taskId": "1000",
+          "orderId": "aaaaaaaa",
+          "priority": "1",
+          "first": "2",
+          "second": "4",
+          "third": "8",
+          "creatTime": "2019-07-11T07:19:44.000+0000",
+          "deadline": "2019-07-10T06:28:58.000+0000"
+      }
+  }
+  ```
+
+  
+
+- GET /api/task/{taskId}/process 通过任务ID获取任务进度详情
+
+  - Request
+
+  ```json
+  {
+      "headers": {
+          "token": "admin_token"
+      }
+  }
+  ```
+
+  - Response（null 表示还未进行生产，即进度 0%）
+
+  ```json
+  {
+      "code": 200,
+      "msg": "请求成功",
+      "data": {
+          "third": null,
+          "first": {
+              "recordId": "db3681b04d024d0c83f89454d628f549",
+              "taskId": "4002",
+              "belong": "first",
+              "doneNum": "2",
+              "uploadTime": "2019-07-11T07:16:45.000+0000"
+          },
+          "second": {
+              "recordId": "3cd2d28f04d84f0ca5aa9f1f7eb040dc",
+              "taskId": "4002",
+              "belong": "second",
+              "doneNum": "2",
+              "uploadTime": "2019-07-11T06:57:12.000+0000"
+          }
+      }
   }
   ```
 

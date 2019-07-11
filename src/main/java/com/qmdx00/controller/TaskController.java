@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author yuanweimin
@@ -44,8 +45,6 @@ public class TaskController extends BaseController {
         this.taskProductRepository = taskProductRepository;
         this.taskService = taskService;
     }
-
-    // Todo 测试这些接口，数据上传生成任务进度，网页手动输入创建任务
 
     /**
      * 创建生产任务
@@ -151,8 +150,8 @@ public class TaskController extends BaseController {
      * @param taskId  任务 ID
      * @return Response
      */
-    @GetMapping("/{taskId}")
-    public Response getTaskDetail(HttpServletRequest request, @PathVariable String taskId) {
+    @GetMapping("/{taskId}/process")
+    public Response getTaskProcess(HttpServletRequest request, @PathVariable String taskId) {
         String token = request.getHeader("token");
         if (!VerifyUtil.checkString(taskId, token)) {
             return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
@@ -166,6 +165,37 @@ public class TaskController extends BaseController {
                     Map<String, Object> status = taskService.getStatus(taskId);
                     log.info("get status: {}", status);
                     return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, status);
+                } else {
+                    return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
+                }
+            } catch (JWTVerificationException e) {
+                // 解析失败，token无效
+                log.error("{}", e);
+                return ResultUtil.returnStatus(ResponseStatus.NOT_LOGIN);
+            }
+        }
+    }
+
+    @GetMapping("/{taskId}")
+    public Response getTaskDetail(HttpServletRequest request, @PathVariable String taskId) {
+        String token = request.getHeader("token");
+        if (!VerifyUtil.checkString(taskId, token)) {
+            return ResultUtil.returnStatus(ResponseStatus.PARAMS_ERROR);
+        } else {
+            try {
+                // 解析token
+                Claim claim = tokenUtil.getClaim(token, "account_id");
+                Account account = accountService.findAccountById(claim.asString());
+                // 判断角色是否有权限
+                if (account != null && account.getRole() == Role.ADMIN) {
+                    Optional<TaskProduct> optional = taskProductRepository.findById(taskId);
+                    if (optional.isPresent()) {
+                        TaskProduct task = optional.get();
+                        log.info("get task: {}", task);
+                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, task);
+                    } else {
+                        return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
+                    }
                 } else {
                     return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
                 }
