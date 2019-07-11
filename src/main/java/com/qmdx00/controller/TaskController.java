@@ -8,6 +8,7 @@ import com.qmdx00.entity.TaskStatus;
 import com.qmdx00.repository.TaskProductRepository;
 import com.qmdx00.repository.TaskStatusRepository;
 import com.qmdx00.service.AccountService;
+import com.qmdx00.service.TaskService;
 import com.qmdx00.util.*;
 import com.qmdx00.util.enums.ResponseStatus;
 import com.qmdx00.util.enums.Role;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yuanweimin
@@ -32,18 +34,19 @@ public class TaskController extends BaseController {
 
     private final TokenUtil tokenUtil;
     private final AccountService accountService;
-    private final TaskStatusRepository taskStatusRepository;
+    private final TaskService taskService;
     private final TaskProductRepository taskProductRepository;
 
     @Autowired
-    public TaskController(TokenUtil tokenUtil, AccountService accountService, TaskStatusRepository taskStatusRepository, TaskProductRepository taskProductRepository) {
+    public TaskController(TokenUtil tokenUtil, AccountService accountService, TaskProductRepository taskProductRepository, TaskService taskService) {
         this.tokenUtil = tokenUtil;
         this.accountService = accountService;
-        this.taskStatusRepository = taskStatusRepository;
         this.taskProductRepository = taskProductRepository;
+        this.taskService = taskService;
     }
 
     // Todo 测试这些接口，数据上传生成任务进度，网页手动输入创建任务
+
     /**
      * 创建生产任务
      *
@@ -160,13 +163,9 @@ public class TaskController extends BaseController {
                 Account account = accountService.findAccountById(claim.asString());
                 // 判断角色是否有权限
                 if (account != null && account.getRole() == Role.ADMIN) {
-                    List<TaskStatus> status = taskStatusRepository.findAllByTaskId(taskId);
-                    if (status != null) {
-                        log.info("task status: {}", status);
-                        return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, status);
-                    } else {
-                        return ResultUtil.returnStatus(ResponseStatus.NOT_FOUND);
-                    }
+                    Map<String, Object> status = taskService.getStatus(taskId);
+                    log.info("get status: {}", status);
+                    return ResultUtil.returnStatusAndData(ResponseStatus.SUCCESS, status);
                 } else {
                     return ResultUtil.returnStatus(ResponseStatus.VISITED_FORBID);
                 }

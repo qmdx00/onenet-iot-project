@@ -54,8 +54,6 @@ public class ProductDataHandle implements MessageHandler {
     public void handle(long msgId, String msgBody) {
         // 解析接收的数据
         Message msg = MessageUtil.analysis(msgId, msgBody);
-        // Todo 测试上传的数据解析
-        log.warn("message: {}", msg.getBody());
         ProductData data = toData(msg.getTimestamp(), msg.getBody());
         log.info("receive data: {}", data);
         // 判断数据所属第几道工序并将工序数据存储到数据库中
