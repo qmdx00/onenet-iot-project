@@ -55,7 +55,7 @@ public class MqClient {
                     client.connect(options);
                 }
             } catch (MqttException e) {
-                e.printStackTrace();
+                log.error("{}", e.getMessage());
             }
             subTopic = String.format("$sys/pb/consume/%s/%s/%s", userName, this.topic, this.sub);
             client.setCallback(new PushCallback(this, this.handler));
@@ -66,8 +66,7 @@ public class MqClient {
                 log.info("sub success");
                 return true;
             } catch (MqttException e) {
-                log.error("sub failed");
-                e.printStackTrace();
+                log.error("sub failed: {}", e.getMessage());
             }
             return false;
         } catch (Exception e) {
