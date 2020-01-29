@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package com.qmdx00.onenet.mq;
+
+message Msg{
+    uint64 msgid          = 1; //MQ中该消息的真实id
+    bytes data            = 2; //具体的数据
+    uint64 timestamp      = 3; //精确到ms
+}
